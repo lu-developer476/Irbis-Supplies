@@ -698,10 +698,18 @@ function invoiceHTML(order) {
     </tr>
   `).join("");
 
+  // En el QR codificamos un “payload” útil (podés cambiarlo por URL real)
+  const qrPayload = JSON.stringify({
+    orderId: order.orderId,
+    total: order.total,
+    date: order.date,
+    email: order.customer.email
+  });
+
   // Recalculamos el resumen para mostrar desglose real
   const subtotalBruto = order.items.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
   const descuentoBase = subtotalBruto * DESCUENTO_PERMANENTE;
-  const descuentoExtra = subtotalBruto * descuentoCupon;
+  const descuentoExtra = subtotalBruto * (order.couponRate || 0);
   const descuentoTotal = descuentoBase + descuentoExtra;
   
   const baseImponible = subtotalBruto - descuentoTotal;
@@ -714,13 +722,6 @@ function invoiceHTML(order) {
   // envío estimado (si lo querés mostrar correctamente después)
   const envio = 0; // si querés mantenerlo simple por ahora
   
-  const descuentoBase = subtotalBruto * DESCUENTO_PERMANENTE;
-  const descuentoExtra = subtotalBruto * descuentoCupon;
-  const descuentoTotal = descuentoBase + descuentoExtra;
-  
-  const baseImponible = subtotalBruto - descuentoTotal;
-  const iva = baseImponible * IVA_RATE;
-  
   // En el PDF usamos el total guardado en la orden
   const totalFinal = order.total;
 
@@ -729,7 +730,7 @@ function invoiceHTML(order) {
     <div class="top">
       <div>
         <div class="brand">IRBIS SUPPLIES</div>
-        <div class="muted">Factura / Comprobante (demo)</div>
+        <div class="muted">Comprobante de pago</div>
       </div>
       <div class="meta">
         <div><strong>Factura ${order.invoiceType} Nº ${order.invoiceNumber}</strong></div>
@@ -747,18 +748,18 @@ function invoiceHTML(order) {
       </div>
 
       <div class="box">
-        <div class="boxTitle">Pago (simulado)</div>
+        <div class="boxTitle">Pago</div>
         <div><strong>Método:</strong> ${order.payment.metodo}</div>
         ${order.payment.metodo === "tarjeta"
           ? `<div><strong>Tarjeta:</strong> ${order.payment.cardMasked}</div>`
           : ""}
-        <div><strong>Estado:</strong> Aprobado (demo)</div>
+        <div><strong>Estado:</strong> Aprobado</div>
       </div>
 
       <div class="box qrBox">
         <div class="boxTitle">Verificación</div>
         <div id="qr"></div>
-        <div class="muted small">Escaneá para ver la orden</div>
+        <div class="muted small">Escaneá para más información</div>
       </div>
     </div>
 
@@ -841,13 +842,19 @@ function generarNumeroFactura() {
 }
 
 function abrirVentanaFactura(order) {
-  // En el QR codificamos un “payload” útil (podés cambiarlo por URL real)
-  const qrPayload = JSON.stringify({
-    orderId: order.orderId,
-    total: order.total,
-    date: order.date,
-    email: order.customer.email
-  });
+  const facturaWindow = window.open('', '_blank');
+
+  if (!facturaWindow) {
+    alert("El navegador bloqueó la ventana emergente.");
+    return;
+  }
+
+  const contenido = invoiceHTML(order);
+
+  facturaWindow.document.open();
+  facturaWindow.document.write(contenido);
+  facturaWindow.document.close();
+}
 
   const w = window.open("", "_blank");
   if (!w) return alertaError("El navegador bloqueó la ventana emergente. Permití pop-ups para imprimir/descargar.");
@@ -939,7 +946,7 @@ function abrirVentanaFactura(order) {
         ${invoiceHTML(order)}
 
         <script>
-          const payload = ${qrPayload};
+          const payload = ${JSON.stringify(qrPayload)};
           new QRCode(document.getElementById("qr"), {
             text: payload,
             width: 140,
