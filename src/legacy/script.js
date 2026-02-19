@@ -700,8 +700,19 @@ function invoiceHTML(order) {
 
   // Recalculamos el resumen para mostrar desglose real
   const subtotalBruto = order.items.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
-  const envio = order.total - (baseImponible + iva + (baseImponible + iva) * order.ajustePago);
-  const ajusteMonto = (baseImponible + iva + envio) * order.ajustePago;
+  const descuentoBase = subtotalBruto * DESCUENTO_PERMANENTE;
+  const descuentoExtra = subtotalBruto * descuentoCupon;
+  const descuentoTotal = descuentoBase + descuentoExtra;
+  
+  const baseImponible = subtotalBruto - descuentoTotal;
+  const iva = baseImponible * IVA_RATE;
+  
+  // reconstruimos el total antes del ajuste
+  const totalAntesPago = baseImponible + iva;
+  const ajusteMonto = totalAntesPago * order.ajustePago;
+  
+  // envío estimado (si lo querés mostrar correctamente después)
+  const envio = 0; // si querés mantenerlo simple por ahora
   
   const descuentoBase = subtotalBruto * DESCUENTO_PERMANENTE;
   const descuentoExtra = subtotalBruto * descuentoCupon;
