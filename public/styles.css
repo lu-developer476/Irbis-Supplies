@@ -353,7 +353,7 @@ body {
 }
 
 .cart-drawer__body {
-  padding: 16px;
+  padding: 16px 20px 16px 16px;
   flex: 1;
   display: flex;
   overflow: hidden;
@@ -362,7 +362,7 @@ body {
 
 .carrito-wrapper {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   height: 100%;
   width: 100%;
   flex: 1;
