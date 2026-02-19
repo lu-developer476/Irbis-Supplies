@@ -290,6 +290,7 @@ function calcularResumen() {
     ajusteMonto: totalAntesPago * ajustePago,
     total
   };
+}
 
 function maskCard(num) {
   const clean = String(num || "").replace(/\s+/g, "");
@@ -1218,35 +1219,35 @@ paymentSelect?.addEventListener("change", () => {
   qrSection?.classList.add("hidden");
 
   if (metodo === "tarjeta") {
-    ajustePago = 0.10; // +10%
+    ajustePago = 0.10;
     cardFields?.classList.remove("hidden");
   }
 
   if (metodo === "efectivo") {
-    ajustePago = -0.05; // -5%
+    ajustePago = -0.05;
   }
 
   if (metodo === "qr") {
     qrSection?.classList.remove("hidden");
     btnCheckout.disabled = true;
-  
+
     const qrContainer = document.getElementById("qrContainer");
     qrContainer.innerHTML = "";
-  
+
     const resumen = calcularResumen();
-  
     const ahora = new Date().toLocaleString("es-AR", { hour12: false });
-    
+
     new QRCode(qrContainer, {
       text: `
-    Irbis Supplies
-    Total: ${currency(resumen.total)}
-    Fecha: ${ahora}
-    Referencia: PRE-${Date.now()}
+      Irbis Supplies
+      Total: ${currency(resumen.total)}
+      Fecha: ${ahora}
+      Referencia: PRE-${Date.now()}
       `,
       width: 160,
       height: 160
     });
+  }
 
   renderCarrito();
 });
