@@ -720,7 +720,7 @@ function invoiceHTML(order) {
   const ajusteMonto = totalAntesPago * order.ajustePago;
   
   // envío estimado (si lo querés mostrar correctamente después)
-  const envio = 0; // si querés mantenerlo simple por ahora
+  const envio = order.envio || 0; // si querés mantenerlo simple por ahora
   
   // En el PDF usamos el total guardado en la orden
   const totalFinal = order.total;
@@ -846,47 +846,6 @@ function abrirVentanaFactura(order) {
   const w = window.open("", "_blank");
 
   if (!w) {
-    alertaError("El navegador bloqueó la ventana emergente. Permití pop-ups.");
-    return;
-  }
-
-  w.document.write(`
-    <html>
-      <head>
-        <title>Factura ${order.orderId} - Irbis Supplies</title>
-        <meta charset="UTF-8" />
-
-        <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-      </head>
-
-      <body style="font-family:Arial; padding:20px;">
-        ${invoiceHTML(order)}
-
-        <script>
-          const payload = ${JSON.stringify({
-            orderId: order.orderId,
-            total: order.total,
-            date: order.date,
-            email: order.customer.email
-          })};
-
-          new QRCode(document.getElementById("qr"), {
-            text: JSON.stringify(payload),
-            width: 120,
-            height: 120
-          });
-        </script>
-      </body>
-    </html>
-  `);
-
-  w.document.close();
-}
-
-function abrirVentanaFactura(order) {
-  const w = window.open("", "_blank");
-
-  if (!w) {
     alertaError("El navegador bloqueó la ventana emergente.");
     return;
   }
@@ -1005,6 +964,8 @@ btnCheckout?.addEventListener("click", () => {
           imagen: p.imagen
         })),
           total: total,
+          couponRate: descuentoCupon,
+          envio: resumen.envio,
           payment: {
             metodo: paymentSelect?.value || "tarjeta",
             cardMasked: paymentSelect?.value === "tarjeta"
