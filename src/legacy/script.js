@@ -855,9 +855,92 @@ function abrirVentanaFactura(order) {
       <head>
         <title>Factura ${order.orderId} - Irbis Supplies</title>
         <meta charset="UTF-8" />
+
+        <style>
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 24px;
+            background:#0f0f12;
+            color:#eaeaea;
+          }
+
+          .invoice {
+            background:#14141a;
+            border:1px solid #2a2a33;
+            border-radius:16px;
+            padding:18px;
+          }
+
+          .top {
+            display:flex;
+            justify-content:space-between;
+            border-bottom:1px solid #2a2a33;
+            padding-bottom:12px;
+            margin-bottom:12px;
+          }
+
+          .brand { font-size:20px; font-weight:900; }
+          .muted { color:#a9a9b2; }
+
+          .grid {
+            display:grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap:12px;
+            margin:12px 0;
+          }
+
+          .box {
+            background:#101016;
+            border:1px solid #2a2a33;
+            border-radius:12px;
+            padding:12px;
+          }
+
+          table {
+            width:100%;
+            border-collapse:collapse;
+            margin-top:12px;
+          }
+
+          th, td {
+            padding:8px;
+            border-bottom:1px solid #2a2a33;
+          }
+
+          th { text-align:left; }
+
+          .totals {
+            display:flex;
+            justify-content:flex-end;
+            margin-top:20px;
+          }
+
+          .totalsBox {
+            width:320px;
+            background:#101016;
+            border:1px solid #2a2a33;
+            border-radius:12px;
+            padding:12px;
+          }
+
+          .row {
+            display:flex;
+            justify-content:space-between;
+            padding:6px 0;
+          }
+
+          .grand {
+            font-weight:900;
+            border-top:1px solid #2a2a33;
+            margin-top:8px;
+            padding-top:10px;
+          }
+        </style>
+
         <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
       </head>
-      <body style="font-family:Arial; padding:20px;">
+
+      <body>
         ${invoiceHTML(order)}
 
         <script>
