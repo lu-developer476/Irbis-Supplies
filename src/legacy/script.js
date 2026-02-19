@@ -776,9 +776,8 @@ function invoiceHTML(order) {
       </div>
 
       <div class="box qrBox">
-        <div class="boxTitle">Verificación</div>
         <div id="qr"></div>
-        <div class="muted small">Escaneá para más información</div>
+        <div class="muted small">Más información</div>
       </div>
     </div>
 
