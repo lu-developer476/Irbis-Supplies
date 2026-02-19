@@ -319,6 +319,7 @@ body {
 }
 
 .cart-drawer {
+   font-size: 15px;
   position: fixed;
   top: 0;
   right: 0;
@@ -348,14 +349,15 @@ body {
 .cart-drawer__header h3 {
   margin: 0;
   color: #c2a34a;
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .cart-drawer__body {
   padding: 16px;
   flex: 1;
   display: flex;
-  overflow: hidden; /* important: el scroll lo maneja el contenedor interno */
+  overflow: hidden;
+  min-height: 0; /* CLAVE: habilita scroll en hijos flex */
 }
 
 .carrito-wrapper {
@@ -363,12 +365,15 @@ body {
   gap: 20px;
   height: 100%;
   width: 100%;
+  flex: 1;
+  min-height: 0; /* CLAVE: el wrapper puede “encogerse” y dejar scrollear */
 }
 
 .cart-items-scroll {
-  max-height: 45vh; /* 1er scroll */
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 6px;
+  min-height: 0; /* CLAVE: scroll correcto dentro de flex */
 }
 
 #carritoContainer {
@@ -378,9 +383,12 @@ body {
 .carrito-sidebar {
   flex: 1;
   background: #111;
-  padding: 18px;
+  padding: 14px;       /* un toque más compacto */
   border: 1px solid #333;
-  font-size: 16px;
+  font-size: 13px;     /* baja real de densidad */
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;       /* CLAVE */
 }
 
 .item-carrito {
@@ -407,6 +415,18 @@ body {
 .item-carrito__info {
   flex: 1;
   min-width: 0;
+}
+
+.item-carrito__info h4 {
+  font-size: 14px;
+  margin: 0 0 4px 0;
+  color: #c2a34a;
+}
+
+.item-carrito__info p {
+  font-size: 13px;
+  margin: 2px 0;
+  opacity: 0.95;
 }
 
 .item-carrito:hover {
@@ -489,16 +509,17 @@ footer {
     align-items: stretch;
   }
 
-  .cart-items-scroll {
-    flex: 0 0 60%;
-    overflow-y: auto;
-  }
-
-  .carrito-sidebar {
-    flex: 0 0 40%;
-    overflow-y: auto;
-  }
-
+   .cart-items-scroll {
+     flex: 0 0 65%;
+     overflow-y: auto;
+     min-height: 0;
+   }
+   
+   .carrito-sidebar {
+     flex: 0 0 35%;
+     overflow-y: auto;
+     min-height: 0;
+   }
 }
 
 @media (min-width: 1280px) {
