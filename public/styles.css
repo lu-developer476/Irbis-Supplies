@@ -324,7 +324,7 @@ body {
   top: 0;
   right: 0;
   height: 100vh;
-  width: min(520px, 92vw);
+  width: min(680px, 95vw);
   background: #0d0d0d;
   border-left: 1px solid #222;
   transform: translateX(105%);
