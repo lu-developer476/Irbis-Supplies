@@ -107,10 +107,32 @@
             <div class="shipping-method">
               <label for="shippingMethod">Forma de envío:</label>
               <select id="shippingMethod">
-                <option value="0">Retiro en punto de encuentro - Gratis</option>
-                <option value="5000">Courier - $5.000.-</option>
-                <option value="0">Express - a convenir</option>
+                <option value="0">Retiro sin cargo</option>
+                <option value="25000">Courier - $25.000</option>
+                <option value="-1">Envío express – A coordinar</option>
               </select>
+            </div>
+
+            <div class="payment-method">
+              <label for="paymentMethod">Medio de pago:</label>
+              <select id="paymentMethod">
+                <option value="">Seleccionar</option>
+                <option value="cash">Efectivo</option>
+                <option value="card">Tarjeta (crédito / débito)</option>
+                <option value="qr">Pago con código QR</option>
+              </select>
+            </div>
+            
+            <div id="cardFields" class="card-fields hidden">
+              <input type="text" placeholder="Número de tarjeta" maxlength="19" />
+              <input type="text" placeholder="Nombre en la tarjeta" />
+              <input type="text" placeholder="MM/AA" maxlength="5" />
+              <input type="text" placeholder="CVV" maxlength="4" />
+            </div>
+            
+            <div id="qrSection" class="qr-section hidden">
+              <p>Escaneá el código QR para completar el pago.</p>
+              <div id="qrContainer"></div>
             </div>
 
             <div class="coupon-box">
