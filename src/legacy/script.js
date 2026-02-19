@@ -700,6 +700,8 @@ function invoiceHTML(order) {
 
   // Recalculamos el resumen para mostrar desglose real
   const subtotalBruto = order.items.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+  const envio = order.total - (baseImponible + iva + (baseImponible + iva) * order.ajustePago);
+  const ajusteMonto = (baseImponible + iva + envio) * order.ajustePago;
   
   const descuentoBase = subtotalBruto * DESCUENTO_PERMANENTE;
   const descuentoExtra = subtotalBruto * descuentoCupon;
@@ -735,7 +737,10 @@ function invoiceHTML(order) {
 
       <div class="box">
         <div class="boxTitle">Pago (simulado)</div>
-        <div><strong>Tarjeta:</strong> ${order.payment.cardMasked}</div>
+        <div><strong>Método:</strong> ${order.payment.metodo}</div>
+        ${order.payment.metodo === "tarjeta"
+          ? `<div><strong>Tarjeta:</strong> ${order.payment.cardMasked}</div>`
+          : ""}
         <div><strong>Estado:</strong> Aprobado (demo)</div>
       </div>
 
@@ -786,8 +791,21 @@ function invoiceHTML(order) {
     
         <div class="row">
           <span>Envío</span>
-          <span>${currency(totalFinal - (baseImponible + iva))}</span>
+          <span>${currency(envio)}</span>
         </div>
+        
+        ${order.ajustePago !== 0 ? `
+          <div class="row">
+            <span>
+              ${order.ajustePago > 0
+                ? "Recargo por tarjeta (10%)"
+                : "Descuento por pago en efectivo (5%)"}
+            </span>
+            <span>
+              ${order.ajustePago > 0 ? "+" : "-"} ${currency(Math.abs(ajusteMonto))}
+            </span>
+          </div>
+        ` : ""}
     
         <div class="row grand">
           <span>Total</span>
@@ -1004,11 +1022,15 @@ btnCheckout?.addEventListener("click", () => {
           color: p.color,
           imagen: p.imagen
         })),
-        total: total,
-        payment: {
-          cardMasked: maskCard(result.value.tarjeta)
-        }
-      };
+          total: total,
+          payment: {
+            metodo: paymentSelect?.value || "tarjeta",
+            cardMasked: paymentSelect?.value === "tarjeta"
+              ? maskCard(result.value.tarjeta)
+              : "N/A"
+          },
+          ajustePago: ajustePago
+        };
 
       orders = [order, ...orders];
       guardarOrders();
