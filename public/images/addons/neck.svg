@@ -1,0 +1,64 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Fondo negro -->
+  <rect width="512" height="512" fill="#000000"/>
+
+  <!-- Marco dorado -->
+  <rect x="14" y="14" width="484" height="484"
+        fill="none"
+        stroke="#C9A227"
+        stroke-width="16"/>
+
+  <!-- Parte superior envolviendo cuello (ligeramente asimétrica) -->
+  <path d="
+    M165 175
+    Q250 135 350 170
+    Q335 210 255 220
+    Q185 210 165 175
+    Z"
+    fill="#1A1A1A"
+    stroke="#C9A227"
+    stroke-width="4"/>
+
+  <!-- Caída principal asimétrica -->
+  <path d="
+    M150 215
+    Q260 190 370 215
+    L300 410
+    Q240 390 180 340
+    Z"
+    fill="#1F1F1F"
+    stroke="#C9A227"
+    stroke-width="5"/>
+
+  <!-- Extensión lateral más larga (detalle clave) -->
+  <path d="
+    M370 215
+    Q400 260 380 320
+    Q360 360 325 380
+    "
+    fill="none"
+    stroke="#C9A227"
+    stroke-width="4"
+    opacity="0.8"/>
+
+  <!-- Pliegues diagonales para efecto textil -->
+  <path d="M200 255 Q270 235 320 260"
+        stroke="#C9A227"
+        stroke-width="2"
+        fill="none"
+        opacity="0.7"/>
+
+  <path d="M190 290 Q265 270 330 300"
+        stroke="#C9A227"
+        stroke-width="2"
+        fill="none"
+        opacity="0.5"/>
+
+  <path d="M185 325 Q250 310 310 340"
+        stroke="#C9A227"
+        stroke-width="2"
+        fill="none"
+        opacity="0.4"/>
+
+</svg>
