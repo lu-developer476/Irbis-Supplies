@@ -1,7 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect x="8" y="16" width="112" height="96" rx="10" fill="#111" stroke="#c2a34a" stroke-width="4"/>
-  <path d="M36 44h56v10H36z" fill="#c2a34a"/>
-  <path d="M34 66h60v8H34z" fill="#666"/>
-  <path d="M34 82h42v8H34z" fill="#666"/>
-  <circle cx="92" cy="86" r="10" fill="#1e1e1e" stroke="#c2a34a" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  
+  <!-- Asa -->
+  <path d="M44 22c0-8 8-14 20-14s20 6 20 14" 
+        fill="none" 
+        stroke="#c2a34a" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+
+  <!-- Cuerpo del maletín -->
+  <rect x="12" y="28" width="104" height="80" rx="14"
+        fill="#111"
+        stroke="#c2a34a"
+        stroke-width="4"/>
+
+  <!-- Línea divisoria superior -->
+  <line x1="12" y1="52" x2="116" y2="52"
+        stroke="#c2a34a"
+        stroke-width="3"
+        opacity="0.6"/>
+
+  <!-- Compartimentos -->
+  <rect x="28" y="64" width="40" height="10" rx="2"
+        fill="#666"/>
+  <rect x="28" y="82" width="40" height="10" rx="2"
+        fill="#666"/>
+
+  <!-- Herramientas cruzadas (varillas limpieza) -->
+  <line x1="76" y1="68" x2="104" y2="96"
+        stroke="#c2a34a"
+        stroke-width="4"
+        stroke-linecap="round"/>
+  <line x1="104" y1="68" x2="76" y2="96"
+        stroke="#c2a34a"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+  <!-- Cierre frontal -->
+  <circle cx="64" cy="52" r="6"
+          fill="#c2a34a"/>
+
 </svg>
