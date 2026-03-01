@@ -1,65 +1,60 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Fondo negro -->
+  <!-- Fondo -->
   <rect width="512" height="512" fill="#000000"/>
 
-  <!-- Borde dorado -->
+  <!-- Marco -->
   <rect x="10" y="10" width="492" height="492"
         fill="none"
         stroke="#D4AF37"
         stroke-width="14"
         rx="28"/>
 
-  <!-- Grupo centrado y escalado -->
+  <!-- Máscara GRANDE y centrada real -->
   <g fill="none"
      stroke="#D4AF37"
-     stroke-width="8"
+     stroke-width="12"
      stroke-linecap="round"
-     stroke-linejoin="round"
-     transform="translate(256 260) scale(1.18) translate(-256 -260)">
+     stroke-linejoin="round">
 
-    <!-- Contorno superior máscara -->
+    <!-- Contorno principal -->
     <path d="
-      M176 210
-      Q256 150 336 210
-      L318 320
-      Q256 350 194 320
+      M160 190
+      Q256 125 352 190
+      L330 330
+      Q256 375 182 330
       Z" />
 
-    <!-- Refuerzo lateral izquierdo -->
-    <path d="M176 210 L160 285 L194 320" />
-
-    <!-- Refuerzo lateral derecho -->
-    <path d="M336 210 L352 285 L318 320" />
+    <!-- Refuerzos laterales -->
+    <path d="M160 190 L140 280 L182 330" />
+    <path d="M352 190 L372 280 L330 330" />
 
     <!-- Visor izquierdo -->
     <path d="
-      M205 240
-      Q230 225 255 240
-      Q230 260 205 240
+      M200 240
+      Q230 220 256 240
+      Q230 270 200 240
       Z" />
 
     <!-- Visor derecho -->
     <path d="
-      M307 240
-      Q282 225 257 240
-      Q282 260 307 240
+      M312 240
+      Q282 220 256 240
+      Q282 270 312 240
       Z" />
 
-    <!-- Filtro central externo -->
-    <circle cx="256" cy="295" r="26"/>
+    <!-- Filtro grande -->
+    <circle cx="256" cy="300" r="38"/>
+    <circle cx="256" cy="300" r="22"/>
+    <line x1="256" y1="275" x2="256" y2="325"/>
+    <line x1="231" y1="300" x2="281" y2="300"/>
 
-    <!-- Rejilla interna filtro -->
-    <circle cx="256" cy="295" r="16"/>
-    <line x1="256" y1="279" x2="256" y2="311"/>
-    <line x1="240" y1="295" x2="272" y2="295"/>
-
-    <!-- Extensión de cuello estilizada -->
+    <!-- Extensión de cuello más amplia y centrada -->
     <path d="
-      M210 320
-      Q256 365 302 320
-      L312 380
-      Q256 405 200 380
+      M205 330
+      Q256 385 307 330
+      L320 400
+      Q256 430 192 400
       Z" />
 
   </g>
