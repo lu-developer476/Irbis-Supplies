@@ -1,5 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect x="10" y="10" width="108" height="108" rx="18" fill="#111" stroke="#c2a34a" stroke-width="4"/>
-  <path d="M44 28h32v38c0 10 10 12 16 12 8 0 12 6 12 14v10H28v-8c0-10 8-16 20-16h10c6 0 10-4 10-10V28z" fill="#c2a34a"/>
-  <path d="M28 102h88" stroke="#666" stroke-width="6" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect x="8" y="8" width="112" height="112" rx="18"
+        fill="#111111"
+        stroke="#c2a34a"
+        stroke-width="4"/>
+
+  <!-- Left Boot -->
+  <path d="M36 38 
+           v32 
+           c0 8 6 14 14 14 
+           h10 
+           c10 0 18 6 18 14 
+           v6 
+           H28 
+           v-8 
+           c0-10 6-16 16-16 
+           h6 
+           c4 0 6-2 6-6 
+           V38 
+           Z"
+        fill="#c2a34a"/>
+
+  <!-- Right Boot -->
+  <path d="M60 38 
+           v30 
+           c0 8 6 14 14 14 
+           h8 
+           c10 0 18 6 18 14 
+           v8 
+           H52 
+           v-6 
+           c0-10 6-16 16-16 
+           h4 
+           c4 0 6-2 6-6 
+           V38 
+           Z"
+        fill="#d4b65c"/>
+
+  <!-- Sole Line -->
+  <line x1="28" y1="104" x2="100" y2="104"
+        stroke="#666666"
+        stroke-width="6"
+        stroke-linecap="round"/>
 </svg>
