@@ -1,7 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect x="10" y="10" width="108" height="108" rx="18" fill="#111" stroke="#c2a34a" stroke-width="4"/>
-  <path d="M22 62c10-18 32-22 42-10 10-12 32-8 42 10" fill="none" stroke="#c2a34a" stroke-width="6" stroke-linecap="round"/>
-  <rect x="22" y="56" width="38" height="24" rx="10" fill="#1e1e1e" stroke="#c2a34a" stroke-width="4"/>
-  <rect x="68" y="56" width="38" height="24" rx="10" fill="#1e1e1e" stroke="#c2a34a" stroke-width="4"/>
-  <path d="M60 68h8" stroke="#c2a34a" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+
+  <!-- Fondo -->
+  <rect x="8" y="8" width="112" height="112" rx="20"
+        fill="#111"
+        stroke="#c2a34a"
+        stroke-width="4"/>
+
+  <!-- Correa -->
+  <rect x="8" y="60" width="16" height="8" rx="4" fill="#c2a34a"/>
+  <rect x="104" y="60" width="16" height="8" rx="4" fill="#c2a34a"/>
+
+  <!-- Marco principal envolvente -->
+  <path d="
+    M24 64
+    C24 50, 40 44, 54 48
+    L74 48
+    C88 44, 104 50, 104 64
+    C104 78, 88 84, 74 80
+    L54 80
+    C40 84, 24 78, 24 64
+    Z"
+    fill="#1a1a1a"
+    stroke="#c2a34a"
+    stroke-width="4"/>
+
+  <!-- Lente izquierda -->
+  <ellipse cx="48" cy="64" rx="14" ry="12"
+           fill="#222"
+           stroke="#c2a34a"
+           stroke-width="3"/>
+
+  <!-- Lente derecha -->
+  <ellipse cx="80" cy="64" rx="14" ry="12"
+           fill="#222"
+           stroke="#c2a34a"
+           stroke-width="3"/>
+
+  <!-- Puente estructural -->
+  <rect x="60" y="60" width="8" height="8" rx="2"
+        fill="#c2a34a"/>
+
+  <!-- Reflejo izquierda -->
+  <path d="M42 58 Q48 54 54 58"
+        stroke="#333"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"/>
+
+  <!-- Reflejo derecha -->
+  <path d="M74 58 Q80 54 86 58"
+        stroke="#333"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"/>
+
 </svg>
