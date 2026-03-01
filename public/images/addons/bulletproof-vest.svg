@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <!-- Fondo negro -->
+  <rect width="512" height="512" fill="#000000"/>
+
+  <!-- Borde dorado -->
+  <rect x="10" y="10" width="492" height="492"
+        fill="none"
+        stroke="#D4AF37"
+        stroke-width="14"
+        rx="36"/>
+
+  <g fill="none" stroke="#D4AF37" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Tirantes superiores -->
+    <rect x="210" y="60" width="36" height="60" rx="8"/>
+    <rect x="266" y="60" width="36" height="60" rx="8"/>
+
+    <!-- Cuerpo principal -->
+    <path d="
+      M170 120
+      Q150 200 160 280
+      Q175 340 210 360
+      L302 360
+      Q337 340 352 280
+      Q362 200 342 120
+      Z" />
+
+    <!-- Corte cuello -->
+    <path d="M210 120 Q256 90 302 120" />
+
+    <!-- Separación frontal -->
+    <line x1="256" y1="120" x2="256" y2="360"/>
+
+    <!-- Placa balística frontal -->
+    <rect x="216" y="170" width="80" height="120" rx="14"/>
+
+    <!-- Correas laterales -->
+    <line x1="170" y1="220" x2="130" y2="220"/>
+    <line x1="342" y1="220" x2="382" y2="220"/>
+
+    <line x1="170" y1="260" x2="130" y2="260"/>
+    <line x1="342" y1="260" x2="382" y2="260"/>
+
+  </g>
+
+</svg>
