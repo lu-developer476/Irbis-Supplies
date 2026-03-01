@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6D365"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#A67C00"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="#000000"/>
+
+  <!-- Double Border -->
+  <rect x="16" y="16" width="480" height="480" fill="none" stroke="url(#goldGradient)" stroke-width="6"/>
+  <rect x="32" y="32" width="448" height="448" fill="none" stroke="url(#goldGradient)" stroke-width="2"/>
+
+  <!-- Backpack -->
+  <g fill="url(#goldGradient)" stroke="#000000" stroke-width="6" stroke-linejoin="round">
+
+    <!-- Top Handle -->
+    <path d="M200 105 Q256 50 312 105 L300 120 Q256 80 212 120 Z"/>
+
+    <!-- Shoulder Straps -->
+    <rect x="160" y="120" width="50" height="140" rx="25"/>
+    <rect x="302" y="120" width="50" height="140" rx="25"/>
+
+    <!-- Main Body -->
+    <rect x="150" y="140" width="212" height="270" rx="40"/>
+
+    <!-- Top Flap -->
+    <rect x="180" y="160" width="152" height="70" rx="20"/>
+
+    <!-- Horizontal Strap -->
+    <rect x="200" y="190" width="112" height="25" rx="10"/>
+
+    <!-- Front Pocket -->
+    <rect x="185" y="240" width="142" height="120" rx="25"/>
+
+    <!-- MOLLE rows -->
+    <rect x="205" y="270" width="20" height="12" rx="3"/>
+    <rect x="235" y="270" width="20" height="12" rx="3"/>
+    <rect x="265" y="270" width="20" height="12" rx="3"/>
+    <rect x="295" y="270" width="20" height="12" rx="3"/>
+
+    <rect x="205" y="300" width="20" height="12" rx="3"/>
+    <rect x="235" y="300" width="20" height="12" rx="3"/>
+    <rect x="265" y="300" width="20" height="12" rx="3"/>
+    <rect x="295" y="300" width="20" height="12" rx="3"/>
+
+    <!-- Side Pouches -->
+    <rect x="110" y="230" width="50" height="110" rx="20"/>
+    <rect x="352" y="230" width="50" height="110" rx="20"/>
+
+    <!-- Bottom Straps -->
+    <rect x="200" y="380" width="28" height="50" rx="6"/>
+    <rect x="284" y="380" width="28" height="50" rx="6"/>
+
+  </g>
+
+</svg>
