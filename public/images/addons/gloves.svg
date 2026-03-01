@@ -1,4 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect x="10" y="10" width="108" height="108" rx="18" fill="#111" stroke="#c2a34a" stroke-width="4"/>
-  <path d="M44 92c-6-10-10-22-10-36 0-8 2-18 8-22 6-4 12 2 12 10v16h8V40c0-8 10-10 12-2v20h8V46c0-8 10-8 10 2v24c0 18-10 30-20 36H44z" fill="#c2a34a"/>
+  <!-- Fondo -->
+  <rect x="10" y="10" width="108" height="108" rx="18"
+        fill="#111" stroke="#c2a34a" stroke-width="4"/>
+
+  <!-- Guante izquierdo -->
+  <g fill="#c2a34a">
+    <!-- Palma -->
+    <rect x="34" y="58" width="18" height="30" rx="6"/>
+    <!-- Dedos -->
+    <rect x="32" y="40" width="4" height="18" rx="2"/>
+    <rect x="38" y="38" width="4" height="20" rx="2"/>
+    <rect x="44" y="36" width="4" height="22" rx="2"/>
+    <rect x="50" y="38" width="4" height="20" rx="2"/>
+    <!-- Pulgar -->
+    <rect x="26" y="60" width="8" height="12" rx="4"/>
+  </g>
+
+  <!-- Guante derecho -->
+  <g fill="#c2a34a">
+    <!-- Palma -->
+    <rect x="76" y="58" width="18" height="30" rx="6"/>
+    <!-- Dedos -->
+    <rect x="94" y="40" width="4" height="18" rx="2"/>
+    <rect x="88" y="38" width="4" height="20" rx="2"/>
+    <rect x="82" y="36" width="4" height="22" rx="2"/>
+    <rect x="76" y="38" width="4" height="20" rx="2"/>
+    <!-- Pulgar -->
+    <rect x="94" y="60" width="8" height="12" rx="4"/>
+  </g>
 </svg>
