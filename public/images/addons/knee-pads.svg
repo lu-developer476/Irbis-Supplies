@@ -1,130 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 170">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
 
   <!-- Fondo -->
-  <rect x="4" y="4" width="292" height="162" rx="18"
+  <rect x="4" y="4" width="292" height="292" rx="18"
         fill="#111111"
         stroke="#c2a34a"
         stroke-width="4"/>
 
-  <!-- ================== RODILLERA IZQUIERDA ================== -->
+  <!-- Grupo centrado verticalmente -->
+  <g transform="translate(0,65)">
 
-  <!-- Funda exterior -->
-  <ellipse cx="95" cy="85" rx="32" ry="44"
-           fill="#151515"
-           stroke="#333"
-           stroke-width="2"/>
+    <!-- ================== RODILLERA IZQUIERDA ================== -->
 
-  <!-- Costura decorativa -->
-  <ellipse cx="95" cy="85" rx="28" ry="40"
-           fill="none"
-           stroke="#444"
-           stroke-width="1"
-           stroke-dasharray="3 3"/>
+    <!-- Funda exterior -->
+    <ellipse cx="95" cy="85" rx="32" ry="44"
+             fill="#151515"
+             stroke="#333"
+             stroke-width="2"/>
 
-  <!-- Base acolchada -->
-  <ellipse cx="95" cy="85" rx="24" ry="34"
-           fill="#1e1e1e"
-           stroke="#c2a34a"
-           stroke-width="2"/>
+    <!-- Costura decorativa -->
+    <ellipse cx="95" cy="85" rx="28" ry="40"
+             fill="none"
+             stroke="#444"
+             stroke-width="1"
+             stroke-dasharray="3 3"/>
 
-  <!-- Placa rígida -->
-  <ellipse cx="95" cy="85" rx="14" ry="22"
-           fill="#c2a34a"/>
+    <!-- Base acolchada -->
+    <ellipse cx="95" cy="85" rx="24" ry="34"
+             fill="#1e1e1e"
+             stroke="#c2a34a"
+             stroke-width="2"/>
 
-  <!-- Tornillos -->
-  <circle cx="95" cy="68" r="3" fill="#111111"/>
-  <circle cx="95" cy="102" r="3" fill="#111111"/>
+    <!-- Placa rígida -->
+    <ellipse cx="95" cy="85" rx="14" ry="22"
+             fill="#c2a34a"/>
 
-  <!-- Correa superior -->
-  <rect x="55" y="52" width="80" height="8"
-        fill="#2a2a2a"
-        stroke="#666"
-        stroke-width="1"/>
+    <!-- Tornillos -->
+    <circle cx="95" cy="68" r="3" fill="#111111"/>
+    <circle cx="95" cy="102" r="3" fill="#111111"/>
 
-  <!-- Correa inferior -->
-  <rect x="55" y="120" width="80" height="8"
-        fill="#2a2a2a"
-        stroke="#666"
-        stroke-width="1"/>
+    <!-- Correas -->
+    <rect x="55" y="52" width="80" height="8"
+          fill="#2a2a2a"
+          stroke="#666"
+          stroke-width="1"/>
+    <rect x="55" y="120" width="80" height="8"
+          fill="#2a2a2a"
+          stroke="#666"
+          stroke-width="1"/>
 
-  <!-- 4 tiras sueltas -->
-  <path d="M55 56 l-22 14"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
-  <path d="M135 56 l22 14"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
+    <!-- Tiras -->
+    <path d="M55 56 l-22 14" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M135 56 l22 14" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M55 124 l-24 18" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M135 124 l24 18" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
 
-  <path d="M55 124 l-24 18"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
-  <path d="M135 124 l24 18"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
+    <!-- ================== RODILLERA DERECHA ================== -->
 
+    <ellipse cx="205" cy="85" rx="32" ry="44"
+             fill="#151515"
+             stroke="#333"
+             stroke-width="2"/>
 
-  <!-- ================== RODILLERA DERECHA ================== -->
+    <ellipse cx="205" cy="85" rx="28" ry="40"
+             fill="none"
+             stroke="#444"
+             stroke-width="1"
+             stroke-dasharray="3 3"/>
 
-  <!-- Funda exterior -->
-  <ellipse cx="205" cy="85" rx="32" ry="44"
-           fill="#151515"
-           stroke="#333"
-           stroke-width="2"/>
+    <ellipse cx="205" cy="85" rx="24" ry="34"
+             fill="#1e1e1e"
+             stroke="#c2a34a"
+             stroke-width="2"/>
 
-  <!-- Costura decorativa -->
-  <ellipse cx="205" cy="85" rx="28" ry="40"
-           fill="none"
-           stroke="#444"
-           stroke-width="1"
-           stroke-dasharray="3 3"/>
+    <ellipse cx="205" cy="85" rx="14" ry="22"
+             fill="#c2a34a"/>
 
-  <!-- Base acolchada -->
-  <ellipse cx="205" cy="85" rx="24" ry="34"
-           fill="#1e1e1e"
-           stroke="#c2a34a"
-           stroke-width="2"/>
+    <circle cx="205" cy="68" r="3" fill="#111111"/>
+    <circle cx="205" cy="102" r="3" fill="#111111"/>
 
-  <!-- Placa rígida -->
-  <ellipse cx="205" cy="85" rx="14" ry="22"
-           fill="#c2a34a"/>
+    <rect x="165" y="52" width="80" height="8"
+          fill="#2a2a2a"
+          stroke="#666"
+          stroke-width="1"/>
+    <rect x="165" y="120" width="80" height="8"
+          fill="#2a2a2a"
+          stroke="#666"
+          stroke-width="1"/>
 
-  <!-- Tornillos -->
-  <circle cx="205" cy="68" r="3" fill="#111111"/>
-  <circle cx="205" cy="102" r="3" fill="#111111"/>
+    <path d="M165 56 l-22 14" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M245 56 l22 14" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M165 124 l-24 18" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M245 124 l24 18" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/>
 
-  <!-- Correa superior -->
-  <rect x="165" y="52" width="80" height="8"
-        fill="#2a2a2a"
-        stroke="#666"
-        stroke-width="1"/>
-
-  <!-- Correa inferior -->
-  <rect x="165" y="120" width="80" height="8"
-        fill="#2a2a2a"
-        stroke="#666"
-        stroke-width="1"/>
-
-  <!-- 4 tiras sueltas -->
-  <path d="M165 56 l-22 14"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
-  <path d="M245 56 l22 14"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
-
-  <path d="M165 124 l-24 18"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
-  <path d="M245 124 l24 18"
-        stroke="#2a2a2a"
-        stroke-width="4"
-        stroke-linecap="round"/>
+  </g>
 
 </svg>
