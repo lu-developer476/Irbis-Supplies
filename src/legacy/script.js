@@ -81,7 +81,7 @@ let productos = [];
 const ADDONS = [
   {
     id: 9001,
-    nombre: "Kit de limpieza (universal)",
+    nombre: "Kit de limpieza universal",
     precio: 12000,
     imagen: "./images/addons/cleaning-kit.svg",
   },
@@ -105,9 +105,57 @@ const ADDONS = [
   },
   {
     id: 9005,
-    nombre: "Botas de trekking",
+    nombre: "Botas tácticas",
     precio: 64000,
     imagen: "./images/addons/boots.svg",
+  },
+  {
+    id: 9006,
+    nombre: "Coderas reforzadas",
+    precio: 20000,
+    imagen: "./images/addons/elbow-pad.svg",
+  },
+  {
+    id: 9007,
+    nombre: "Casco táctico",
+    precio: 85000,
+    imagen: "./images/addons/helmet.svg",
+  },
+  {
+    id: 9008,
+    nombre: "Máscara protectora",
+    precio: 27000,
+    imagen: "./images/addons/mask.svg",
+  },
+  {
+    id: 9009,
+    nombre: "Protector de cuello",
+    precio: 15000,
+    imagen: "./images/addons/neck.svg",
+  },
+  {
+    id: 9010,
+    nombre: "Muslera táctica",
+    precio: 30000,
+    imagen: "./images/addons/thighband.svg",
+  },
+  {
+    id: 9011,
+    nombre: "Munición adicional",
+    precio: 40000,
+    imagen: "./images/addons/ammo.svg",
+  },
+  {
+    id: 9012,
+    nombre: "Mochila táctica",
+    precio: 52000,
+    imagen: "./images/addons/backpack.svg",
+  },
+  {
+    id: 9013,
+    nombre: "Chaleco antibalas",
+    precio: 120000,
+    imagen: "./images/addons/bulletproof-vest.svg",
   },
 ];
 
