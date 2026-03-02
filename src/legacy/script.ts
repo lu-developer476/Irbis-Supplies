@@ -930,6 +930,8 @@ function abrirVentanaFactura(order) {
     return;
   }
 
+  w.history.replaceState({}, "", "/mi-comprobante");
+  
   w.document.write(`
     <html>
       <head>
