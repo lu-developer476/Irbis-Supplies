@@ -1324,6 +1324,27 @@ applyCouponBtn?.addEventListener("click", () => {
     return;
   }
 
+  if (!isUserLoggedIn()) {
+    Swal.fire({
+      title: "Cuenta requerida",
+      html: `
+        El cupón <strong>IRBIS15</strong> es exclusivo para clientes registrados.<br><br>
+        Creá tu cuenta para obtener el beneficio.
+      `,
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Crear cuenta",
+      cancelButtonText: "Cancelar",
+      background: "#1e1e1e",
+      color: "#fff",
+    }).then(async (r) => {
+      if (r.isConfirmed) {
+        await openRegisterModal();
+      }
+    });
+    return;
+  }
+
   const code = couponInput.value.trim().toUpperCase();
 
   if (code === "IRBIS15") {
@@ -1334,7 +1355,7 @@ applyCouponBtn?.addEventListener("click", () => {
 
     Swal.fire({
       title: "Cupón aplicado",
-      text: "Se aplicó un 15% adicional.",
+      text: "Se aplicó un 15% adicional por ser cliente oficial.",
       icon: "success",
       background: "#1e1e1e",
       color: "#fff"
