@@ -1,45 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
 
   <defs>
-
-    <!-- Fondo -->
     <radialGradient id="bg" cx="50%" cy="40%" r="70%">
       <stop offset="0%" stop-color="#1a1a1a"/>
       <stop offset="100%" stop-color="#0a0a0a"/>
     </radialGradient>
 
-    <!-- Gradiente principal cuero -->
     <linearGradient id="bootGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f6df9d"/>
       <stop offset="50%" stop-color="#caa84f"/>
       <stop offset="100%" stop-color="#7a6222"/>
     </linearGradient>
 
-    <!-- Sombra lateral -->
     <linearGradient id="sideShade" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#000" stop-opacity="0.15"/>
       <stop offset="100%" stop-color="#000" stop-opacity="0"/>
     </linearGradient>
 
-    <!-- Reflejo cuero -->
     <linearGradient id="highlight" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
 
-    <!-- Suela -->
     <linearGradient id="soleGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#444"/>
       <stop offset="100%" stop-color="#1c1c1c"/>
     </linearGradient>
 
-    <!-- Sombra general -->
     <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="6" stdDeviation="5"
         flood-color="#000"
         flood-opacity="0.6"/>
     </filter>
-
   </defs>
 
   <!-- Fondo -->
@@ -52,46 +44,46 @@
 
     <!-- BOTA IZQUIERDA -->
     <path d="M28 42
-             v40
-             c0 8 6 14 14 14
-             h14
-             c10 0 16 6 16 12
-             v4
+             v38
+             c0 10 8 16 18 16
+             h10
+             c10 0 16 6 16 10
+             v2
              H22
-             v-12
-             c0-12 8-18 20-18
-             h6
+             v-10
+             c0-14 10-20 24-20
+             h4
              c4 0 6-2 6-6
              V42 Z"
           fill="url(#bootGrad)"/>
 
-    <!-- Reflejo izquierdo -->
-    <path d="M32 44 v34 c0 6 4 10 10 10 h6"
+    <!-- Sombra lateral -->
+    <rect x="28" y="42" width="8" height="46"
+          fill="url(#sideShade)"/>
+
+    <!-- Reflejo -->
+    <path d="M32 46 v30 c0 8 6 12 12 12"
           fill="none"
           stroke="url(#highlight)"
           stroke-width="4"
           stroke-linecap="round"/>
 
-    <!-- Costuras izquierda -->
-    <path d="M34 48 v30"
+    <!-- Costura -->
+    <path d="M34 48 v28"
           stroke="#6a5320"
           stroke-width="1.5"
           stroke-dasharray="2 3"
           fill="none"/>
 
-    <!-- Sombra lateral izquierda -->
-    <rect x="28" y="42" width="8" height="48"
-          fill="url(#sideShade)"/>
-
-    <!-- SUELA IZQUIERDA -->
+    <!-- SUELA IZQUIERDA (perfectamente cerrada y simétrica) -->
     <path d="M22 104
              h50
-             a6 6 0 0 1 -6 6
-             H28
-             a6 6 0 0 1 -6 -6 Z"
+             c0 4 -4 8 -8 8
+             H30
+             c-4 0 -8 -4 -8 -8 Z"
           fill="url(#soleGrad)"/>
 
-    <!-- Patrón suela izquierda -->
+    <!-- Patrón -->
     <g stroke="#666" stroke-width="2">
       <line x1="30" y1="108" x2="38" y2="108"/>
       <line x1="44" y1="108" x2="52" y2="108"/>
@@ -101,45 +93,41 @@
     <!-- BOTA DERECHA -->
     <path d="M60 42
              v38
-             c0 8 6 14 14 14
-             h16
-             c10 0 16 6 16 12
-             v6
+             c0 10 8 16 18 16
+             h10
+             c10 0 16 6 16 10
+             v2
              H54
              v-10
-             c0-12 8-18 20-18
-             h6
+             c0-14 10-20 24-20
+             h4
              c4 0 6-2 6-6
              V42 Z"
           fill="url(#bootGrad)"/>
 
-    <!-- Reflejo derecho -->
-    <path d="M64 44 v32 c0 6 4 10 10 10 h6"
+    <rect x="60" y="42" width="8" height="46"
+          fill="url(#sideShade)"/>
+
+    <path d="M64 46 v30 c0 8 6 12 12 12"
           fill="none"
           stroke="url(#highlight)"
           stroke-width="4"
           stroke-linecap="round"/>
 
-    <!-- Costuras derecha -->
     <path d="M66 48 v28"
           stroke="#6a5320"
           stroke-width="1.5"
           stroke-dasharray="2 3"
           fill="none"/>
 
-    <!-- Sombra lateral derecha -->
-    <rect x="60" y="42" width="8" height="46"
-          fill="url(#sideShade)"/>
-
-    <!-- SUELA DERECHA -->
+    <!-- SUELA DERECHA (idéntica proporción que la izquierda) -->
     <path d="M54 104
-             h52
-             a6 6 0 0 1 -6 6
-             H60
-             a6 6 0 0 1 -6 -6 Z"
+             h50
+             c0 4 -4 8 -8 8
+             H62
+             c-4 0 -8 -4 -8 -8 Z"
           fill="url(#soleGrad)"/>
 
-    <!-- Patrón suela derecha -->
     <g stroke="#666" stroke-width="2">
       <line x1="62" y1="108" x2="70" y2="108"/>
       <line x1="76" y1="108" x2="84" y2="108"/>
