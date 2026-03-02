@@ -517,84 +517,112 @@ footer {
    =============================== */
 
 /* ===============================
-   MOBILE (hasta 767px)
+   MOBILE REAL (hasta 767px)
    =============================== */
 
 @media (max-width: 767px) {
 
-  body {
-    font-size: 15px;
+  html, body {
+    overflow-x: hidden;
   }
 
+  body {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  /* GRID PRODUCTOS */
   .grid-productos {
     grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 0 14px;
+    gap: 20px;
+    padding: 0 16px;
   }
 
   .contenedorDeCard {
-    padding: 16px;
-    border-radius: 14px;
+    padding: 18px;
+    border-radius: 16px;
   }
 
   .contenedorDeCard img {
-    max-height: 180px;
+    width: 100%;
+    max-height: 200px;
     object-fit: contain;
   }
 
   .precio-producto {
-    font-size: 18px;
-    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 12px 0;
   }
 
+  /* BOTONES TOUCH FRIENDLY */
   .btn-primary,
   .btn-secondary {
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 10px;
   }
 
-  /* Drawer carrito mobile */
+  /* DRAWER FULLSCREEN */
   .cartDrawer {
     width: 100%;
+    height: 100vh;
     max-width: 100%;
+    border-radius: 0;
   }
 
   .carrito-wrapper {
     flex-direction: column;
+    height: 100%;
   }
 
   .cart-items-scroll {
-    max-height: 45vh;
+    flex: 1;
     overflow-y: auto;
+    padding-bottom: 12px;
   }
 
   .carrito-sidebar {
-    margin-top: 16px;
+    border-top: 1px solid #2a2a33;
+    padding-top: 14px;
+    margin-top: 14px;
   }
 
+  /* ITEM CARRITO MÁS CLARO */
   .item-carrito {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: stretch;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2a2a33;
   }
 
   .item-carrito__acciones {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
   }
 
-  /* Inputs cómodos en iOS */
+  .item-carrito__acciones button {
+    flex: 1;
+    padding: 10px;
+  }
+
+  /* CHECKOUT INPUTS */
   input,
   select,
   textarea {
     font-size: 16px;
+    padding: 12px;
   }
 
+  /* SWIPER MÁS COMPACTO */
   .swiper-slide {
-    font-size: 16px;
+    font-size: 15px;
+    padding: 8px 0;
   }
+
 }
 
 /* ===============================
