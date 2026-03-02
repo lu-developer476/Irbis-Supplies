@@ -165,6 +165,7 @@ export async function openRegisterModal(auth = getAuth(app!)) {
       await updateProfile(cred.user, { displayName: res.value.name });
     }
 
+    auth.languageCode = "es";
     await sendEmailVerification(cred.user);
 
     // 🔥 CREACIÓN DOCUMENTO FIRESTORE
