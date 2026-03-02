@@ -478,7 +478,7 @@ function agregarAlCarrito(id) {
       icon: "info",
       showCancelButton: true,
       confirmButtonText: "Crear cuenta",
-      cancelButtonText: "Ahora no",
+      cancelButtonText: "Más tarde",
       background: "#1e1e1e",
       color: "#fff",
     }).then(async (r) => {
@@ -908,7 +908,7 @@ function invoiceHTML(order) {
 
     <div class="footer">
       <div class="muted small">
-        Simulación sin procesos de pagos reales | © 2026 Todos los derechos reservados | Lucas Leonel Montenegro Burgos
+        Simulación sin procesos de pagos reales | <span>©</span> <span id="year"></span> Todos los derechos reservados • Built with HTML5, CSS3, JavaScript, TypeScript, CoffeeScript, UX/UI Interface • Deployed on Netlify ®
       </div>
     </div>
   </div>
@@ -1132,7 +1132,7 @@ btnCheckout?.addEventListener("click", () => {
 
         Swal.fire({
           title: "Compra confirmada",
-          text: "La orden se registró con éxito, La factura se encuentra disponible.",
+          text: "La orden se registró con éxito. La factura se encuentra disponible.",
           icon: "success",
           background: "#1e1e1e",
           color: "#fff"
@@ -1168,7 +1168,7 @@ btnCheckout?.addEventListener("click", () => {
   `).join("");
 
   Swal.fire({
-    title: "¿Querés agregar accesorios?",
+    title: "¿Querés agregar éstos accesorios?",
     html: `<div style="max-height:300px;overflow:auto;">${addonsHtml}</div>`,
     showCancelButton: true,
     confirmButtonText: "Continuar",
