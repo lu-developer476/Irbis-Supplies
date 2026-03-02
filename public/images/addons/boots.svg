@@ -27,6 +27,11 @@
       <stop offset="100%" stop-color="#1c1c1c"/>
     </linearGradient>
 
+    <linearGradient id="furGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff6da"/>
+      <stop offset="100%" stop-color="#e6d7b5"/>
+    </linearGradient>
+
     <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="6" stdDeviation="5"
         flood-color="#000"
@@ -34,7 +39,6 @@
     </filter>
   </defs>
 
-  <!-- Fondo -->
   <rect x="6" y="6" width="116" height="116" rx="22"
         fill="url(#bg)"
         stroke="#caa84f"
@@ -57,25 +61,31 @@
              V42 Z"
           fill="url(#bootGrad)"/>
 
-    <!-- Sombra lateral -->
+    <!-- FELPA IZQUIERDA (desplazada 2px a la izquierda) -->
+    <path d="M26 42
+             H60
+             Q58 48 56 48
+             H30
+             Q28 48 26 42 Z"
+          fill="url(#furGrad)"
+          stroke="#d8cfae"
+          stroke-width="0.6"/>
+
     <rect x="28" y="42" width="8" height="46"
           fill="url(#sideShade)"/>
 
-    <!-- Reflejo -->
     <path d="M32 46 v30 c0 8 6 12 12 12"
           fill="none"
           stroke="url(#highlight)"
           stroke-width="4"
           stroke-linecap="round"/>
 
-    <!-- Costura -->
     <path d="M34 48 v28"
           stroke="#6a5320"
           stroke-width="1.5"
           stroke-dasharray="2 3"
           fill="none"/>
 
-    <!-- SUELA IZQUIERDA (perfectamente cerrada y simétrica) -->
     <path d="M22 104
              h50
              c0 4 -4 8 -8 8
@@ -83,7 +93,6 @@
              c-4 0 -8 -4 -8 -8 Z"
           fill="url(#soleGrad)"/>
 
-    <!-- Patrón -->
     <g stroke="#666" stroke-width="2">
       <line x1="30" y1="108" x2="38" y2="108"/>
       <line x1="44" y1="108" x2="52" y2="108"/>
@@ -105,6 +114,16 @@
              V42 Z"
           fill="url(#bootGrad)"/>
 
+    <!-- FELPA DERECHA (desplazada 2px a la izquierda) -->
+    <path d="M58 42
+             H92
+             Q90 48 88 48
+             H62
+             Q60 48 58 42 Z"
+          fill="url(#furGrad)"
+          stroke="#d8cfae"
+          stroke-width="0.6"/>
+
     <rect x="60" y="42" width="8" height="46"
           fill="url(#sideShade)"/>
 
@@ -120,7 +139,6 @@
           stroke-dasharray="2 3"
           fill="none"/>
 
-    <!-- SUELA DERECHA (idéntica proporción que la izquierda) -->
     <path d="M54 104
              h50
              c0 4 -4 8 -8 8
@@ -136,7 +154,6 @@
 
   </g>
 
-  <!-- Cordones -->
   <g stroke="#3a2e10" stroke-width="2" stroke-linecap="round">
     <line x1="42" y1="50" x2="50" y2="50"/>
     <line x1="42" y1="56" x2="50" y2="56"/>
