@@ -929,8 +929,6 @@ function abrirVentanaFactura(order) {
     alertaError("El navegador bloqueó la ventana emergente.");
     return;
   }
-
-  w.history.replaceState({}, "", "#/mi-comprobante");
   
   w.document.write(`
     <html>
