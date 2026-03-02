@@ -516,6 +516,91 @@ footer {
    RESPONSIVE
    =============================== */
 
+/* ===============================
+   MOBILE (hasta 767px)
+   =============================== */
+
+@media (max-width: 767px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  .grid-productos {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 14px;
+  }
+
+  .contenedorDeCard {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .contenedorDeCard img {
+    max-height: 180px;
+    object-fit: contain;
+  }
+
+  .precio-producto {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Drawer carrito mobile */
+  .cartDrawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .carrito-wrapper {
+    flex-direction: column;
+  }
+
+  .cart-items-scroll {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  .carrito-sidebar {
+    margin-top: 16px;
+  }
+
+  .item-carrito {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .item-carrito__acciones {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Inputs cómodos en iOS */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .swiper-slide {
+    font-size: 16px;
+  }
+}
+
+/* ===============================
+   TABLET (>= 768px)
+   =============================== */
+
 @media (min-width: 768px) {
    
   .grid-productos {
@@ -527,6 +612,10 @@ footer {
   }
 }
 
+/* ===============================
+   DESKTOP (>= 1024px)
+   =============================== */
+
 @media (min-width: 1024px) {
 
   .carrito-wrapper {
@@ -534,18 +623,22 @@ footer {
     align-items: stretch;
   }
 
-   .cart-items-scroll {
-     flex: 0 0 58%;
-     overflow-y: auto;
-     min-height: 0;
-   }
+  .cart-items-scroll {
+    flex: 0 0 58%;
+    overflow-y: auto;
+    min-height: 0;
+  }
    
-   .carrito-sidebar {
-     flex: 0 0 42%;
-     overflow-y: auto;
-     min-height: 0;
-   }
+  .carrito-sidebar {
+    flex: 0 0 42%;
+    overflow-y: auto;
+    min-height: 0;
+  }
 }
+
+/* ===============================
+   LARGE DESKTOP (>= 1280px)
+   =============================== */
 
 @media (min-width: 1280px) {
   .grid-productos {
