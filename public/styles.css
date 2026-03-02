@@ -517,7 +517,7 @@ footer {
    =============================== */
 
 /* ===============================
-   MOBILE REAL (hasta 767px)
+   MOBILE (hasta 767px)
    =============================== */
 
 @media (max-width: 767px) {
@@ -531,7 +531,10 @@ footer {
     line-height: 1.4;
   }
 
-  /* GRID PRODUCTOS */
+  /* ===============================
+     GRID PRODUCTOS
+     =============================== */
+
   .grid-productos {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -555,7 +558,6 @@ footer {
     margin: 12px 0;
   }
 
-  /* BOTONES TOUCH FRIENDLY */
   .btn-primary,
   .btn-secondary {
     width: 100%;
@@ -564,52 +566,95 @@ footer {
     border-radius: 10px;
   }
 
-  /* DRAWER FULLSCREEN */
+  /* ===============================
+     DRAWER CORREGIDO
+     =============================== */
+
   .cartDrawer {
     width: 100%;
-    height: 100vh;
+    height: 100dvh; /* mejor que 100vh en mobile moderno */
     max-width: 100%;
     border-radius: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* Header limpio y alineado */
+  .cartDrawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #2a2a33;
+  }
+
+  .cartDrawer-header h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+
+  /* BOTÓN X BIEN DISEÑADO */
+  #btnCloseCart {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #c2a34a;
+    color: #c2a34a;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  #btnCloseCart:active {
+    transform: scale(0.95);
+  }
+
+  /* ===============================
+     CONTENIDO CARRITO
+     =============================== */
+
   .carrito-wrapper {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    height: 100%;
+    padding: 16px;
   }
 
   .cart-items-scroll {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 12px;
+    padding-bottom: 16px;
   }
 
   .carrito-sidebar {
     border-top: 1px solid #2a2a33;
-    padding-top: 14px;
-    margin-top: 14px;
+    padding-top: 16px;
+    margin-top: 16px;
   }
 
-  /* ITEM CARRITO MÁS CLARO */
   .item-carrito {
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding-bottom: 12px;
+    gap: 12px;
+    padding-bottom: 16px;
     border-bottom: 1px solid #2a2a33;
   }
 
   .item-carrito__acciones {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
   }
 
   .item-carrito__acciones button {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
   }
 
-  /* CHECKOUT INPUTS */
+  /* Inputs más cómodos */
   input,
   select,
   textarea {
@@ -617,12 +662,10 @@ footer {
     padding: 12px;
   }
 
-  /* SWIPER MÁS COMPACTO */
   .swiper-slide {
     font-size: 15px;
     padding: 8px 0;
   }
-
 }
 
 /* ===============================
@@ -630,7 +673,7 @@ footer {
    =============================== */
 
 @media (min-width: 768px) {
-   
+
   .grid-productos {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -656,7 +699,7 @@ footer {
     overflow-y: auto;
     min-height: 0;
   }
-   
+
   .carrito-sidebar {
     flex: 0 0 42%;
     overflow-y: auto;
