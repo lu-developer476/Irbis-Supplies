@@ -268,7 +268,13 @@ function explainNoFirebase() {
 import { addDoc, collection } from "firebase/firestore";
 
 export async function createOrder(orderData: any) {
-  if (!app) throw new Error("Firebase no inicializado");
+  const cfg = getConfig();
+  if (!cfg) throw new Error("Firebase no configurado");
+
+  // Inicializar si no está inicializado
+  if (!app) {
+    app = initializeApp(cfg);
+  }
 
   const db = getFirestore(app);
   const auth = getAuth(app);
