@@ -1,118 +1,205 @@
-# 🐺 Irbis-Supplies
+# 🐺 IRBIS SUPPLIES — E-commerce técnico evolutivo
 
-Proyecto e-commerce estático desarrollado originalmente en **JavaScript Vanilla** como parte del curso de JavaScript en Coderhouse.  
+E-commerce estático de alto nivel desarrollado originalmente en **JavaScript Vanilla** y posteriormente evolucionado con un enfoque profesional orientado a escalabilidad, tipado fuerte y arquitectura modular moderna.
 
-Posteriormente evolucionado con **TypeScript**, **CoffeeScript** y un sistema de build moderno para mejorar robustez, escalabilidad y calidad del código, manteniendo la esencia original del proyecto.
+Proyecto construido bajo una premisa clara:
+
+> Mejorar sin destruir lo anterior. Evolucionar sin depender de frameworks pesados.
 
 ---
 
-## ✅ Mejoras de realismo (Feb 2026)
+# 🧭 Visión del proyecto
 
-### Carrito como desplegable (panel derecho)
-- El botón **🛒** abre un **drawer** fijo a la derecha.
-- La lista de ítems del carrito tiene **scroll interno** para no romper el layout.
+Irbis-Supplies no es solo un carrito funcional.
 
-### Imagen del producto dentro del carrito
-- Cada ítem del carrito ahora muestra su **imagen**.
+Es una demostración práctica de:
 
-### Pop-up de incentivo + cupón
-- Al agregar el **primer** producto al carrito, aparece un pop-up invitando a registrarte.
-- Cupón: **IRBIS15** (15% OFF).
+- Refactorización progresiva
+- Migración incremental hacia tipado fuerte
+- Arquitectura modular sin frameworks SPA
+- Integración de autenticación real
+- Optimización UX enfocada en conversión
 
-### Iniciar sesión / Registrarse (cuentas reales con email)
-Se integró **Firebase Authentication (Email/Password)**.
+---
+
+# 🏗 Arquitectura técnica
+
+El proyecto fue evolucionado en capas, respetando la base original.
+
+### 🔹 Fase 1 — JavaScript vanilla
+- DOM manipulation manual
+- Eventos personalizados
+- Persistencia con Web Storage
+- Renderizado dinámico de productos
+
+### 🔹 Fase 2 — Modularización
+- Separación por responsabilidades
+- Helpers desacoplados
+- Mejor organización de estados
+
+### 🔹 Fase 3 — TypeScript
+- Tipado fuerte
+- Interfaces para productos y carrito
+- Mayor seguridad en build
+- Escalabilidad futura asegurada
+
+### 🔹 Fase 4 — CoffeeScript
+- Helpers UI declarativos
+- Simplificación de lógica repetitiva
+- Código más expresivo en interacciones
+
+### 🔹 Fase 5 — Build moderno
+- Bundler ligero (esbuild)
+- Minificación automática
+- Pipeline optimizado para producción
+
+---
+
+# 🛒 Funcionalidades implementadas
+
+## Carrito Drawer (UX Moderna)
+- Panel lateral fijo a la derecha
+- Scroll interno independiente
+- Persistencia automática con LocalStorage
+- Imagen visible en cada ítem agregado
+
+## Sistema de incentivo
+- Pop-up automático al agregar el primer producto
+- Cupón promocional: `IRBIS15`
+- 15% OFF aplicado dinámicamente
+
+## Autenticación real
+Integración con **Firebase Authentication (Email/Password)**
 
 Incluye:
-- Alta de cuenta con contraseña (validación mínima + confirmación).
-- Envío de **email de verificación** al correo declarado.
-- Inicio / cierre de sesión.
 
-> Si Firebase no está configurado, la UI se muestra igual pero informa qué falta.
+- Registro con validación mínima
+- Confirmación de contraseña
+- Envío de email de verificación
+- Inicio y cierre de sesión
+- Manejo de estados autenticado / no autenticado
 
-### Accesorios opcionales (upsell) antes del checkout
-Antes de pagar, aparece un modal opcional para sumar accesorios **no regulados** (ej.: kit de limpieza, guantes, gafas, etc.).
+> Si Firebase no está configurado, la UI informa la ausencia sin romper la app.
 
----
+## Upsell Inteligente
+Antes del checkout:
 
-## 🔐 Configurar Firebase (Auth real)
-
-1. Creá un proyecto en Firebase.
-2. Activá **Authentication → Sign-in method → Email/Password**.
-3. Editá `public/firebase-config.js` y reemplazá `REEMPLAZAR` por tu config.
-
-> La config cliente de Firebase no es un secreto. No pegues claves privadas.
-
-## 🚀 Tecnologías Utilizadas
-
-- **JavaScript (Vanilla)** – Base original del proyecto
-- **TypeScript** – Tipado fuerte y modularización
-- **CoffeeScript** – Helpers y lógica UI declarativa
-- **SweetAlert2 (Dark Theme)** – Interacciones y modales
-- **esbuild** – Bundler ligero y rápido
-- **Netlify** – Deploy y serverless functions
+- Modal opcional de accesorios no regulados
+- Suma dinámica al total
+- Mejora de ticket promedio simulada
 
 ---
 
-## 🧠 Evolución Técnica
+# 🔐 Configuración de Firebase
 
-El proyecto comenzó como una aplicación estática en JavaScript.  
+1. Crear proyecto en Firebase
+2. Activar:
+   Authentication → Sign-in Method → Email/Password
+3. Editar:
 
-En su versión actual:
-
-- Se preserva el código original en `src/legacy/`
-- Se incorporan módulos tipados en `src/ts/`
-- Se agregan helpers en CoffeeScript en `src/coffee/`
-- Se implementa un pipeline de build moderno
-- Se optimiza la estructura para escalabilidad futura
-
-Esta evolución demuestra progresión técnica sin migrar a frameworks como React o Next.js.
-
----
-
-## 📁 Estructura del Proyecto
-
-```bash
-.
-├── src/
-│   ├── legacy/        # Código JavaScript original
-│   ├── ts/            # Módulos tipados
-│   └── coffee/        # Helpers UI
-├── dist/              # Build de producción
-├── netlify/
-│   └── functions/     # Serverless functions
-├── package.json
-├── tsconfig.json
-├── netlify.toml
-└── vite.config.ts
+```
+public/firebase-config.js
 ```
 
-## ⚙️ Instalación y Desarrollo
+Reemplazar valores `REEMPLAZAR` por tu configuración.
 
-```bash
+⚠ La configuración cliente no es secreta.
+Nunca subir claves privadas.
+
+---
+
+# 🧠 Persistencia y estado
+
+- Carrito guardado en LocalStorage
+- Recuperación automática en reload
+- Limpieza automática al finalizar compra
+- Validación de stock simulada
+
+---
+
+# 📦 Estructura del proyecto
+
+```
+.
+├── src/
+│   ├── legacy/          # Código JS original (base histórica)
+│   ├── ts/              # Módulos tipados y lógica fuerte
+│   ├── coffee/          # Helpers UI declarativos
+│   └── styles/          # Estilos modulares
+├── public/
+│   └── firebase-config.js
+├── dist/                # Build optimizado producción
+├── netlify/
+│   └── functions/       # Serverless
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── netlify.toml
+```
+
+---
+
+# 🚀 Stack tecnológico
+
+- JavaScript (Vanilla)
+- TypeScript
+- CoffeeScript
+- SweetAlert2 (Dark Theme)
+- esbuild
+- Netlify (Deploy + Serverless Functions)
+- Firebase Authentication
+
+---
+
+# ⚙ Instalación
+
+```
 npm install
 npm run dev
 npm run build
+```
 
-🌐 Deploy
+---
 
-El proyecto está configurado para Netlify:
+# 🌐 Deploy
 
-Build Command: npm run build
+Configurado para Netlify.
 
-Publish Directory: dist
+- Build Command: `npm run build`
+- Publish Directory: `dist`
+- Archivo `netlify.toml` incluido
 
-Archivo netlify.toml incluido.
+---
 
-📌 Objetivo del Proyecto
+# 📈 Decisiones arquitectónicas clave
 
-Demostrar:
+✔ No migrar a React/Next.js  
+✔ Evolución progresiva sin reescritura total  
+✔ Mantener compatibilidad con código legacy  
+✔ Modularización por responsabilidad  
+✔ Preparación para futura API backend  
 
-- Dominio de JavaScript puro
+---
 
-- Incorporación progresiva de TypeScript
+# 🎯 Objetivo profesional
 
-- Capacidad de refactorización y mejora arquitectónica
+Este proyecto demuestra:
 
-- Implementación de pipeline moderno sin frameworks pesados
+- Dominio profundo de JavaScript puro
+- Capacidad de refactorización sin romper producción
+- Migración progresiva hacia tipado fuerte
+- Arquitectura limpia sin depender de frameworks
+- Pensamiento orientado a escalabilidad
 
-- Preparación para escalabilidad futura
+---
+
+# 🔮 Roadmap Futuro
+
+- Integración con API real de productos
+- Backend con Node.js + Express
+- Sistema real de pagos (Stripe / MercadoPago)
+- Panel administrativo
+- Autenticación JWT server-side
+- Testing automatizado
+
+---
