@@ -33,8 +33,8 @@ export default async function handler(req, res) {
       port: 465,
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     });
 
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       .join("");
 
     const mailOptions = {
-      from: `"Irbis Supplies" <${process.env.EMAIL_USER}>`,
+      from: `"Irbis Supplies" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: `Factura ${orderId} - Irbis Supplies`,
       text: `
