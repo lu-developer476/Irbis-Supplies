@@ -340,6 +340,19 @@ function calcularResumen() {
   };
 }
 
+function traducirMetodoPago(valor) {
+  switch (valor) {
+    case "cash":
+      return "Efectivo";
+    case "card":
+      return "Tarjeta (crédito / débito)";
+    case "qr":
+      return "Código QR";
+    default:
+      return "No especificado";
+  }
+}
+
 function maskCard(num) {
   const clean = String(num || "").replace(/\s+/g, "");
   const last4 = clean.slice(-4);
@@ -817,8 +830,8 @@ function invoiceHTML(order) {
 
       <div class="box">
         <div class="boxTitle">Pago</div>
-        <div><strong>Método:</strong> ${order.payment.metodo}</div>
-        ${order.payment.metodo === "tarjeta"
+        <div><strong>Método:</strong> ${traducirMetodoPago(order.payment.metodo)}</div>
+        ${order.payment.metodo === "card"
           ? `<div><strong>Tarjeta:</strong> ${order.payment.cardMasked}</div>`
           : ""}
         <div><strong>Estado:</strong> Aprobado</div>
@@ -1119,7 +1132,7 @@ btnCheckout?.addEventListener("click", () => {
 
         Swal.fire({
           title: "Compra confirmada",
-          text: "La orden se registró en la base de datos.",
+          text: "La orden se registró con éxito, La factura se encuentra disponible.",
           icon: "success",
           background: "#1e1e1e",
           color: "#fff"
@@ -1134,7 +1147,7 @@ btnCheckout?.addEventListener("click", () => {
 
         Swal.fire({
           title: "Error",
-          text: "No se pudo registrar la orden en Firebase.",
+          text: "No se pudo registrar la orden de compra. Intentalo más tarde.",
           icon: "error",
           background: "#1e1e1e",
           color: "#fff"
