@@ -1,6 +1,6 @@
 import { notifyProductAdded, notifyCartCleared, confirmCheckout } from "../coffee/alerts.coffee";
 import { storageGetJSON, storageSetJSON, storageGetNumber, storageSetNumber } from "../ts/storage";
-import { isUserLoggedIn, openRegisterModal } from "../ts/auth";
+import { isUserLoggedIn, openRegisterModal, createOrder } from "../ts/auth";
 
 const ORDER_COUNTER_KEY = "irbis_order_counter";
 
@@ -1035,13 +1035,15 @@ function abrirVentanaFactura(order) {
 // CHECKOUT (con orden + historial + factura)
 // ===============================
 btnCheckout?.addEventListener("click", () => {
-  if (!carrito.length) return alertaError("Agregá productos antes de finalizar la compra.");
+  if (!carrito.length) {
+    return alertaError("Agregá productos antes de finalizar la compra.");
+  }
+
   if (paymentSelect?.value === "qr" && !qrConfirmado) {
-  return alertaError("Confirmá el pago QR antes de continuar.");
-}
+    return alertaError("Confirmá el pago QR antes de continuar.");
+  }
 
-
-  const openCheckout = () => {
+  const mostrarFormularioCheckout = () => {
     const resumen = calcularResumen();
     const total = resumen.total;
 
@@ -1057,42 +1059,23 @@ btnCheckout?.addEventListener("click", () => {
       `,
       confirmButtonText: "Confirmar compra",
       showCancelButton: true,
-      cancelButtonText: "Cancelar",
       background: "#1e1e1e",
       color: "#fff",
-      focusConfirm: false,
       preConfirm: () => {
-        const nombre = document.getElementById("nombreCliente").value.trim();
-        const email = document.getElementById("emailCliente").value.trim();
-        const direccion = document.getElementById("direccionCliente").value.trim();
-        const tarjeta = document.getElementById("tarjetaCliente").value.trim();
-        const venc = document.getElementById("vencimientoCliente").value.trim();
-        const cvv = document.getElementById("cvvCliente").value.trim();
+        const nombre = (document.getElementById("nombreCliente") as HTMLInputElement).value.trim();
+        const email = (document.getElementById("emailCliente") as HTMLInputElement).value.trim();
+        const direccion = (document.getElementById("direccionCliente") as HTMLInputElement).value.trim();
+        const tarjeta = (document.getElementById("tarjetaCliente") as HTMLInputElement).value.trim();
+        const cvv = (document.getElementById("cvvCliente") as HTMLInputElement).value.trim();
 
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        const cardOk = tarjeta.replace(/\s+/g, "").length >= 12;
-        const cvvOk = /^\d{3,4}$/.test(cvv);
-
-        if (!nombre || !email || !direccion || !tarjeta || !venc || !cvv) {
+        if (!nombre || !email || !direccion || !tarjeta || !cvv) {
           Swal.showValidationMessage("Todos los campos son obligatorios.");
-          return;
-        }
-        if (!emailOk) {
-          Swal.showValidationMessage("Email inválido.");
-          return;
-        }
-        if (!cardOk) {
-          Swal.showValidationMessage("Tarjeta inválida.");
-          return;
-        }
-        if (!cvvOk) {
-          Swal.showValidationMessage("CVV inválido.");
           return;
         }
 
         return { nombre, email, direccion, tarjeta };
       }
-    }).then(result => {
+    }).then(async (result) => {
       if (!result.isConfirmed) return;
 
       const order = {
@@ -1113,82 +1096,93 @@ btnCheckout?.addEventListener("click", () => {
           color: p.color,
           imagen: p.imagen
         })),
-          total: total,
-          couponRate: descuentoCupon,
-          envio: resumen.envio,
-          payment: {
-            metodo: paymentSelect?.value || "tarjeta",
-            cardMasked: paymentSelect?.value === "tarjeta"
-              ? maskCard(result.value.tarjeta)
-              : "N/A"
-          },
-          ajustePago: ajustePago
-        };
+        total: total,
+        couponRate: descuentoCupon,
+        envio: resumen.envio,
+        payment: {
+          metodo: paymentSelect?.value || "tarjeta",
+          cardMasked: maskCard(result.value.tarjeta)
+        },
+        ajustePago: ajustePago
+      };
 
-      orders = [order, ...orders];
-      guardarOrders();
-      renderHistorial();
+      try {
+        await createOrder(order);
 
-      notificarNetlify(order);
-      abrirVentanaFactura(order);
+        // respaldo visual local
+        orders = [order, ...orders];
+        guardarOrders();
+        renderHistorial();
 
-      Swal.fire({
-        title: "Compra confirmada",
-        text: "Se generó tu comprobante de pago. Podés imprimirla y/o descargarla en PDF.",
-        icon: "success",
-        background: "#1e1e1e",
-        color: "#fff"
-      });
+        notificarNetlify(order);
+        abrirVentanaFactura(order);
 
-      carrito = [];
-      guardarCarrito();
-      renderCarrito();
+        Swal.fire({
+          title: "Compra confirmada",
+          text: "La orden se registró en la base de datos.",
+          icon: "success",
+          background: "#1e1e1e",
+          color: "#fff"
+        });
+
+        carrito = [];
+        guardarCarrito();
+        renderCarrito();
+
+      } catch (error) {
+        console.error("Error guardando orden:", error);
+
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo registrar la orden en Firebase.",
+          icon: "error",
+          background: "#1e1e1e",
+          color: "#fff"
+        });
+      }
     });
   };
 
+  // Paso previo: Add-ons
   const addonsHtml = ADDONS.map(a => `
-    <label style="display:flex; align-items:center; gap:10px; margin:10px 0; text-align:left;">
+    <label style="display:flex; gap:10px; margin:10px 0;">
       <input type="checkbox" class="addon-check" value="${a.id}">
-      <img src="${a.imagen}" alt="${a.nombre}" style="width:36px; height:36px; object-fit:contain; border:1px solid #333; background:#111;">
       <span>${a.nombre} — <strong>${currency(a.precio)}</strong></span>
     </label>
   `).join("");
 
   Swal.fire({
-    title: "¿Querés llevar éstos accesorios?",
-    html: `
-      <div style="max-height:320px; overflow:auto; padding-right:6px;">
-        ${addonsHtml}
-      </div>
-      <p style="font-size:0.9rem; opacity:0.75; text-align:left; margin:10px 0 0;">
-        Antes de avanzar, revisá tu carrito.
-      </p>
-    `,
+    title: "¿Querés agregar accesorios?",
+    html: `<div style="max-height:300px;overflow:auto;">${addonsHtml}</div>`,
     showCancelButton: true,
     confirmButtonText: "Continuar",
-    cancelButtonText: "Cancelar",
     background: "#1e1e1e",
     color: "#fff",
     preConfirm: () => {
-      const ids = Array.from(document.querySelectorAll(".addon-check:checked")).map((el) => Number(el.value));
-      return ids;
+      return Array.from(document.querySelectorAll(".addon-check:checked"))
+        .map((el: any) => Number(el.value));
     }
   }).then((r) => {
     if (!r.isConfirmed) return;
 
     const ids = r.value || [];
-    if (ids.length) {
-      ids.forEach((id) => {
-        const a = ADDONS.find(x => x.id === id);
-        if (!a) return;
-        const existe = carrito.find(p => p.id === a.id && p.color === "N/A");
-        if (existe) existe.cantidad++;
-        else carrito.push({ id: a.id, nombre: a.nombre, precio: a.precio, cantidad: 1, color: "N/A", imagen: a.imagen });
+
+    ids.forEach((id: number) => {
+      const a = ADDONS.find(x => x.id === id);
+      if (!a) return;
+      carrito.push({
+        id: a.id,
+        nombre: a.nombre,
+        precio: a.precio,
+        cantidad: 1,
+        color: "N/A",
+        imagen: a.imagen
       });
-      guardarCarrito();
-      renderCarrito();
-    }
-    openCheckout();
+    });
+
+    guardarCarrito();
+    renderCarrito();
+    mostrarFormularioCheckout();
   });
 });
 
