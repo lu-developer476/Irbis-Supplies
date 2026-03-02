@@ -264,3 +264,26 @@ function explainNoFirebase() {
     color: "#fff",
   });
 }
+
+import { addDoc, collection } from "firebase/firestore";
+
+export async function createOrder(orderData: any) {
+  if (!app) throw new Error("Firebase no inicializado");
+
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  if (!auth.currentUser) {
+    throw new Error("Usuario no autenticado");
+  }
+
+  const order = {
+    uid: auth.currentUser.uid,
+    email: auth.currentUser.email,
+    ...orderData,
+    status: "pending",
+    createdAt: serverTimestamp(),
+  };
+
+  return await addDoc(collection(db, "orders"), order);
+}
