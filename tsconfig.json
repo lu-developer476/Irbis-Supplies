@@ -5,9 +5,10 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "types": [],
-    "baseUrl": "."
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true
   },
   "include": ["src/**/*.ts", "src/types/**/*.d.ts"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["node_modules"]
 }
