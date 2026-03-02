@@ -1130,7 +1130,11 @@ btnCheckout?.addEventListener("click", () => {
             email: order.customer.email,
             name: order.customer.nombre,
             total: order.total,
-            items: order.items,
+            items: order.items.map(i => ({
+              name: i.nombre,
+              price: i.precio,
+              quantity: i.cantidad
+            })),
             orderId: order.orderId,
             date: order.date
           }),
