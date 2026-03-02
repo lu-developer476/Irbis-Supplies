@@ -10,6 +10,13 @@ import {
   type User,
 } from "firebase/auth";
 
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+
 declare global {
   interface Window {
     IRBIS_FIREBASE_CONFIG?: Record<string, string>;
@@ -30,7 +37,9 @@ export function initAuth() {
 
   app = initializeApp(cfg);
   const auth = getAuth(app);
-  return { enabled: true as const, auth };
+  const db = getFirestore(app);
+
+  return { enabled: true as const, auth, db };
 }
 
 export function wireAuthUI() {
@@ -42,7 +51,6 @@ export function wireAuthUI() {
   if (!loginBtn || !registerBtn || !badge) return;
 
   if (!init.enabled) {
-    // Degradación elegante: UI sigue, pero explica.
     loginBtn.addEventListener("click", () => explainNoFirebase());
     registerBtn.addEventListener("click", () => explainNoFirebase());
     badge.textContent = "";
@@ -59,13 +67,15 @@ export function wireAuthUI() {
       return;
     }
 
-    const label = u.displayName ? `${u.displayName} · ${u.email}` : (u.email || "Sesión iniciada");
+    const label = u.displayName
+      ? `${u.displayName} · ${u.email}`
+      : (u.email || "Sesión iniciada");
+
     badge.textContent = label;
 
     loginBtn.style.display = "none";
     registerBtn.style.display = "none";
 
-    // Click en badge => menu rápido
     badge.style.cursor = "pointer";
     badge.title = "Click para cerrar sesión";
     badge.onclick = async () => {
@@ -150,8 +160,24 @@ export async function openRegisterModal(auth = getAuth(app!)) {
 
   try {
     const cred = await createUserWithEmailAndPassword(auth, res.value.email, res.value.pass);
-    if (res.value.name) await updateProfile(cred.user, { displayName: res.value.name });
+
+    if (res.value.name) {
+      await updateProfile(cred.user, { displayName: res.value.name });
+    }
+
     await sendEmailVerification(cred.user);
+
+    // 🔥 CREACIÓN DOCUMENTO FIRESTORE
+    const db = getFirestore(app!);
+
+    await setDoc(doc(db, "users", cred.user.uid), {
+      uid: cred.user.uid,
+      name: res.value.name,
+      email: res.value.email,
+      role: "official",
+      couponUsed: false,
+      createdAt: serverTimestamp(),
+    });
 
     await Swal.fire({
       title: "Cuenta creada",
@@ -160,6 +186,7 @@ export async function openRegisterModal(auth = getAuth(app!)) {
       background: "#1e1e1e",
       color: "#fff",
     });
+
   } catch (e: any) {
     await Swal.fire({
       title: "No se pudo crear",
