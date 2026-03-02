@@ -1,15 +1,21 @@
 import nodemailer from "nodemailer";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Método no permitido" });
+export async function handler(event) {
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ message: "Método no permitido" }),
+    };
   }
 
-  const { email, name, items } = req.body;
+  const { email, name, items } = JSON.parse(event.body);
 
   // Validaciones básicas
   if (!email || !name || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ message: "Datos incompletos o inválidos" });
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Datos incompletos o inválidos" }),
+    };
   }
 
   const orderId = `IRB-${Date.now()}`;
@@ -104,14 +110,20 @@ Irbis Supplies
 
     await transporter.sendMail(mailOptions);
 
-    return res.status(200).json({
-      message: "Factura enviada correctamente",
-      orderId,
-    });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "Factura enviada correctamente",
+        orderId,
+      }),
+    };
   } catch (error) {
     console.error("Error enviando factura:", error);
-    return res.status(500).json({
-      message: "Error interno al enviar la factura",
-    });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "Error interno al enviar la factura",
+      }),
+    };
   }
 }
