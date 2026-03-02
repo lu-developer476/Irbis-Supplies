@@ -9,7 +9,6 @@
  */
 
 window.IRBIS_FIREBASE_CONFIG = {
-const firebaseConfig = {
   apiKey: "AIzaSyCUPhvED65134MnJ2EYQyTEzfxSXueTpOM",
   authDomain: "irbis-supplies.firebaseapp.com",
   projectId: "irbis-supplies",
