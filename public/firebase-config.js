@@ -9,8 +9,9 @@
  */
 
 window.IRBIS_FIREBASE_CONFIG = {
-  apiKey: "REEMPLAZAR",
-  authDomain: "REEMPLAZAR",
-  projectId: "REEMPLAZAR",
-  appId: "REEMPLAZAR",
+const firebaseConfig = {
+  apiKey: "AIzaSyCUPhvED65134MnJ2EYQyTEzfxSXueTpOM",
+  authDomain: "irbis-supplies.firebaseapp.com",
+  projectId: "irbis-supplies",
+  appId: "1:885163922238:web:f04fa437d36fb69143526f",
 };
