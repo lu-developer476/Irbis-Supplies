@@ -1121,12 +1121,26 @@ btnCheckout?.addEventListener("click", () => {
 
       try {
         await createOrder(order);
-
+        
+        // 🔹 ENVÍO DE FACTURA POR EMAIL (Serverless)
+        await fetch("/api/sendInvoice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: order.customer.email,
+            name: order.customer.nombre,
+            total: order.total,
+            items: order.items,
+            orderId: order.orderId,
+            date: order.date
+          }),
+        });
+        
         // respaldo visual local
         orders = [order, ...orders];
         guardarOrders();
         renderHistorial();
-
+        
         notificarNetlify(order);
         abrirVentanaFactura(order);
 
