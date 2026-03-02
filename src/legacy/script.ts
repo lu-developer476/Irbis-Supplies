@@ -1158,8 +1158,11 @@ btnCheckout?.addEventListener("click", () => {
 
   // Paso previo: Add-ons
   const addonsHtml = ADDONS.map(a => `
-    <label style="display:flex; gap:10px; margin:10px 0;">
+    <label style="display:flex; align-items:center; gap:12px; margin:10px 0;">
       <input type="checkbox" class="addon-check" value="${a.id}">
+      <img src="${a.imagen}" 
+           alt="${a.nombre}" 
+           style="width:40px; height:40px; object-fit:contain;">
       <span>${a.nombre} — <strong>${currency(a.precio)}</strong></span>
     </label>
   `).join("");
