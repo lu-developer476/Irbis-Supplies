@@ -1,4 +1,4 @@
-# IRBIS SUPPLIES — E-commerce técnico evolutivo
+# IRBIS SUPPLIES
 
 E-commerce estático de alto nivel desarrollado originalmente en **JavaScript Vanilla** y posteriormente evolucionado con un enfoque profesional orientado a escalabilidad, tipado fuerte y arquitectura modular moderna.
 
