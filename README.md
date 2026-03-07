@@ -1,5 +1,13 @@
 # IRBIS SUPPLIES
 
+![HTML5](https://img.shields.io/badge/html-5-orange)
+![CSS3](https://img.shields.io/badge/css-3-blue)
+![JavaScript](https://img.shields.io/badge/javascript-ES6-yellow)
+![Web Storage](https://img.shields.io/badge/storage-localStorage-green)
+![UI](https://img.shields.io/badge/ui-cyberpunk-purple)
+![Deploy](https://img.shields.io/badge/deploy-render-black)
+![License](https://img.shields.io/badge/license-MIT-red)
+
 E-commerce estático de alto nivel desarrollado originalmente en **JavaScript Vanilla** y posteriormente evolucionado con un enfoque profesional orientado a escalabilidad, tipado fuerte y arquitectura modular moderna.
 
 Proyecto construido bajo una premisa clara:
