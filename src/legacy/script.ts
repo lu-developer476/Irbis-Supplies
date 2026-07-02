@@ -55,6 +55,20 @@ const historialContainer = document.getElementById('historialCompras');
 // ===============================
 const CART_KEY = "carrito";
 const ORDERS_KEY = "irbis_orders";
+const LANGUAGE_KEY = "irbis_language";
+
+const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
+  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo" },
+  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount" },
+};
+
+function currentLanguage(): "es" | "en" {
+  return localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "es";
+}
+
+function t(key: string): string {
+  return legacyTranslations[currentLanguage()][key] || legacyTranslations.es[key] || key;
+}
 
 // ===============================
 // ESTADO
@@ -377,7 +391,7 @@ function renderProductos() {
       <h3>${producto.nombre}</h3>
 
       <button class="btn-detalles" data-id="${producto.id}">
-        Detalles
+        ${t("details")}
       </button>
 
       <div class="detalles-container" id="detalles-${producto.id}" style="display:none;">
@@ -413,7 +427,7 @@ function renderProductos() {
       </p>
 
       <button class="btn-primary" data-id="${producto.id}">
-        Agregar al carrito
+        ${t("addToCart")}
       </button>
     `;
 
@@ -518,7 +532,7 @@ function renderCarrito() {
   carritoContainer.innerHTML = "";
 
   if (carrito.length === 0) {
-    carritoContainer.innerHTML = `<p>El carrito está vacío.</p>`;
+    carritoContainer.innerHTML = `<p>${t("emptyCart")}</p>`;
     totalCarritoDOM.innerText = currency(0);
 
     if (btnVaciarCarrito) {
@@ -567,8 +581,8 @@ function renderCarrito() {
   } else if (resumen.ajusteMonto !== 0) {
     console.log(
       resumen.ajusteMonto > 0
-        ? `Recargo tarjeta: + ${currency(resumen.ajusteMonto)}`
-        : `Descuento efectivo: - ${currency(Math.abs(resumen.ajusteMonto))}`
+        ? `${t("cardSurcharge")}: + ${currency(resumen.ajusteMonto)}`
+        : `${t("cashDiscount")}: - ${currency(Math.abs(resumen.ajusteMonto))}`
     );
   }
 }
@@ -578,7 +592,7 @@ function renderCarrito() {
     let texto = `- ${currency(resumen.descuentoBase)}`;
   
     if (resumen.descuentoExtra > 0) {
-      texto += `  |  Cupón: - ${currency(resumen.descuentoExtra)}`;
+      texto += `  |  ${t("coupon")}: - ${currency(resumen.descuentoExtra)}`;
     }
   
     discountDOM.innerText = texto;
@@ -1280,6 +1294,11 @@ shippingSelect?.addEventListener("change", () => {
   renderCarrito();
 });
 
+window.addEventListener("irbis:languagechange", () => {
+  renderProductos();
+  renderCarrito();
+});
+
 // ===============================
 // EVENTO MÉTODO DE PAGO
 // ===============================
@@ -1294,12 +1313,12 @@ paymentSelect?.addEventListener("change", () => {
   cardFields?.classList.add("hidden");
   qrSection?.classList.add("hidden");
 
-  if (metodo === "tarjeta") {
+  if (metodo === "card") {
     ajustePago = 0.10;
     cardFields?.classList.remove("hidden");
   }
 
-  if (metodo === "efectivo") {
+  if (metodo === "cash") {
     ajustePago = -0.05;
   }
 
