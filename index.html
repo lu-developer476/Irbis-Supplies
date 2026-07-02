@@ -37,8 +37,8 @@
         </div>
 
         <div class="auth-actions">
-          <button id="btnLogin" class="btn-secondary">Ingresar</button>
-          <button id="btnRegister" class="btn-primary">Registrarse</button>
+          <button id="btnLogin" class="btn-secondary" data-i18n="login">Ingresar</button>
+          <button id="btnRegister" class="btn-primary" data-i18n="register">Registrarse</button>
           <span id="authBadge" class="auth-badge" aria-live="polite"></span>
         </div>
       </div>
@@ -46,8 +46,12 @@
       <nav class="navbar-actions" aria-label="Acciones principales">
         <div class="preference-controls" aria-label="Preferencias de interfaz">
           <div class="segmented-control" role="group" aria-label="Idioma">
-            <button id="btnLangEs" class="btn-secondary preference-button is-active" type="button" aria-label="Español" aria-pressed="true">🇪🇸</button>
-            <button id="btnLangEn" class="btn-secondary preference-button" type="button" aria-label="English" aria-pressed="false">🇺🇸</button>
+            <button id="btnLangEs" class="btn-secondary preference-button flag-button is-active" type="button" aria-label="Español" aria-pressed="true">
+              <img src="./images/flags/spain.svg" alt="Bandera de España" />
+            </button>
+            <button id="btnLangEn" class="btn-secondary preference-button flag-button" type="button" aria-label="English" aria-pressed="false">
+              <img src="./images/flags/united-states.svg" alt="Bandera de Estados Unidos" />
+            </button>
           </div>
           <div class="segmented-control" role="group" aria-label="Tema">
             <button id="btnThemeDark" class="btn-secondary preference-button is-active" type="button" aria-label="Tema oscuro" aria-pressed="true">🌙</button>
@@ -58,7 +62,7 @@
           <li><a href="#productos" class="btn-secondary">📦</a></li>
           <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer">🛒</button></li>
           <li>
-            <button id="btnHistorial" class="btn-secondary">📄Historial</button>
+            <button id="btnHistorial" class="btn-secondary" data-i18n="history">📄Historial</button>
           </li>
         </ul>
       </nav>
@@ -68,11 +72,11 @@
     <div class="hero-content">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">Antes que llegue el final...</div>
-          <div class="swiper-slide">asegurate de contar con lo necesario para sobrevivir.</div>
-          <div class="swiper-slide">El momento de prepararse no es cuando ya empezó...</div>
-          <div class="swiper-slide">Prevenir siempre costará menos que improvisar.</div>
-          <div class="swiper-slide">Mantente listo para lo que suceda después.</div>
+          <div class="swiper-slide" data-i18n="hero1">Antes que llegue el final...</div>
+          <div class="swiper-slide" data-i18n="hero2">asegurate de contar con lo necesario para sobrevivir.</div>
+          <div class="swiper-slide" data-i18n="hero3">El momento de prepararse no es cuando ya empezó...</div>
+          <div class="swiper-slide" data-i18n="hero4">Prevenir siempre costará menos que improvisar.</div>
+          <div class="swiper-slide" data-i18n="hero5">Mantente listo para lo que suceda después.</div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -86,7 +90,7 @@
   <main>
 
     <section id="productos" class="productos">
-      <h2>Catálogo</h2>
+      <h2 data-i18n="products">Catálogo</h2>
       <div id="productosContainer" class="grid-productos"></div>
     </section>
 
@@ -98,8 +102,8 @@
   <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
   <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito">
     <div class="cart-drawer__header">
-      <h3>Carrito</h3>
-      <button id="btnCloseCart" class="" type="button" aria-label="Cerrar carrito">❌</button>
+      <h3 data-i18n="cart">Carrito</h3>
+      <button id="btnCloseCart" class="" type="button" aria-label="Cerrar carrito" data-i18n-aria-label="closeCart">❌</button>
     </div>
 
     <div class="cart-drawer__body">
@@ -112,65 +116,65 @@
           <div class="invoice-box">
 
             <div class="invoice-info">
-              <p><strong>Datos fiscales</strong></p>
+              <p><strong data-i18n="fiscal">Datos fiscales</strong></p>
               <p>CUIT: <span id="cuit">30-12345678-9</span></p>
-              <p>IVA: Responsable Inscripto</p>
+              <p data-i18n="ivaStatus">IVA: Responsable Inscripto</p>
             </div>
 
             <div class="shipping-method">
-              <label for="shippingMethod">Forma de envío:</label>
+              <label for="shippingMethod" data-i18n="shippingLabel">Forma de envío:</label>
               <select id="shippingMethod">
-                <option value="0">Retiro sin cargo</option>
-                <option value="25000">Courier - $25.000</option>
-                <option value="-1">Envío express – A coordinar</option>
+                <option value="0" data-i18n="pickup">Retiro sin cargo</option>
+                <option value="25000" data-i18n="courier">Courier - $25.000</option>
+                <option value="-1" data-i18n="express">Envío express – A coordinar</option>
               </select>
             </div>
 
             <div class="payment-method">
-              <label for="paymentMethod">Medio de pago:</label>
+              <label for="paymentMethod" data-i18n="paymentLabel">Medio de pago:</label>
               <select id="paymentMethod">
-                <option value="">Seleccionar</option>
-                <option value="cash">Efectivo</option>
-                <option value="card">Tarjeta (crédito / débito)</option>
-                <option value="qr">QR</option>
+                <option value="" data-i18n="select">Seleccionar</option>
+                <option value="cash" data-i18n="cash">Efectivo</option>
+                <option value="card" data-i18n="card">Tarjeta (crédito / débito)</option>
+                <option value="qr" data-i18n="qr">QR</option>
               </select>
             </div>
             
             <div id="cardFields" class="card-fields hidden">
-              <input type="text" placeholder="Número de tarjeta" maxlength="19" />
-              <input type="text" placeholder="Nombre en la tarjeta" />
-              <input type="text" placeholder="MM/AA" maxlength="5" />
-              <input type="text" placeholder="CVV" maxlength="4" />
+              <input type="text" placeholder="Número de tarjeta" maxlength="19" data-i18n-placeholder="cardNumber" />
+              <input type="text" placeholder="Nombre en la tarjeta" data-i18n-placeholder="cardName" />
+              <input type="text" placeholder="MM/AA" maxlength="5" data-i18n-placeholder="cardExpiry" />
+              <input type="text" placeholder="CVV" maxlength="4" data-i18n-placeholder="cardCvv" />
             </div>
             
             <div id="qrSection" class="qr-section hidden">
-              <p>Escaneá para completar el pago.</p>
+              <p data-i18n="qrHelp">Escaneá para completar el pago.</p>
               <div id="qrContainer"></div>
             </div>
 
             <div class="coupon-box">
-              <input type="text" id="couponInput" placeholder="Código de cupón" />
-              <button id="applyCoupon" class="btn-secondary">Aplicar</button>
+              <input type="text" id="couponInput" placeholder="Código de cupón" data-i18n-placeholder="couponPlaceholder" />
+              <button id="applyCoupon" class="btn-secondary" data-i18n="applyCoupon">Aplicar</button>
             </div>
 
             <p style="font-size: 0.9rem; opacity: 0.7; margin-top:10px;">
-              *Todos los precios incluyen un 30% de descuento permanente.
+              <span data-i18n="discountNote">*Todos los precios incluyen un 30% de descuento permanente.</span>
             </p>
 
             <div class="summary-breakdown">
-              <p>Subtotal: <span id="subtotal">$0</span></p>
-              <p>Descuento: <span id="discount">$0</span></p>
-              <p>IVA (21%): <span id="iva">$0</span></p>
-              <p>Envío: <span id="shippingCost">$0</span></p>
+              <p><span data-i18n="subtotal">Subtotal:</span> <span id="subtotal">$0</span></p>
+              <p><span data-i18n="discount">Descuento:</span> <span id="discount">$0</span></p>
+              <p><span data-i18n="vat">IVA (21%):</span> <span id="iva">$0</span></p>
+              <p><span data-i18n="shipping">Envío:</span> <span id="shippingCost">$0</span></p>
               <hr>
             </div>
 
             <div class="carrito-footer">
-              <p>Total: <span id="totalCarrito">$0</span></p>
+              <p><span data-i18n="total">Total:</span> <span id="totalCarrito">$0</span></p>
 
               <div class="carrito-actions">
-                <button id="vaciarCarrito" class="btn-secondary">Limpiar Carrito</button>
-                <button id="btnCheckout" class="btn-primary">Finalizar Compra</button>
+                <button id="vaciarCarrito" class="btn-secondary" data-i18n="clearCart">Limpiar Carrito</button>
+                <button id="btnCheckout" class="btn-primary" data-i18n="checkout">Finalizar Compra</button>
               </div>
             </div>
 
@@ -185,7 +189,7 @@
   =============================== -->
 <footer>
 <h6>
-  <span>©</span> <span id="year"></span> Todos los derechos reservados • Built with HTML5, CSS3, JavaScript, TypeScript &  CoffeeScript • UX/UI Interface • Database powered by Firebase • Deployed on Netlify ®
+  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • <span data-i18n="footerBuilt">Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript</span> • <span data-i18n="footerUx">UX/UI Interface</span> • <span data-i18n="footerDb">Database powered by Firebase</span> • <span data-i18n="footerDeploy">Deployed on Netlify ®</span>
 </h6>
 </footer>
 
