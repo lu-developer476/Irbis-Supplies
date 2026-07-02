@@ -729,3 +729,237 @@ footer {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* ===============================
+   PREFERENCIAS DE INTERFAZ
+   =============================== */
+
+:root {
+  --irbis-bg: #000;
+  --irbis-bg-soft: #0d0d0d;
+  --irbis-bg-card: #111;
+  --irbis-bg-elevated: #1a1a1a;
+  --irbis-btn-bg: #1e1e1e;
+  --irbis-text: #d6c6a5;
+  --irbis-text-strong: #fff;
+  --irbis-text-muted: #cfcfcf;
+  --irbis-accent: #c2a34a;
+  --irbis-accent-strong: #d4af37;
+  --irbis-border: #2a2a2a;
+  --irbis-border-strong: #333;
+  --irbis-overlay: rgba(0, 0, 0, 0.55);
+  --irbis-shadow: rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="light"] {
+  --irbis-bg: #f4efe4;
+  --irbis-bg-soft: #fff8ea;
+  --irbis-bg-card: #fffaf0;
+  --irbis-bg-elevated: #f7eddb;
+  --irbis-btn-bg: #fff8ea;
+  --irbis-text: #2b2418;
+  --irbis-text-strong: #111;
+  --irbis-text-muted: #403725;
+  --irbis-accent: #9a7827;
+  --irbis-accent-strong: #b78f31;
+  --irbis-border: #d8c69b;
+  --irbis-border-strong: #c8af75;
+  --irbis-overlay: rgba(27, 22, 12, 0.45);
+  --irbis-shadow: rgba(70, 51, 20, 0.18);
+}
+
+body {
+  color: var(--irbis-text);
+  background-color: var(--irbis-bg);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.preference-controls,
+.segmented-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.segmented-control {
+  padding: 4px;
+  border: 1px solid color-mix(in srgb, var(--irbis-accent) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--irbis-bg) 72%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 22px var(--irbis-shadow);
+}
+
+.preference-button.btn-secondary {
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.preference-button.is-active {
+  background: var(--irbis-accent);
+  color: #000;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--irbis-accent) 28%, transparent);
+}
+
+.btn-primary {
+  background: var(--irbis-accent);
+}
+
+.btn-primary:hover {
+  background: var(--irbis-accent-strong);
+}
+
+.btn-secondary {
+  background: var(--irbis-btn-bg);
+  color: var(--irbis-text-strong);
+  border-color: var(--irbis-accent);
+}
+
+.btn-secondary:hover,
+.btn-detalles:hover {
+  background: var(--irbis-accent);
+  color: #000;
+}
+
+.btn-detalles {
+  color: var(--irbis-accent);
+  border-color: var(--irbis-accent);
+}
+
+.productos,
+.carrito {
+  background: var(--irbis-bg);
+}
+
+.carrito,
+.cart-drawer__header,
+.carrito-footer {
+  border-color: var(--irbis-border);
+}
+
+.productos h2,
+.carrito h2,
+.contenedorDeCard h3,
+.item-carrito__info h4,
+.cart-drawer__header h3,
+#totalCarrito {
+  color: var(--irbis-accent);
+}
+
+.contenedorDeCard,
+.carrito-sidebar,
+.item-carrito__thumb {
+  background: var(--irbis-bg-card);
+  border-color: var(--irbis-border);
+}
+
+.contenedorDeCard:hover,
+.color-activo {
+  border-color: var(--irbis-accent);
+  outline-color: var(--irbis-accent);
+}
+
+.detalles-container {
+  border-color: var(--irbis-border);
+}
+
+.descripcion-producto {
+  color: var(--irbis-text-muted);
+}
+
+.cart-overlay {
+  background: var(--irbis-overlay);
+}
+
+.cart-drawer,
+.carrito {
+  background: var(--irbis-bg-soft);
+}
+
+.carrito-sidebar,
+.item-carrito {
+  border-color: var(--irbis-border-strong);
+}
+
+.item-carrito {
+  background: var(--irbis-bg-elevated);
+}
+
+.item-carrito:hover {
+  box-shadow: 0 6px 12px var(--irbis-shadow);
+}
+
+footer {
+  background: var(--irbis-bg);
+  color: color-mix(in srgb, var(--irbis-text) 70%, transparent);
+}
+
+html[data-theme="light"] .hero::before {
+  background: rgba(255, 248, 234, 0.18);
+}
+
+html[data-theme="light"] .swiper-slide {
+  color: #fff8ea;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .navbar-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .preference-controls {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    position: relative;
+    background: color-mix(in srgb, var(--irbis-bg) 84%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .navbar-left,
+  .navbar-actions,
+  .navbar ul,
+  .preference-controls {
+    width: 100%;
+  }
+
+  .navbar-left,
+  .navbar-actions {
+    align-items: stretch;
+  }
+
+  .navbar ul,
+  .preference-controls {
+    justify-content: center;
+  }
+
+  .preference-button.btn-secondary {
+    width: 44px;
+    min-width: 44px;
+  }
+}

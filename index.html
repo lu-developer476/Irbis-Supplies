@@ -43,7 +43,17 @@
         </div>
       </div>
 
-      <nav>
+      <nav class="navbar-actions" aria-label="Acciones principales">
+        <div class="preference-controls" aria-label="Preferencias de interfaz">
+          <div class="segmented-control" role="group" aria-label="Idioma">
+            <button id="btnLangEs" class="btn-secondary preference-button is-active" type="button" aria-label="Español" aria-pressed="true">🇪🇸</button>
+            <button id="btnLangEn" class="btn-secondary preference-button" type="button" aria-label="English" aria-pressed="false">🇺🇸</button>
+          </div>
+          <div class="segmented-control" role="group" aria-label="Tema">
+            <button id="btnThemeDark" class="btn-secondary preference-button is-active" type="button" aria-label="Tema oscuro" aria-pressed="true">🌙</button>
+            <button id="btnThemeLight" class="btn-secondary preference-button" type="button" aria-label="Tema claro" aria-pressed="false">☀️</button>
+          </div>
+        </div>
         <ul>
           <li><a href="#productos" class="btn-secondary">📦</a></li>
           <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer">🛒</button></li>
