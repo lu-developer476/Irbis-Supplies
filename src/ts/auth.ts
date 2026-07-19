@@ -43,17 +43,18 @@ export function initAuth() {
 }
 
 export function wireAuthUI() {
-  const loginBtn = document.getElementById("btnLogin") as HTMLButtonElement | null;
-  const registerBtn = document.getElementById("btnRegister") as HTMLButtonElement | null;
+  const authMenuBtn = document.getElementById("btnAuthMenu") as HTMLButtonElement | null;
   const badge = document.getElementById("authBadge") as HTMLSpanElement | null;
 
   const init = initAuth();
-  if (!loginBtn || !registerBtn || !badge) return;
+  if (!authMenuBtn || !badge) return;
+
+  const authButton = authMenuBtn;
+  const authBadge = badge;
 
   if (!init.enabled) {
-    loginBtn.addEventListener("click", () => explainNoFirebase());
-    registerBtn.addEventListener("click", () => explainNoFirebase());
-    badge.textContent = "";
+    authButton.addEventListener("click", () => explainNoFirebase());
+    authBadge.textContent = "";
     return;
   }
 
@@ -61,9 +62,8 @@ export function wireAuthUI() {
 
   function renderUser(u: User | null) {
     if (!u) {
-      badge.textContent = "";
-      loginBtn.style.display = "inline-block";
-      registerBtn.style.display = "inline-block";
+      authBadge.textContent = "";
+      authButton.style.display = "inline-flex";
       return;
     }
 
@@ -71,14 +71,13 @@ export function wireAuthUI() {
       ? `${u.displayName} · ${u.email}`
       : (u.email || "Sesión iniciada");
 
-    badge.textContent = label;
+    authBadge.textContent = label;
 
-    loginBtn.style.display = "none";
-    registerBtn.style.display = "none";
+    authButton.style.display = "none";
 
-    badge.style.cursor = "pointer";
-    badge.title = "Click para cerrar sesión";
-    badge.onclick = async () => {
+    authBadge.style.cursor = "pointer";
+    authBadge.title = "Click para cerrar sesión";
+    authBadge.onclick = async () => {
       const ok = await (window as any).Swal?.fire?.({
         title: "Cerrar sesión",
         text: "¿Querés salir de tu cuenta?",
@@ -95,8 +94,28 @@ export function wireAuthUI() {
 
   onAuthStateChanged(auth, (u) => renderUser(u));
 
-  loginBtn.addEventListener("click", () => openLoginModal(auth));
-  registerBtn.addEventListener("click", () => openRegisterModal(auth));
+  authButton.addEventListener("click", () => openAuthMenu(auth));
+}
+
+async function openAuthMenu(auth = getAuth(app!)) {
+  const Swal = (window as any).Swal;
+  if (!Swal) return;
+
+  const res = await Swal.fire({
+    title: "Acceso",
+    text: "Elegí cómo querés continuar.",
+    icon: "question",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Ingresar",
+    denyButtonText: "Registrarse",
+    cancelButtonText: "Cancelar",
+    background: "#1e1e1e",
+    color: "#fff",
+  });
+
+  if (res.isConfirmed) await openLoginModal(auth);
+  if (res.isDenied) await openRegisterModal(auth);
 }
 
 export function isUserLoggedIn(): boolean {
