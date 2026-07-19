@@ -32,38 +32,51 @@
     <!-- NAVBAR -->
     <header class="navbar">
       <div class="navbar-left">
-        <div class="logo">
+        <a class="logo" href="#productos" aria-label="Irbis Supplies - catálogo">
           <img src="./images/logo.png" alt="Irbis Supplies Logo" />
-        </div>
-
-        <div class="auth-actions">
-          <button id="btnAuthMenu" class="btn-primary auth-menu-button" type="button" aria-haspopup="dialog" aria-label="Ingresar o registrarse" data-i18n-aria-label="authMenu">+</button>
-          <span id="authBadge" class="auth-badge" aria-live="polite"></span>
+        </a>
+        <div class="brand-copy" aria-hidden="true">
+          <span class="brand-kicker">Tienda oficial</span>
+          <strong>Irbis Supplies</strong>
         </div>
       </div>
 
       <nav class="navbar-actions" aria-label="Acciones principales">
-        <div class="preference-controls" aria-label="Preferencias de interfaz">
-          <div class="segmented-control" role="group" aria-label="Idioma">
-            <button id="btnLangEs" class="btn-secondary preference-button flag-button is-active" type="button" aria-label="Español" aria-pressed="true">
-              <img src="./images/flags/spain.svg" alt="Bandera de España" />
-            </button>
-            <button id="btnLangEn" class="btn-secondary preference-button flag-button" type="button" aria-label="English" aria-pressed="false">
-              <img src="./images/flags/united-states.svg" alt="Bandera de Estados Unidos" />
-            </button>
+        <button id="btnNavMenu" class="btn-secondary nav-menu-toggle" type="button" aria-expanded="false" aria-controls="navDropdown">
+          <span class="nav-menu-toggle__icon" aria-hidden="true">☰</span>
+          <span data-i18n="menu">Menú</span>
+        </button>
+
+        <div id="navDropdown" class="nav-dropdown" aria-label="Menú de tienda">
+          <div class="auth-actions nav-dropdown__section">
+            <button id="btnAuthMenu" class="btn-primary auth-menu-button" type="button" aria-haspopup="dialog" aria-label="Ingresar o registrarse" data-i18n-aria-label="authMenu">+</button>
+            <span id="authBadge" class="auth-badge" aria-live="polite"></span>
           </div>
-          <div class="segmented-control" role="group" aria-label="Tema">
-            <button id="btnThemeDark" class="btn-secondary preference-button is-active" type="button" aria-label="Tema oscuro" aria-pressed="true">🌑</button>
-            <button id="btnThemeLight" class="btn-secondary preference-button" type="button" aria-label="Tema claro" aria-pressed="false">☀️</button>
+
+          <div class="preference-controls nav-dropdown__section" aria-label="Preferencias de interfaz">
+            <span class="nav-dropdown__label" data-i18n="preferences">Preferencias</span>
+            <div class="segmented-control" role="group" aria-label="Idioma">
+              <button id="btnLangEs" class="btn-secondary preference-button flag-button is-active" type="button" aria-label="Español" aria-pressed="true">
+                <img src="./images/flags/spain.svg" alt="Bandera de España" />
+              </button>
+              <button id="btnLangEn" class="btn-secondary preference-button flag-button" type="button" aria-label="English" aria-pressed="false">
+                <img src="./images/flags/united-states.svg" alt="Bandera de Estados Unidos" />
+              </button>
+            </div>
+            <div class="segmented-control" role="group" aria-label="Tema">
+              <button id="btnThemeDark" class="btn-secondary preference-button is-active" type="button" aria-label="Tema oscuro" aria-pressed="true">🌑</button>
+              <button id="btnThemeLight" class="btn-secondary preference-button" type="button" aria-label="Tema claro" aria-pressed="false">☀️</button>
+            </div>
           </div>
+
+          <ul class="nav-dropdown__section nav-links">
+            <li><a href="#productos" class="btn-secondary" data-i18n="catalogLink">📦 Catálogo</a></li>
+            <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer" data-i18n="cartAction">🛒 Carrito</button></li>
+            <li>
+              <button id="btnHistorial" class="btn-secondary" data-i18n="history">📄 Historial</button>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li><a href="#productos" class="btn-secondary">📦</a></li>
-          <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer">🛒</button></li>
-          <li>
-            <button id="btnHistorial" class="btn-secondary" data-i18n="history">📄Historial</button>
-          </li>
-        </ul>
       </nav>
     </header>
 
