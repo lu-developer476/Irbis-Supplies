@@ -22,6 +22,12 @@ const carritoContainer = document.getElementById('carritoContainer');
 const totalCarritoDOM = document.getElementById('totalCarrito');
 const btnVaciarCarrito = document.getElementById('vaciarCarrito');
 const btnCheckout = document.getElementById('btnCheckout');
+const productSearch = document.getElementById('productSearch');
+const categoryFilter = document.getElementById('categoryFilter');
+const priceFilter = document.getElementById('priceFilter');
+const sortProducts = document.getElementById('sortProducts');
+const filterResults = document.getElementById('filterResults');
+const productFilters = document.getElementById('productFilters');
 
 // Drawer del carrito
 const btnCart = document.getElementById("btnCart");
@@ -58,8 +64,8 @@ const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
-  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo" },
-  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount" },
+  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
+  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
 };
 
 function currentLanguage(): "es" | "en" {
@@ -373,6 +379,47 @@ function maskCard(num) {
   return last4 ? `**** **** **** ${last4}` : "**** **** **** ****";
 }
 
+function obtenerCategoriaProducto(producto) {
+  const texto = `${producto.nombre} ${producto.descripcion}`.toLowerCase();
+
+  if (texto.includes("escopeta")) return "shotgun";
+  if (texto.includes("pistola") || texto.includes("revólver")) return "handgun";
+  if (texto.includes("subfusil")) return "smg";
+  if (texto.includes("rifle") || texto.includes("fusil") || texto.includes("carabina")) return "rifle";
+
+  return "accessory";
+}
+
+function obtenerProductosFiltrados() {
+  const busqueda = (productSearch?.value || "").trim().toLowerCase();
+  const categoria = categoryFilter?.value || "all";
+  const rangoPrecio = priceFilter?.value || "all";
+  const orden = sortProducts?.value || "name-asc";
+
+  let visibles = productos.filter(producto => {
+    const coincideBusqueda = !busqueda ||
+      producto.nombre.toLowerCase().includes(busqueda) ||
+      producto.descripcion.toLowerCase().includes(busqueda);
+    const coincideCategoria = categoria === "all" || obtenerCategoriaProducto(producto) === categoria;
+    let coincidePrecio = true;
+
+    if (rangoPrecio !== "all") {
+      const [min, max] = rangoPrecio.split("-").map(Number);
+      coincidePrecio = producto.precio >= min && producto.precio <= max;
+    }
+
+    return coincideBusqueda && coincideCategoria && coincidePrecio;
+  });
+
+  visibles = [...visibles].sort((a, b) => {
+    if (orden === "price-asc") return a.precio - b.precio;
+    if (orden === "price-desc") return b.precio - a.precio;
+    return a.nombre.localeCompare(b.nombre, currentLanguage(), { sensitivity: "base" });
+  });
+
+  return visibles;
+}
+
 // ===============================
 // RENDER PRODUCTOS
 // ===============================
@@ -381,7 +428,15 @@ function renderProductos() {
 
   contenedorProductos.innerHTML = "";
 
-  productos.forEach(producto => {
+  const productosVisibles = obtenerProductosFiltrados();
+
+  if (filterResults) {
+    filterResults.innerText = productosVisibles.length === 0
+      ? t("noProducts")
+      : `${productosVisibles.length} ${t(productosVisibles.length === 1 ? "result" : "results")}`;
+  }
+
+  productosVisibles.forEach(producto => {
 
     const card = document.createElement("div");
     card.classList.add("contenedorDeCard");
@@ -1292,6 +1347,15 @@ document.addEventListener("click", (e) => {
 // ===============================
 shippingSelect?.addEventListener("change", () => {
   renderCarrito();
+});
+
+[productSearch, categoryFilter, priceFilter, sortProducts].forEach((control) => {
+  control?.addEventListener("input", renderProductos);
+  control?.addEventListener("change", renderProductos);
+});
+
+productFilters?.addEventListener("reset", () => {
+  window.setTimeout(renderProductos, 0);
 });
 
 window.addEventListener("irbis:languagechange", () => {

@@ -103,6 +103,47 @@
 
     <section id="productos" class="productos">
       <h2 data-i18n="products">Catálogo</h2>
+
+      <form class="product-filters" id="productFilters" aria-label="Filtros de productos">
+        <div class="filter-field filter-field--search">
+          <label for="productSearch" data-i18n="filterSearchLabel">Buscar</label>
+          <input id="productSearch" type="search" placeholder="Nombre o descripción" autocomplete="off" data-i18n-placeholder="filterSearchPlaceholder" />
+        </div>
+
+        <div class="filter-field">
+          <label for="categoryFilter" data-i18n="filterCategoryLabel">Categoría</label>
+          <select id="categoryFilter">
+            <option value="all" data-i18n="filterAllCategories">Todas</option>
+            <option value="rifle" data-i18n="filterRifles">Rifles</option>
+            <option value="shotgun" data-i18n="filterShotguns">Escopetas</option>
+            <option value="handgun" data-i18n="filterHandguns">Pistolas</option>
+            <option value="smg" data-i18n="filterSmgs">Subfusiles</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="priceFilter" data-i18n="filterPriceLabel">Precio</label>
+          <select id="priceFilter">
+            <option value="all" data-i18n="filterAnyPrice">Cualquier precio</option>
+            <option value="0-500000">Hasta $500.000</option>
+            <option value="500000-1000000">$500.000 - $1.000.000</option>
+            <option value="1000000-Infinity">Más de $1.000.000</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="sortProducts" data-i18n="filterSortLabel">Ordenar</label>
+          <select id="sortProducts">
+            <option value="name-asc" data-i18n="sortNameAsc">Nombre A-Z</option>
+            <option value="price-asc" data-i18n="sortPriceAsc">Menor precio</option>
+            <option value="price-desc" data-i18n="sortPriceDesc">Mayor precio</option>
+          </select>
+        </div>
+
+        <button id="clearFilters" class="btn-secondary" type="reset" data-i18n="clearFilters">Limpiar filtros</button>
+      </form>
+
+      <p id="filterResults" class="filter-results" aria-live="polite"></p>
       <div id="productosContainer" class="grid-productos"></div>
     </section>
 
