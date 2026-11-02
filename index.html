@@ -316,7 +316,7 @@
     <section class="footer-newsletter" aria-labelledby="newsletterTitle">
       <h3 id="newsletterTitle" data-i18n="newsletterTitle">Newsletter</h3>
       <p data-i18n="newsletterDescription">Recibí consejos de preparación, seguridad y novedades útiles directamente en tu correo.</p>
-      <form name="newsletter" method="POST" action="/?newsletter=success" data-netlify="true" netlify-honeypot="bot-field" class="footer-form">
+      <form id="newsletterForm" name="newsletter" method="POST" action="/newsletter-success.html" data-netlify="true" netlify-honeypot="bot-field" class="footer-form">
         <input type="hidden" name="form-name" value="newsletter" />
         <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
         <label class="visually-hidden" for="newsletterEmail" data-i18n="newsletterEmailLabel">Correo electrónico</label>
@@ -333,7 +333,7 @@
     <section class="footer-contact" aria-labelledby="contactTitle">
       <h3 id="contactTitle" data-i18n="contactTitle">Contacto y atención</h3>
       <p data-i18n="contactDescription">¿Tenés una consulta o necesitás asistencia? Escribinos mediante este formulario.</p>
-      <form name="contacto" method="POST" action="/?contact=success" data-netlify="true" netlify-honeypot="bot-field" class="footer-form footer-contact-form">
+      <form id="contactForm" name="contacto" method="POST" action="/contact-success.html" data-netlify="true" netlify-honeypot="bot-field" class="footer-form footer-contact-form">
         <input type="hidden" name="form-name" value="contacto" />
         <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
         <label class="visually-hidden" for="contactName" data-i18n="contactNameLabel">Nombre</label>
@@ -445,23 +445,37 @@
     // Envío AJAX oficial de Netlify Forms: evita depender de una página de destino
     // separada y muestra la confirmación solo cuando Netlify acepta la respuesta.
     const formErrorMessages = {
-      es: "No pudimos enviar el formulario. Revisá tu conexión e intentá nuevamente.",
-      en: "We couldn't submit the form. Check your connection and try again."
+      es: {
+        generic: "No pudimos enviar el formulario. Revisá tu conexión e intentá nuevamente.",
+        notDetected: "Netlify no está reconociendo este formulario. Revisá Forms > Form detection en Netlify, activá Enable form detection y volvé a desplegar el sitio.",
+        unavailable: "Netlify no pudo procesar el envío en este momento. Intentá nuevamente más tarde."
+      },
+      en: {
+        generic: "We couldn't submit the form. Check your connection and try again.",
+        notDetected: "Netlify is not recognizing this form. Open Forms > Form detection in Netlify, enable form detection, and redeploy the site.",
+        unavailable: "Netlify couldn't process this submission right now. Please try again later."
+      }
     };
 
-    document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
-      const formType = form.name === "newsletter"
-        ? "newsletter"
-        : form.name === "contacto"
-          ? "contact"
-          : null;
-      if (!formType) return;
+    // Seleccionamos por IDs propios: Netlify puede quitar data-netlify
+    // del HTML publicado una vez que detecta y procesa los formularios.
+    const formConfigs = [
+      { id: "newsletterForm", type: "newsletter" },
+      { id: "contactForm", type: "contact" }
+    ];
+
+    formConfigs.forEach(({ id, type }) => {
+      const form = document.getElementById(id);
+      if (!(form instanceof HTMLFormElement)) {
+        console.error(`Missing form element: #${id}`);
+        return;
+      }
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const submitButton = form.querySelector('button[type="submit"]');
-        const status = document.getElementById(formType === "newsletter" ? "newsletterStatus" : "contactStatus");
+        const status = document.getElementById(type === "newsletter" ? "newsletterStatus" : "contactStatus");
         if (submitButton) submitButton.disabled = true;
         form.setAttribute("aria-busy", "true");
         if (status) {
@@ -471,26 +485,29 @@
 
         try {
           const formData = new FormData(form);
-          const encoded = new URLSearchParams();
-          for (const [key, value] of formData.entries()) {
-            if (typeof value === "string") encoded.append(key, value);
-          }
-
           const response = await fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encoded.toString()
+            body: new URLSearchParams(formData).toString()
           });
 
           if (!response.ok) {
-            throw new Error(`Netlify Forms returned HTTP ${response.status}`);
+            const message = response.status === 404
+              ? formErrorMessages[language].notDetected
+              : response.status >= 500
+                ? formErrorMessages[language].unavailable
+                : formErrorMessages[language].generic;
+            throw new Error(message);
           }
 
-          showFormSuccess(formType);
+          showFormSuccess(type);
         } catch (error) {
           console.error("Netlify form submission failed:", error);
           if (status) {
-            status.textContent = formErrorMessages[language];
+            const message = error instanceof Error && error.message.startsWith("Netlify ")
+              ? error.message
+              : formErrorMessages[language].generic;
+            status.textContent = message;
             status.dataset.state = "error";
           }
         } finally {
