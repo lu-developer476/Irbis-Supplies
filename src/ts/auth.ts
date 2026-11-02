@@ -117,7 +117,7 @@ async function openAuthMenu(auth = getAuth(app!)) {
     showCancelButton: true,
     confirmButtonText: uiText("Ingresar", "Sign in"),
     denyButtonText: uiText("Registrarse", "Register"),
-    cancelButtonText: "Cancelar",
+    cancelButtonText: uiText("Cancelar", "Cancel"),
     background: "#1e1e1e",
     color: "#fff",
   });
@@ -150,7 +150,7 @@ export async function openRegisterModal(auth = getAuth(app!)) {
     `,
     confirmButtonText: uiText("Crear", "Create"),
     showCancelButton: true,
-    cancelButtonText: "Cancelar",
+    cancelButtonText: uiText("Cancelar", "Cancel"),
     background: "#1e1e1e",
     color: "#fff",
     focusConfirm: false,
@@ -192,7 +192,7 @@ export async function openRegisterModal(auth = getAuth(app!)) {
       await updateProfile(cred.user, { displayName: res.value.name });
     }
 
-    auth.languageCode = window.localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    auth.languageCode = uiText("es", "en");
     await sendEmailVerification(cred.user);
 
     // 🔥 CREACIÓN DOCUMENTO FIRESTORE
@@ -233,12 +233,12 @@ export async function openLoginModal(auth = getAuth(app!)) {
   const res = await Swal.fire({
     title: uiText("Iniciar sesión", "Sign in"),
     html: `
-      <input id="loginEmail" class="swal2-input" placeholder="Email" type="email">
-      <input id="loginPass" class="swal2-input" placeholder="Contraseña" type="password">
+      <input id="loginEmail" class="swal2-input" placeholder="${uiText("Email", "Email")}" type="email">
+      <input id="loginPass" class="swal2-input" placeholder="${uiText("Contraseña", "Password")}" type="password">
     `,
     confirmButtonText: uiText("Entrar", "Continue"),
     showCancelButton: true,
-    cancelButtonText: "Cancelar",
+    cancelButtonText: uiText("Cancelar", "Cancel"),
     background: "#1e1e1e",
     color: "#fff",
     focusConfirm: false,
