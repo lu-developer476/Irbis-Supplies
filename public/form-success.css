@@ -18,7 +18,8 @@ html {
   background: var(--success-bg);
 }
 
-body.success-page {
+body.success-page,
+body.form-success-mode {
   min-height: 100vh;
   min-height: 100svh;
   margin: 0;
@@ -32,6 +33,21 @@ body.success-page {
     var(--success-bg);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0.01em;
+}
+
+
+/* La confirmación también puede renderizarse dentro de index.html para no
+   depender de que Netlify publique rutas HTML independientes. */
+body.form-success-mode > :not(#formSuccessScreen) {
+  display: none !important;
+}
+
+#formSuccessScreen[hidden] {
+  display: none !important;
+}
+
+body.form-success-mode #formSuccessScreen {
+  display: block;
 }
 
 .success-shell {
