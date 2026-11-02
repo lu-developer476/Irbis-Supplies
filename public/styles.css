@@ -775,7 +775,7 @@ footer {
   --irbis-radius-card: 10px;
   --irbis-radius-panel: 16px;
   --irbis-radius-pill: 999px;
-  --irbis-control-min-height: var(--irbis-control-min-height);
+  --irbis-control-min-height: 42px;
   --irbis-card-shadow: 0 14px 30px var(--irbis-shadow);
 }
 
