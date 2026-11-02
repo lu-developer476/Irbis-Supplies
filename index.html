@@ -285,7 +285,7 @@
     <section class="footer-newsletter" aria-labelledby="newsletterTitle">
       <h3 id="newsletterTitle" data-i18n="newsletterTitle">Newsletter</h3>
       <p data-i18n="newsletterDescription">Recibí consejos de preparación, seguridad y novedades útiles directamente en tu correo.</p>
-      <form name="newsletter" method="POST" action="/newsletter-success" data-netlify="true" netlify-honeypot="bot-field" class="footer-form">
+      <form name="newsletter" method="POST" action="/newsletter-success/?enviado=1" data-netlify="true" netlify-honeypot="bot-field" class="footer-form">
         <input type="hidden" name="form-name" value="newsletter" />
         <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
         <label class="visually-hidden" for="newsletterEmail" data-i18n="newsletterEmailLabel">Correo electrónico</label>
@@ -302,7 +302,7 @@
     <section class="footer-contact" aria-labelledby="contactTitle">
       <h3 id="contactTitle" data-i18n="contactTitle">Contacto y atención</h3>
       <p data-i18n="contactDescription">¿Tenés una consulta o necesitás asistencia? Escribinos mediante este formulario.</p>
-      <form name="contacto" method="POST" action="/contact-success" data-netlify="true" netlify-honeypot="bot-field" class="footer-form footer-contact-form">
+      <form name="contacto" method="POST" action="/contact-success/?enviado=1" data-netlify="true" netlify-honeypot="bot-field" class="footer-form footer-contact-form">
         <input type="hidden" name="form-name" value="contacto" />
         <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
         <label class="visually-hidden" for="contactName" data-i18n="contactNameLabel">Nombre</label>
