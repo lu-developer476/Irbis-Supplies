@@ -524,11 +524,13 @@ function renderProductos() {
 
         <div class="colores-container">
           ${producto.colores.map(c => `
-            <span class="color-swatch"
+            <button type="button" class="color-swatch"
                   data-producto="${producto.id}"
                   data-color="${escapeHtml(c.nombre)}"
                   title="${escapeHtml(c.nombre)}"
-                  style="
+                  aria-label="Seleccionar ${escapeHtml(c.nombre)}"
+                  aria-pressed="false"
+                  style="appearance:none;padding:0;border-radius:50%;min-width:18px;min-height:18px;line-height:0;
                     background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
                     display:inline-block;
                     width:18px;
@@ -538,7 +540,7 @@ function renderProductos() {
                     border:1px solid #333;
                     cursor:pointer;
                   ">
-            </span>
+            </button>
           `).join("")}
         </div>
 
@@ -548,7 +550,7 @@ function renderProductos() {
         ${currency(producto.precio)}
       </p>
 
-      <button class="btn-primary" data-id="${producto.id}">
+      <button type="button" class="btn-primary" data-id="${producto.id}" aria-label="${t("addToCart")}: ${escapeHtml(producto.nombre)}">
         ${t("addToCart")}
       </button>
     `;
@@ -895,9 +897,13 @@ document.addEventListener("click", (e) => {
 
   // Limpiar selección previa del mismo producto
   document.querySelectorAll(`.color-swatch[data-producto="${productoId}"]`)
-    .forEach(el => el.classList.remove("color-activo"));
+    .forEach(el => {
+      el.classList.remove("color-activo");
+      el.setAttribute("aria-pressed", "false");
+    });
 
   swatch.classList.add("color-activo");
+  swatch.setAttribute("aria-pressed", "true");
 });
 
 // ===============================
