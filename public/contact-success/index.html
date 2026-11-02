@@ -4,9 +4,277 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,follow">
-  <meta http-equiv="refresh" content="0;url=/?contact=success#footer">
-  <title>Consulta enviada | Irbis Supplies</title>
-  <script>location.replace("/?contact=success#footer");</script>
+  <meta name="theme-color" content="#080a08">
+  <meta name="description" content="Tu consulta fue enviada correctamente a Irbis Supplies.">
+  <title>¡Consulta enviada! | Irbis Supplies</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080a08;
+      --panel: #11140f;
+      --gold: #c2a34a;
+      --gold-light: #e2c66f;
+      --text: #f3eedf;
+      --muted: #b8b09c;
+      --border: #51472d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 28px 18px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(194, 163, 74, .13), transparent 48%),
+        var(--bg);
+      color: var(--text);
+      font: 16px/1.6 Arial, Helvetica, sans-serif;
+    }
+
+    .success-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 620px);
+      padding: clamp(28px, 6vw, 54px);
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(155deg, #171a13, var(--panel) 58%);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .52), 0 0 45px rgba(194, 163, 74, .07);
+      animation: card-enter .65s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .brand {
+      margin-bottom: 30px;
+      color: var(--gold);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .success-mark {
+      width: 94px;
+      height: 94px;
+      margin: 0 auto 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(194, 163, 74, .65);
+      border-radius: 50%;
+      background: rgba(194, 163, 74, .12);
+      box-shadow: 0 0 0 10px rgba(194, 163, 74, .045), 0 0 38px rgba(194, 163, 74, .18);
+      animation: mark-pop .7s .12s cubic-bezier(.18,.89,.32,1.28) both;
+    }
+
+    .success-mark svg {
+      width: 48px;
+      height: 48px;
+      fill: none;
+      stroke: var(--gold-light);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: draw-check .55s .65s ease-out forwards;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--gold-light);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      line-height: 1.12;
+    }
+
+    .message {
+      max-width: 440px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .message strong { color: var(--text); }
+
+    .reference {
+      margin: 24px 0 0;
+      padding: 13px 16px;
+      border: 1px solid rgba(194, 163, 74, .2);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .2);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .home-button {
+      min-height: 48px;
+      padding: 13px 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      background: var(--gold);
+      color: #111;
+      font-size: .92rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .home-button:hover {
+      transform: translateY(-2px);
+      background: var(--gold-light);
+      box-shadow: 0 8px 24px rgba(194, 163, 74, .2);
+    }
+
+    .home-button:focus-visible {
+      outline: 3px solid var(--text);
+      outline-offset: 4px;
+    }
+
+    .footer-note {
+      margin: 26px 0 0;
+      color: #827b69;
+      font-size: .76rem;
+      letter-spacing: .04em;
+    }
+
+    #celebration {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .confetti {
+      position: absolute;
+      top: -18px;
+      left: var(--x);
+      width: var(--size);
+      height: calc(var(--size) * 1.55);
+      border-radius: 2px;
+      opacity: 0;
+      background: var(--color);
+      animation: confetti-fall var(--duration) var(--delay) ease-in forwards;
+    }
+
+    @keyframes card-enter {
+      from { opacity: 0; transform: translateY(18px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes mark-pop {
+      from { opacity: 0; transform: scale(.55); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes draw-check { to { stroke-dashoffset: 0; } }
+
+    @keyframes confetti-fall {
+      0% { opacity: 0; transform: translate3d(0, -4vh, 0) rotate(0); }
+      10% { opacity: .95; }
+      100% { opacity: 0; transform: translate3d(var(--drift), 110vh, 0) rotate(var(--spin)); }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 18px 12px; }
+      .success-card { border-radius: 14px; }
+      .brand { margin-bottom: 25px; }
+      .success-mark { width: 82px; height: 82px; }
+      .home-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      #celebration { display: none; }
+    }
+  </style>
 </head>
-<body><p>Redirigiendo a Irbis Supplies… <a href="/?contact=success#footer">Continuar</a></p></body>
+<body>
+  <div id="celebration" aria-hidden="true"></div>
+
+  <main class="success-card">
+    <div class="brand">Irbis Supplies</div>
+
+    <div class="success-mark" role="img" aria-label="Envío confirmado">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10 25.5 20 35l19-22"></path>
+      </svg>
+    </div>
+
+    <p class="eyebrow">¡Todo listo!</p>
+    <h1>¡Consulta enviada!</h1>
+    <p class="message">
+      Recibimos tu mensaje correctamente. <strong>¡Muchas gracias por comunicarte con Irbis Supplies!</strong>
+      Nuestro equipo podrá revisar tu consulta y responderte por correo electrónico.
+    </p>
+
+    <p class="reference">
+      Si necesitás volver a contactarnos, podés hacerlo desde la sección «Contacto y atención» de nuestra página.
+    </p>
+
+    <div class="actions">
+      <a class="home-button" href="/" aria-label="Volver al inicio de Irbis Supplies">
+        <span aria-hidden="true">←</span>
+        Volver al inicio
+      </a>
+    </div>
+
+    <p class="footer-note">IRBIS SUPPLIES · GRACIAS POR ELEGIRNOS</p>
+  </main>
+
+  <script>
+    (() => {
+      const container = document.getElementById("celebration");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!container || reduceMotion) return;
+
+      const colors = ["#c2a34a", "#e2c66f", "#f3eedf", "#8d783c"];
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 0; i < 64; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.setProperty("--x", Math.random() * 100 + "vw");
+        piece.style.setProperty("--size", (5 + Math.random() * 6) + "px");
+        piece.style.setProperty("--color", colors[i % colors.length]);
+        piece.style.setProperty("--delay", (Math.random() * 1.2) + "s");
+        piece.style.setProperty("--duration", (2.8 + Math.random() * 2) + "s");
+        piece.style.setProperty("--drift", (-90 + Math.random() * 180) + "px");
+        piece.style.setProperty("--spin", (360 + Math.random() * 720) + "deg");
+        fragment.appendChild(piece);
+      }
+
+      container.appendChild(fragment);
+      window.setTimeout(() => container.replaceChildren(), 6500);
+    })();
+  </script>
+</body>
 </html>
