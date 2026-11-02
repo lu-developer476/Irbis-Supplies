@@ -298,8 +298,8 @@ export async function createOrder(orderData: any) {
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-  // El acceso es opcional en la experiencia demo: las órdenes de invitados
-  // se conservan localmente y no intentan escribir en Firestore.
+  // El acceso es opcional: las órdenes de invitados se conservan localmente
+  // y no intentan escribir en Firestore.
   if (!auth.currentUser) {
     return { localOnly: true as const };
   }

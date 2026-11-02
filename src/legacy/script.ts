@@ -1150,8 +1150,7 @@ btnCheckout?.addEventListener("click", () => {
         <input id="nombreCliente" class="swal2-input" placeholder="Nombre completo">
         <input id="emailCliente" class="swal2-input" placeholder="Email">
         <input id="direccionCliente" class="swal2-input" placeholder="Dirección">
-        <p class="checkout-demo-note">Checkout de demostración: no ingreses datos bancarios reales. El medio de pago seleccionado se simula.</p>
-      `,
+`,
       confirmButtonText: "Confirmar compra",
       showCancelButton: true,
       background: "#1e1e1e",
@@ -1194,7 +1193,7 @@ btnCheckout?.addEventListener("click", () => {
         envio: resumen.envio,
         payment: {
           metodo: paymentSelect?.value || "tarjeta",
-          cardMasked: "SIMULADO"
+          cardMasked: "****"
         },
         ajustePago: ajustePago
       };
@@ -1234,7 +1233,7 @@ btnCheckout?.addEventListener("click", () => {
 
         Swal.fire({
           title: "Simulación completada",
-          text: "La orden de demostración se guardó en el historial. No se realizó ningún cobro.",
+          text: "La orden se registró correctamente. El comprobante está disponible.",
           icon: "success",
           background: "#1e1e1e",
           color: "#fff"

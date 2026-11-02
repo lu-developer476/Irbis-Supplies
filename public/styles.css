@@ -1329,23 +1329,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   outline-offset: 3px;
 }
 button:disabled { opacity: .55; cursor: not-allowed; }
-.demo-notice {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 20px;
-  color: #d9d0b6;
-  background: #171a15;
-  border-top: 1px solid #343b2b;
-  border-bottom: 1px solid #343b2b;
-  font-family: Arial, sans-serif;
-  font-size: .78rem;
-  letter-spacing: .04em;
-  text-align: center;
-}
-.demo-notice strong { color: #e2c76d; letter-spacing: .12em; }
 .product-filters {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr)) auto;

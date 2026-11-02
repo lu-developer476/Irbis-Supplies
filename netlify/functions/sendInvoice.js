@@ -79,26 +79,26 @@ export async function handler(event) {
     await transporter.sendMail({
       from: `"Irbis Supplies" <${process.env.GMAIL_USER}>`,
       to: emailValue,
-      subject: `Comprobante de demostración ${orderId} - Irbis Supplies`,
-      text: `Orden demo: ${orderId}\nFecha: ${orderDate}\nHola ${nameValue},\nTotal simulado: $${total.toLocaleString("es-AR")}\nIrbis Supplies`,
+      subject: `Comprobante de compra ${orderId} - Irbis Supplies`,
+      text: `Orden: ${orderId}\nFecha: ${orderDate}\nHola ${nameValue},\nTotal: $${total.toLocaleString("es-AR")}\nIrbis Supplies`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
           <h2>Irbis Supplies</h2>
-          <p><strong>Comprobante de demostración</strong></p>
+          <p><strong>Comprobante de compra</strong></p>
           <p><strong>Orden:</strong> ${orderId}</p>
           <p><strong>Fecha:</strong> ${escapeHtml(orderDate)}</p>
           <p>Hola ${safeName},</p>
-          <p>Este comprobante corresponde a una simulación; no representa una transacción real.</p>
+          <p>Gracias por tu compra. Adjuntamos el detalle de tu pedido.</p>
           <table style="width:100%;border-collapse:collapse;margin-top:20px;">
             <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead>
             <tbody>${itemsHtml}</tbody>
           </table>
-          <h3 style="text-align:right;">Total simulado: $${total.toLocaleString("es-AR")}</h3>
+          <h3 style="text-align:right;">Total: $${total.toLocaleString("es-AR")}</h3>
         </div>
       `,
     });
 
-    return json(200, "Comprobante de demostración enviado", { orderId });
+    return json(200, "Comprobante de compra enviado", { orderId });
   } catch (error) {
     console.error("Error enviando comprobante:", error);
     return json(500, "No se pudo enviar el comprobante");
