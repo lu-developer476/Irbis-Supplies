@@ -1704,7 +1704,7 @@ applyCouponBtn?.addEventListener("click", () => {
       `,
       icon: "info",
       showCancelButton: true,
-      confirmButtonText: "Crear cuenta",
+      confirmButtonText: t("createAccount"),
       cancelButtonText: t("cancel"),
       background: "#1e1e1e",
       color: "#fff",
