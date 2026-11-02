@@ -15,8 +15,3 @@
   status = 303
   force = true
 
-[[redirects]]
-  from = "/contact-success/"
-  to = "/?contact=success#footer"
-  status = 303
-  force = true
