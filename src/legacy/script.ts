@@ -457,10 +457,11 @@ function renderProductos() {
     card.classList.add("contenedorDeCard");
 
     const categoriaProducto = obtenerCategoriaProducto(producto);
-    const etiquetaCategoria = ({
+    const etiquetasCategoria: Record<string, string> = {
       rifle: "Rifles", shotgun: "Escopetas", handgun: "Pistolas",
       smg: "Subfusiles", accessory: "Accesorios"
-    })[categoriaProducto] || "Equipamiento";
+    };
+    const etiquetaCategoria = etiquetasCategoria[categoriaProducto] || "Equipamiento";
 
     card.innerHTML = `
       <div class="product-card__image-wrap">
@@ -488,7 +489,6 @@ function renderProductos() {
             ${t("addToCart")} <span aria-hidden="true">＋</span>
           </button>
         </div>
-        <button class="btn-detalles product-details-button" type="button" data-id="${producto.id}">${t("details")}</button>
       </div>
     `;
 
