@@ -5,16 +5,3 @@
 
 [functions]
   node_bundler = "esbuild"
-
-# Convert successful Netlify Forms POST requests into GET requests for
-# the dedicated static confirmation pages. These are intentionally non-forced:
-# direct GET requests must serve the existing HTML pages.
-[[redirects]]
-  from = "/contact-success/"
-  to = "/contact-success/index.html"
-  status = 303
-
-[[redirects]]
-  from = "/newsletter-success/"
-  to = "/newsletter-success/index.html"
-  status = 303
