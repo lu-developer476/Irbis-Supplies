@@ -1985,3 +1985,25 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .cart-drawer, .cart-overlay, .item-carrito, .item-carrito__acciones button { transition: none !important; }
 }
+
+
+/* Visibility overrides for controls whose layout uses grid/flex. */
+.card-fields.hidden,
+.qr-section.hidden {
+  display: none !important;
+}
+
+/* Modal history and generated invoice responsive layout. */
+.historial-item--modal p {
+  margin: 4px 0;
+}
+
+@media (max-width: 700px) {
+  .swal2-popup {
+    width: min(94vw, 34rem) !important;
+    padding: 1rem !important;
+  }
+  .checkout-field .swal2-input {
+    font-size: 16px;
+  }
+}
