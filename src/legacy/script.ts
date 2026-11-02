@@ -1,5 +1,6 @@
 import { notifyProductAdded, notifyCartCleared, confirmCheckout } from "../coffee/alerts.coffee";
 import { storageGetJSON, storageSetJSON, storageGetNumber, storageSetNumber } from "../ts/storage";
+import type { CatalogProduct, CatalogProductData, CartEntry } from "../ts/models";
 import { isUserLoggedIn, openRegisterModal, createOrder } from "../ts/auth";
 
 const ORDER_COUNTER_KEY = "irbis_order_counter";
@@ -67,8 +68,8 @@ const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
-  es: { details: "Detalles", selectColor: "Seleccionar", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
-  en: { details: "Details", selectColor: "Select", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
+  es: { details: "Detalles", selectColor: "Seleccionar", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", emptyHistory: "No hay compras registradas aún.", colorLabel: "Color:", unitPrice: "c/u", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
+  en: { details: "Details", selectColor: "Select", addToCart: "Add to cart", emptyCart: "Cart is empty.", emptyHistory: "No purchases have been recorded yet.", colorLabel: "Color:", unitPrice: "each", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
 };
 
 function currentLanguage(): "es" | "en" {
@@ -82,7 +83,7 @@ function t(key: string): string {
 // ===============================
 // ESTADO
 // ===============================
-let carrito = storageGetJSON(CART_KEY, []);
+let carrito: CartEntry[] = storageGetJSON(CART_KEY, []);
 
 const COUPON_PROMPT_KEY = "irbis_coupon_prompted";
 
@@ -98,7 +99,7 @@ let orders = storageGetJSON(ORDERS_KEY, []);
 // ===============================
 // PRODUCTOS
 // ===============================
-let productos = [];
+let productos: CatalogProduct[] = [];
 
 // Add-ons (solo accesorios no regulados)
 const ADDONS = [
@@ -281,23 +282,50 @@ function obtenerFactorTiempo() {
 // ===============================
 // CARGAR PRODUCTOS
 // ===============================
+function isCatalogProductData(value: unknown): value is CatalogProductData {
+  if (!value || typeof value !== "object") return false;
+  const product = value as Partial<CatalogProductData>;
+  return Number.isInteger(product.id) &&
+    typeof product.nombre === "string" &&
+    typeof product.descripcion === "string" &&
+    typeof product.precioBase === "number" &&
+    Number.isFinite(product.precioBase) &&
+    product.precioBase > 0 &&
+    typeof product.imagen === "string" &&
+    Array.isArray(product.colores) &&
+    product.colores.every((color) =>
+      color && typeof color.nombre === "string" && typeof color.hex === "string"
+    );
+}
+
 async function cargarProductos() {
   try {
     const response = await fetch("./data.json");
-    productos = await response.json();
+    if (!response.ok) throw new Error("No se pudo cargar el catálogo (HTTP " + response.status + ").");
 
-    let factorInflacion = null;
+    const catalogo: unknown = await response.json();
+    if (!Array.isArray(catalogo) || !catalogo.every(isCatalogProductData)) {
+      throw new Error("El catálogo tiene un formato inválido.");
+    }
+    const productosBase = catalogo;
+
+    let factorInflacion: number | null = null;
 
     // Intentar usar Netlify Function
     try {
       const api = await fetch("/.netlify/functions/prices");
-      const data = await api.json();
-      factorInflacion = data.factor;
+      if (!api.ok) throw new Error("Servicio de precios no disponible (HTTP " + api.status + ").");
+      const data: unknown = await api.json();
+      const factor = (data as { factor?: unknown } | null)?.factor;
+      if (typeof factor !== "number" || !Number.isFinite(factor) || factor <= 0) {
+        throw new Error("El servicio devolvió un factor de precios inválido.");
+      }
+      factorInflacion = factor;
     } catch (e) {
       console.log("Netlify no disponible. Usando inflación local.");
     }
 
-      productos = productos.map(p => {
+      productos = productosBase.map(p => {
       
         const inflacion = factorInflacion
           ? factorInflacion
@@ -509,7 +537,7 @@ function renderProductos() {
     card.classList.add("contenedorDeCard");
 
     card.innerHTML = `
-      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}">
+      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}" width="320" height="220" loading="lazy" decoding="async">
       <h3>${escapeHtml(producto.nombre)}</h3>
 
       <button class="btn-detalles" type="button" data-id="${producto.id}" aria-expanded="false" aria-controls="detalles-${producto.id}">
@@ -691,12 +719,12 @@ function renderCarrito() {
     const imgSrc = p.imagen || productos.find(x => x.id === p.id)?.imagen || "";
 
     row.innerHTML = `
-      ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="">` : ""}
+      ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="" width="64" height="64" loading="lazy" decoding="async">` : ""}
       <div class="item-carrito__info">
         <h4>${escapeHtml(p.nombre)}</h4>
-        <p class="item-carrito__variant">Color: <strong>${escapeHtml(p.color)}</strong></p>
+        <p class="item-carrito__variant">${t("colorLabel")} <strong>${escapeHtml(p.color)}</strong></p>
         <p class="item-carrito__precio">
-          <span>${currency(p.precio)} c/u</span>
+          <span>${currency(p.precio)} ${t("unitPrice")}</span>
           <strong>${currency(p.precio * p.cantidad)}</strong>
         </p>
       </div>
@@ -770,7 +798,7 @@ function renderHistorial() {
   historialContainer.innerHTML = "";
 
   if (!orders.length) {
-    historialContainer.innerHTML = `<p>No hay compras registradas aún.</p>`;
+    historialContainer.innerHTML = `<p>${t("emptyHistory")}</p>`;
     return;
   }
 
@@ -1382,8 +1410,9 @@ btnCheckout?.addEventListener("click", () => {
   const addonsHtml = ADDONS.map(a => `
     <label style="display:flex; align-items:center; gap:12px; margin:10px 0;">
       <input type="checkbox" class="addon-check" value="${a.id}">
-      <img src="${a.imagen}" 
-           alt="${a.nombre}" 
+      <img src="${escapeHtml(safeAssetPath(a.imagen))}"
+           alt="${escapeHtml(a.nombre)}"
+           width="40" height="40" loading="lazy" decoding="async"
            style="width:40px; height:40px; object-fit:contain;">
       <span>${a.nombre} — <strong>${currency(a.precio)}</strong></span>
     </label>
