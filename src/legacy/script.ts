@@ -292,6 +292,20 @@ async function cargarProductos() {
 // ===============================
 // HELPERS
 // ===============================
+function escapeHtml(value: unknown): string {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function safeAssetPath(value: unknown): string {
+  const path = typeof value === "string" ? value : "";
+  return /^(?:\.\/)?[a-zA-Z0-9_./-]+$/.test(path) && !path.includes("..") ? path : "";
+}
+
 function currency(n) {
   return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(n);
 }
@@ -381,7 +395,7 @@ function maskCard(num) {
 }
 
 function obtenerCategoriaProducto(producto) {
-  const texto = `${producto.nombre} ${producto.descripcion}`.toLowerCase();
+  const texto = `${escapeHtml(producto.nombre)} ${escapeHtml(producto.descripcion)}`.toLowerCase();
 
   if (texto.includes("escopeta")) return "shotgun";
   if (texto.includes("pistola") || texto.includes("revólver")) return "handgun";
@@ -443,8 +457,8 @@ function renderProductos() {
     card.classList.add("contenedorDeCard");
 
     card.innerHTML = `
-      <img src="${producto.imagen}" alt="${producto.nombre}">
-      <h3>${producto.nombre}</h3>
+      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}">
+      <h3>${escapeHtml(producto.nombre)}</h3>
 
       <button class="btn-detalles" data-id="${producto.id}">
         ${t("details")}
@@ -453,17 +467,17 @@ function renderProductos() {
       <div class="detalles-container" id="detalles-${producto.id}" style="display:none;">
         
         <p class="descripcion-producto">
-          ${producto.descripcion}
+          ${escapeHtml(producto.descripcion)}
         </p>
 
         <div class="colores-container">
           ${producto.colores.map(c => `
             <span class="color-swatch"
                   data-producto="${producto.id}"
-                  data-color="${c.nombre}"
-                  title="${c.nombre}"
+                  data-color="${escapeHtml(c.nombre)}"
+                  title="${escapeHtml(c.nombre)}"
                   style="
-                    background:${c.hex};
+                    background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
                     display:inline-block;
                     width:18px;
                     height:18px;
@@ -533,7 +547,7 @@ function agregarAlCarrito(id) {
 
   guardarCarrito();
   renderCarrito();
-  alertaProductoAgregado(`${producto.nombre} (${color})`);
+  alertaProductoAgregado(`${escapeHtml(producto.nombre)} (${color})`);
 
   // Abrimos el drawer para que el usuario vea que se cargó.
   openCartDrawer();
@@ -612,16 +626,16 @@ function renderCarrito() {
     const imgSrc = p.imagen || productos.find(x => x.id === p.id)?.imagen || "";
 
     row.innerHTML = `
-      ${imgSrc ? `<img class="item-carrito__thumb" src="${imgSrc}" alt="${p.nombre}">` : ""}
+      ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="${escapeHtml(p.nombre)}">` : ""}
       <div class="item-carrito__info">
-        ${p.nombre} <span style="color:#c2a34a;">(${p.color})</span>
+        ${escapeHtml(p.nombre)} <span style="color:#c2a34a;">(${escapeHtml(p.color)})</span>
         <p class="item-carrito__precio">
           ${currency(p.precio)} x ${p.cantidad} = ${currency(p.precio * p.cantidad)}
         </p>
       </div>
       <div class="item-carrito__acciones">
-        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${p.color}', -1)">-</button>
-        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${p.color}', 1)">+</button>
+        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${escapeHtml(p.color)}', -1)">-</button>
+        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${escapeHtml(p.color)}', 1)">+</button>
       </div>
     `;
     carritoContainer.appendChild(row);
@@ -701,11 +715,11 @@ function renderHistorial() {
 
     li.innerHTML = `
       <div>
-        <strong>${o.orderId}</strong> — ${o.date}
+        <strong>${escapeHtml(o.orderId)}</strong> — ${escapeHtml(o.date)}
         <div>Total: ${currency(o.total)}</div>
       </div>
       <button class="btn-secondary ver-factura-btn"
-              data-order="${o.orderId}">
+              data-order="${escapeHtml(o.orderId)}">
         Ver factura
       </button>
     `;
@@ -747,11 +761,11 @@ btnHistorial?.addEventListener("click", () => {
 
   const lista = orders.map(o => `
     <div style="text-align:left; margin-bottom:12px;">
-      <strong>${o.orderId}</strong><br>
-      Fecha: ${o.date}<br>
+      <strong>${escapeHtml(o.orderId)}</strong><br>
+      Fecha: ${escapeHtml(o.date)}<br>
       Total: ${currency(o.total)}<br>
       <button class="btn-secondary ver-factura-modal"
-              data-order="${o.orderId}"
+              data-order="${escapeHtml(o.orderId)}"
               style="margin-top:6px;">
         Ver factura
       </button>
@@ -829,7 +843,7 @@ function notificarNetlify(order) {
   formData.append("nombre", order.customer.nombre);
   formData.append("email", order.customer.email);
   formData.append("direccion", order.customer.direccion);
-  formData.append("detalle", order.items.map(i => `${i.nombre} x${i.cantidad}`).join(", "));
+  formData.append("detalle", order.items.map(i => `${escapeHtml(i.nombre)} x${i.cantidad}`).join(", "));
   formData.append("total", order.total);
 
   // No frenamos el UX si falla: es notificación, no “pago”
@@ -842,7 +856,7 @@ function notificarNetlify(order) {
 function invoiceHTML(order) {
   const itemsRows = order.items.map(i => `
     <tr>
-      <td>${i.nombre}</td>
+      <td>${escapeHtml(i.nombre)}</td>
       <td style="text-align:center;">${i.cantidad}</td>
       <td style="text-align:right;">${currency(i.precio)}</td>
       <td style="text-align:right;">${currency(i.precio * i.cantidad)}</td>
@@ -1325,6 +1339,12 @@ btnVaciarCarrito?.addEventListener("click", () => {
 // EVENTOS PRODUCTOS (delegación)
 // ===============================
 document.addEventListener("click", (e) => {
+  const quantityButton = e.target.closest("[data-quantity-change]");
+  if (quantityButton) {
+    modificarCantidad(Number(quantityButton.dataset.productId), quantityButton.dataset.color || "", Number(quantityButton.dataset.quantityChange));
+    return;
+  }
+
   const btn = e.target.closest(".btn-primary");
   if (!btn) return;
 
