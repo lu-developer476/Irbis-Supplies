@@ -13,6 +13,22 @@ const translations: Record<Language, Record<string, string>> = {
   },
 };
 
+function readPreference(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function persistPreference(key: string, value: string): void {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // La preferencia sigue aplicada durante esta sesión aunque el storage no esté disponible.
+  }
+}
+
 const isLanguage = (value: string | null): value is Language => value === "es" || value === "en";
 const isTheme = (value: string | null): value is Theme => value === "dark" || value === "light";
 
@@ -42,7 +58,7 @@ function translatePage(language: Language) {
 
 function applyLanguage(language: Language) {
   document.documentElement.lang = language;
-  localStorage.setItem(LANGUAGE_KEY, language);
+  persistPreference(LANGUAGE_KEY, language);
 
   setPressed(document.getElementById("btnLangEs"), language === "es");
   setPressed(document.getElementById("btnLangEn"), language === "en");
@@ -52,15 +68,15 @@ function applyLanguage(language: Language) {
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem(THEME_KEY, theme);
+  persistPreference(THEME_KEY, theme);
 
   setPressed(document.getElementById("btnThemeDark"), theme === "dark");
   setPressed(document.getElementById("btnThemeLight"), theme === "light");
 }
 
 export function wirePreferencesUI() {
-  const storedLanguage = localStorage.getItem(LANGUAGE_KEY);
-  const storedTheme = localStorage.getItem(THEME_KEY);
+  const storedLanguage = readPreference(LANGUAGE_KEY);
+  const storedTheme = readPreference(THEME_KEY);
 
   applyLanguage(isLanguage(storedLanguage) ? storedLanguage : "es");
   applyTheme(isTheme(storedTheme) ? storedTheme : "dark");
