@@ -74,7 +74,8 @@
           <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer" data-i18n="cartAction">🛒 Carrito</button></li>
           <li><button id="btnHistorial" class="btn-secondary" type="button" data-i18n="history">📝 Historial</button></li>
         </ul>
-      </nav></nav>
+      </nav>
+  </header>
 
   <!-- HERO COMPLETO -->
   <section class="hero">
@@ -291,7 +292,12 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const language = localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    let language = "es";
+    try {
+      language = localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    } catch {
+      language = "es";
+    }
     const params = new URLSearchParams(window.location.search);
     const formMessages = {
       es: {
