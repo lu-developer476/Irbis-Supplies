@@ -5,3 +5,15 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Las rutas antiguas siguen funcionando aunque el deploy no incluya los HTML
+# individuales: Netlify reescribe al inicio y muestra la confirmación adecuada.
+[[redirects]]
+  from = "/newsletter-success.html"
+  to = "/?newsletter=success"
+  status = 200
+
+[[redirects]]
+  from = "/contact-success.html"
+  to = "/?contact=success"
+  status = 200
