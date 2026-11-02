@@ -288,7 +288,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 export async function createOrder(orderData: any) {
   const cfg = getConfig();
-  if (!cfg) throw new Error("Firebase no configurado");
+  if (!cfg) return { localOnly: true as const };
 
   // Inicializar si no está inicializado
   if (!app) {

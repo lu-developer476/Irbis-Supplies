@@ -337,7 +337,8 @@ function totalActual() {
 function calcularResumen() {
 
   const subtotal = totalActual();
-  const envio = shippingSelect ? Number(shippingSelect.value) : 0;
+  const envioSeleccionado = shippingSelect ? Number(shippingSelect.value) : 0;
+  const envio = Number.isFinite(envioSeleccionado) && envioSeleccionado >= 0 ? envioSeleccionado : 0;
 
   // 30% permanente
   const descuentoBase = subtotal * DESCUENTO_PERMANENTE;
@@ -866,10 +867,10 @@ function invoiceHTML(order) {
   const iva = baseImponible * IVA_RATE;
 
   // envío estimado (si lo querés mostrar correctamente después)
-  const envio = order.envio || 0; // si querés mantenerlo simple por ahora
+  const envio = Number.isFinite(order.envio) && order.envio > 0 ? order.envio : 0;
 
   // reconstruimos el total antes del ajuste
-  const totalAntesPago = baseImponible + iva;
+  const totalAntesPago = baseImponible + iva + envio;
   const ajusteMonto = totalAntesPago * order.ajustePago;
     
   // En el PDF usamos el total guardado en la orden
@@ -1135,9 +1136,7 @@ btnCheckout?.addEventListener("click", () => {
         <input id="nombreCliente" class="swal2-input" placeholder="Nombre completo">
         <input id="emailCliente" class="swal2-input" placeholder="Email">
         <input id="direccionCliente" class="swal2-input" placeholder="Dirección">
-        <input id="tarjetaCliente" class="swal2-input" placeholder="Número de tarjeta">
-        <input id="vencimientoCliente" class="swal2-input" placeholder="Vencimiento">
-        <input id="cvvCliente" class="swal2-input" placeholder="CVV">
+        <p class="checkout-demo-note">Checkout de demostración: no ingreses datos bancarios reales. El medio de pago seleccionado se simula.</p>
       `,
       confirmButtonText: "Confirmar compra",
       showCancelButton: true,
@@ -1147,15 +1146,13 @@ btnCheckout?.addEventListener("click", () => {
         const nombre = (document.getElementById("nombreCliente") as HTMLInputElement).value.trim();
         const email = (document.getElementById("emailCliente") as HTMLInputElement).value.trim();
         const direccion = (document.getElementById("direccionCliente") as HTMLInputElement).value.trim();
-        const tarjeta = (document.getElementById("tarjetaCliente") as HTMLInputElement).value.trim();
-        const cvv = (document.getElementById("cvvCliente") as HTMLInputElement).value.trim();
-
-        if (!nombre || !email || !direccion || !tarjeta || !cvv) {
-          Swal.showValidationMessage("Todos los campos son obligatorios.");
+        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!nombre || nombre.length > 120 || !emailValido || !direccion || direccion.length > 240) {
+          Swal.showValidationMessage("Completá nombre, email válido y dirección.");
           return;
         }
 
-        return { nombre, email, direccion, tarjeta };
+        return { nombre, email, direccion };
       }
     }).then(async (result) => {
       if (!result.isConfirmed) return;
@@ -1183,7 +1180,7 @@ btnCheckout?.addEventListener("click", () => {
         envio: resumen.envio,
         payment: {
           metodo: paymentSelect?.value || "tarjeta",
-          cardMasked: maskCard(result.value.tarjeta)
+          cardMasked: "SIMULADO"
         },
         ajustePago: ajustePago
       };
@@ -1192,7 +1189,7 @@ btnCheckout?.addEventListener("click", () => {
         await createOrder(order);
         
         // 🔹 ENVÍO DE FACTURA POR EMAIL (Serverless)
-        await fetch("/.netlify/functions/sendInvoice", {
+        const invoiceResponse = await fetch("/.netlify/functions/sendInvoice", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -1208,6 +1205,10 @@ btnCheckout?.addEventListener("click", () => {
             date: order.date
           }),
         });
+        if (!invoiceResponse.ok) {
+          const invoiceError = await invoiceResponse.json().catch(() => ({}));
+          console.warn("Comprobante no enviado:", invoiceError.message || invoiceResponse.status);
+        }
         
         // respaldo visual local
         orders = [order, ...orders];
@@ -1218,8 +1219,8 @@ btnCheckout?.addEventListener("click", () => {
         abrirVentanaFactura(order);
 
         Swal.fire({
-          title: "Compra confirmada",
-          text: "La orden se registró con éxito. La factura se encuentra disponible.",
+          title: "Simulación completada",
+          text: "La orden de demostración se guardó en el historial. No se realizó ningún cobro.",
           icon: "success",
           background: "#1e1e1e",
           color: "#fff"
