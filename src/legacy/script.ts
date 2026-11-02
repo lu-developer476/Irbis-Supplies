@@ -323,7 +323,7 @@ function generarOrdenId() {
   return `IRB-${year}-${String(counter).padStart(6, "0")}`;
 }
 
-function generarFacturaDemo() {
+function generarFactura() {
   if (!invoiceTypeDOM || !invoiceNumberDOM) return;
 
   const tipos = ["A", "B", "C"];
@@ -1503,4 +1503,4 @@ applyCouponBtn?.addEventListener("click", () => {
 cargarProductos();  // 👈 PRIMERO
 renderCarrito();
 renderHistorial();
-generarFacturaDemo();
+generarFactura();
