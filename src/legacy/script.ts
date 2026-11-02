@@ -1,5 +1,5 @@
 import { notifyProductAdded, notifyCartCleared, confirmCheckout } from "../coffee/alerts.coffee";
-import { storageGetJSON, storageSetJSON, storageGetNumber, storageSetNumber } from "../ts/storage";
+import { storageGetJSON, storageSetJSON, storageGetNumber, storageSetNumber, storageGetString, storageSetString } from "../ts/storage";
 import type { CatalogProduct, CatalogProductData, CartEntry } from "../ts/models";
 import { isUserLoggedIn, openRegisterModal, createOrder } from "../ts/auth";
 
@@ -73,7 +73,7 @@ const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
 };
 
 function currentLanguage(): "es" | "en" {
-  return localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "es";
+  return storageGetString(LANGUAGE_KEY, "es") === "en" ? "en" : "es";
 }
 
 function t(key: string): string {
@@ -635,9 +635,9 @@ function agregarAlCarrito(id) {
   openCartDrawer();
 
   // Pop-up: 1er producto agregado => incentivo de registro + cupón
-  const yaMostrado = localStorage.getItem(COUPON_PROMPT_KEY) === "1";
+  const yaMostrado = storageGetString(COUPON_PROMPT_KEY) === "1";
   if (carritoEstabaVacio && !yaMostrado && !isUserLoggedIn()) {
-    localStorage.setItem(COUPON_PROMPT_KEY, "1");
+    storageSetString(COUPON_PROMPT_KEY, "1");
     Swal.fire({
       title: "Cupón gratis",
       html: `Creá tu cuenta y obtené <strong>15% OFF</strong> con el cupón <code>IRBIS15</code>.`,
