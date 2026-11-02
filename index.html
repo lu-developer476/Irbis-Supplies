@@ -27,9 +27,13 @@
 
 <body>
 
-  <!-- ===============================
-       HERO COMPLETO
-  =============================== -->
+  <div class="store-announcement" role="note">
+    <span>IRBIS SUPPLIES</span>
+    <span class="store-announcement__message">Equipamiento seleccionado para cada desafío</span>
+    <a href="#productos">Explorar tienda <span aria-hidden="true">→</span></a>
+  </div>
+
+  <!-- HERO PRINCIPAL -->
   <section class="hero">
 
     <!-- NAVBAR -->
@@ -83,20 +87,35 @@
       </nav>
     </header>
 
-    <!-- SWIPER -->
     <div class="hero-content">
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" data-i18n="hero1">Antes que llegue el final...</div>
-          <div class="swiper-slide" data-i18n="hero2">asegurate de contar con lo necesario para sobrevivir.</div>
-          <div class="swiper-slide" data-i18n="hero3">El momento de prepararse no es cuando ya empezó...</div>
-          <div class="swiper-slide" data-i18n="hero4">Prevenir siempre costará menos que improvisar.</div>
-          <div class="swiper-slide" data-i18n="hero5">Mantente listo para lo que suceda después.</div>
+      <div class="hero-copy">
+        <p class="hero-eyebrow">PREPARACIÓN · EQUIPAMIENTO · SUMINISTROS</p>
+        <h1>Preparado para lo que <span>viene.</span></h1>
+        <p class="hero-description">Encontrá equipamiento, accesorios y suministros seleccionados. Todo lo que necesitás, en un solo lugar.</p>
+        <div class="hero-actions">
+          <a class="btn-primary hero-cta" href="#productos">Explorar productos <span aria-hidden="true">↗</span></a>
+          <a class="hero-secondary-link" href="#beneficios">Conocé nuestros beneficios</a>
         </div>
-        <div class="swiper-pagination"></div>
+        <div class="hero-proof" aria-label="Ventajas de compra">
+          <span><strong>01</strong> Catálogo especializado</span>
+          <span><strong>02</strong> Compra simple</span>
+          <span><strong>03</strong> Atención personalizada</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual__frame">
+          <span class="hero-visual__overline">IRBIS / SELECTION</span>
+          <span class="hero-visual__mark">I</span>
+          <span class="hero-visual__caption">EQUIPAMIENTO<br>PARA IR MÁS LEJOS</span>
+        </div>
       </div>
     </div>
+  </section>
 
+  <section id="beneficios" class="store-benefits" aria-label="Beneficios de compra">
+    <div class="store-benefit"><span class="store-benefit__icon">◇</span><div><strong>Selección especializada</strong><small>Productos elegidos por categoría</small></div></div>
+    <div class="store-benefit"><span class="store-benefit__icon">⌁</span><div><strong>Compra sencilla</strong><small>Armá tu pedido en pocos pasos</small></div></div>
+    <div class="store-benefit"><span class="store-benefit__icon">◎</span><div><strong>Atención directa</strong><small>Consultas y coordinación de entrega</small></div></div>
   </section>
 
   <!-- ===============================
@@ -104,7 +123,21 @@
   =============================== -->
   <main>
 <section id="productos" class="productos">
-      <h2 data-i18n="products">Catálogo</h2>
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">IRBIS / CATÁLOGO</p>
+          <h2 data-i18n="products">Encontrá lo que buscás</h2>
+          <p class="section-description">Explorá nuestras categorías y descubrí el equipamiento disponible.</p>
+        </div>
+        <span class="section-side-note">PRODUCTOS<br>SELECCIONADOS</span>
+      </div>
+      <div class="category-shortcuts" aria-label="Explorar categorías">
+        <button type="button" class="category-shortcut is-active" data-category-shortcut="all" aria-pressed="true"><span>✳</span> Todo</button>
+        <button type="button" class="category-shortcut" data-category-shortcut="rifle" aria-pressed="false"><span>▱</span> Rifles</button>
+        <button type="button" class="category-shortcut" data-category-shortcut="shotgun" aria-pressed="false"><span>◫</span> Escopetas</button>
+        <button type="button" class="category-shortcut" data-category-shortcut="handgun" aria-pressed="false"><span>◉</span> Pistolas</button>
+        <button type="button" class="category-shortcut" data-category-shortcut="smg" aria-pressed="false"><span>▤</span> Subfusiles</button>
+      </div>
 
       <form class="product-filters" id="productFilters" aria-label="Filtros de productos">
         <div class="filter-field filter-field--search">
@@ -244,7 +277,7 @@
   =============================== -->
 <footer>
 <h6>
-  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • <span data-i18n="footerBuilt">Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript</span> • <span data-i18n="footerUx">UX/UI Interface</span> • <span data-i18n="footerDb">Database powered by Firebase</span> • <span data-i18n="footerDeploy">Deployed on Netlify ®</span>
+  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • Irbis Supplies
 </h6>
 </footer>
 
