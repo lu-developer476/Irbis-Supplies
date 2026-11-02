@@ -1232,7 +1232,7 @@ html[data-theme="light"] .brand-copy strong {
 
 .product-filters {
   display: grid;
-  grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(160px, 1fr)) auto;
+  grid-template-columns: minmax(200px, 1.5fr) repeat(4, minmax(130px, 1fr)) auto;
   gap: 14px;
   align-items: end;
   max-width: 1180px;
@@ -3237,11 +3237,22 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
    TOPBAR ROTATIVO + NAVBAR FLOTANTE
    ========================================= */
 .announcement-bar {
+  width: min(calc(100% - 32px), 1180px);
   min-height: 38px;
+  margin: 0 auto;
   padding: 5px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 0 0 12px 12px;
 }
 
-.announcementSwiper,
+.announcementSwiper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .announcementSwiper .swiper-wrapper,
 .announcementSwiper .swiper-slide {
   width: 100%;
@@ -3253,7 +3264,8 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 8px;
+  box-sizing: border-box;
+  padding: 2px 12px;
   font: 600 .78rem/1.4 Arial, sans-serif;
   letter-spacing: .02em;
   text-align: center;
