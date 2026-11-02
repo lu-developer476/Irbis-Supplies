@@ -176,10 +176,12 @@
           </select>
         </div>
 
-        <button id="clearFilters" class="btn-secondary" type="reset" data-i18n="clearFilters">Limpiar filtros</button>
       </form>
 
-      <p id="filterResults" class="filter-results" aria-live="polite"></p>
+      <div class="filter-results-row">
+        <p id="filterResults" class="filter-results" aria-live="polite"></p>
+        <button id="clearFilters" class="btn-secondary" type="reset" form="productFilters" data-i18n="clearFilters">Limpiar filtros</button>
+      </div>
       <div id="productosContainer" class="grid-productos"></div>
     </section>
 
