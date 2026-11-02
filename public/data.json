@@ -6,12 +6,28 @@
     "precioBase": 7800,
     "imagen": "./images/product-one.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Oliva", "hex": "#808000" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      }
+    ],
+    "descripcionEn": "Precision sniper rifle with a 10-round capacity and excellent stability. Designed for sustained accuracy at long range."
   },
   {
     "id": 2,
@@ -20,12 +36,28 @@
     "precioBase": 4800,
     "imagen": "./images/product-two.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Dorado", "hex": "#d4af37" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Dorado",
+        "hex": "#d4af37"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "10-round sniper rifle with a rugged design and excellent control in semiautomatic fire."
   },
   {
     "id": 3,
@@ -34,12 +66,28 @@
     "precioBase": 4250,
     "imagen": "./images/product-three.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Greige", "hex": "#b7a89e" },
-      { "nombre": "Oliva", "hex": "#808000" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Lila", "hex": "#b57edc" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Lila",
+        "hex": "#b57edc"
+      }
+    ],
+    "descripcionEn": "Compact assault rifle with a 30-round magazine. Highly maneuverable and easy to control."
   },
   {
     "id": 4,
@@ -48,12 +96,28 @@
     "precioBase": 4500,
     "imagen": "./images/product-four.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Dorado", "hex": "#d4af37" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Dorado",
+        "hex": "#d4af37"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "30-round assault rifle with high penetration power and improved accuracy."
   },
   {
     "id": 5,
@@ -62,12 +126,28 @@
     "precioBase": 4200,
     "imagen": "./images/product-five.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Lila", "hex": "#b57edc" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Lila",
+        "hex": "#b57edc"
+      }
+    ],
+    "descripcionEn": "Long-range sniper rifle with a 5-round magazine. Designed for exceptional precision and ballistic stability at extended distances."
   },
   {
     "id": 6,
@@ -76,12 +156,28 @@
     "precioBase": 7500,
     "imagen": "./images/product-six.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Amarillo", "hex": "#ffd700" },
-      { "nombre": "Rojo", "hex": "#ff0000" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Verde", "hex": "#008000" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Amarillo",
+        "hex": "#ffd700"
+      },
+      {
+        "nombre": "Rojo",
+        "hex": "#ff0000"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Verde",
+        "hex": "#008000"
+      }
+    ],
+    "descripcionEn": "Heavy 10-round shotgun with high power and significant impact at close range."
   },
   {
     "id": 7,
@@ -90,12 +186,28 @@
     "precioBase": 6000,
     "imagen": "./images/product-seven.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "Tactical shotgun with a 5-round capacity. Ideal for close-range control."
   },
   {
     "id": 8,
@@ -104,12 +216,28 @@
     "precioBase": 6000,
     "imagen": "./images/product-eight.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "Tactical shotgun with a 20-round capacity. Balances short-range reach and stability."
   },
   {
     "id": 9,
@@ -118,12 +246,28 @@
     "precioBase": 4000,
     "imagen": "./images/product-nine.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Greige", "hex": "#b7a89e" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      }
+    ],
+    "descripcionEn": "Tactical carbine with a 20-round magazine. Offers an optimal balance of power and accuracy at medium range."
   },
   {
     "id": 10,
@@ -132,12 +276,28 @@
     "precioBase": 2500,
     "imagen": "./images/product-ten.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Púrpura", "hex": "#800080" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Púrpura",
+        "hex": "#800080"
+      }
+    ],
+    "descripcionEn": "Single-action revolver with a 5-round capacity. Classic design combined with concentrated power."
   },
   {
     "id": 11,
@@ -146,12 +306,28 @@
     "precioBase": 3000,
     "imagen": "./images/product-eleven.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Greige", "hex": "#b7a89e" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Oliva", "hex": "#808000" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      }
+    ],
+    "descripcionEn": "Precision rifle with a 10-round capacity and reinforced stabilization system."
   },
   {
     "id": 12,
@@ -160,12 +336,28 @@
     "precioBase": 4000,
     "imagen": "./images/product-twelve.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Greige", "hex": "#b7a89e" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      }
+    ],
+    "descripcionEn": "10-round shotgun with an ergonomic design and controlled power."
   },
   {
     "id": 13,
@@ -174,12 +366,28 @@
     "precioBase": 8000,
     "imagen": "./images/product-thirteen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Verde Musgo", "hex": "#556b2f" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Verde Musgo",
+        "hex": "#556b2f"
+      }
+    ],
+    "descripcionEn": "Five-Seven pistol with a conversion kit and a 20-round magazine. Versatile configuration focused on accuracy and control."
   },
   {
     "id": 14,
@@ -188,12 +396,28 @@
     "precioBase": 7800,
     "imagen": "./images/product-fourteen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Turquesa", "hex": "#40e0d0" },
-      { "nombre": "Rosa", "hex": "#ff69b4" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Turquesa",
+        "hex": "#40e0d0"
+      },
+      {
+        "nombre": "Rosa",
+        "hex": "#ff69b4"
+      }
+    ],
+    "descripcionEn": "Compact submachine gun with a 50-round capacity and high rate of fire. Designed for tactical operations in confined spaces."
   },
   {
     "id": 15,
@@ -202,12 +426,28 @@
     "precioBase": 10000,
     "imagen": "./images/product-fifteen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Naranja", "hex": "#ff7f00" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Naranja",
+        "hex": "#ff7f00"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "Compact semiautomatic pistol with an integrated digital sight and a 10-round magazine. Ideal for tactical defense and urban use."
   },
   {
     "id": 16,
@@ -216,12 +456,28 @@
     "precioBase": 25000,
     "imagen": "./images/product-sixteen.png",
     "colores": [
-      { "nombre": "Dorado", "hex": "#d4af37" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Verde", "hex": "#008000" },
-      { "nombre": "Púrpura", "hex": "#800080" },
-      { "nombre": "Blanco", "hex": "#ffffff" }
-    ]
+      {
+        "nombre": "Dorado",
+        "hex": "#d4af37"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Verde",
+        "hex": "#008000"
+      },
+      {
+        "nombre": "Púrpura",
+        "hex": "#800080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      }
+    ],
+    "descripcionEn": "Advanced tactical pistol with a 30-round capacity. High performance and futuristic design."
   },
   {
     "id": 17,
@@ -230,12 +486,28 @@
     "precioBase": 5000,
     "imagen": "./images/product-seventeen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Oliva", "hex": "#808000" },
-      { "nombre": "Greige", "hex": "#b7a89e" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      }
+    ],
+    "descripcionEn": "Compact 7-round shotgun with significant impact at close range."
   },
   {
     "id": 18,
@@ -244,12 +516,28 @@
     "precioBase": 8000,
     "imagen": "./images/product-eighteen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Greige", "hex": "#b7a89e" },
-      { "nombre": "Oliva", "hex": "#808000" },
-      { "nombre": "Dorado", "hex": "#d4af37" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      },
+      {
+        "nombre": "Dorado",
+        "hex": "#d4af37"
+      }
+    ],
+    "descripcionEn": "10-round tactical shotgun with superior power and reinforced design."
   },
   {
     "id": 19,
@@ -258,12 +546,28 @@
     "precioBase": 7800,
     "imagen": "./images/product-nineteen.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Verde Musgo", "hex": "#556b2f" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Verde Musgo",
+        "hex": "#556b2f"
+      }
+    ],
+    "descripcionEn": "Camouflaged sniper rifle with a 10-round capacity and high accuracy in open terrain."
   },
   {
     "id": 20,
@@ -272,12 +576,28 @@
     "precioBase": 7200,
     "imagen": "./images/product-twenty.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Greige", "hex": "#b7a89e" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      }
+    ],
+    "descripcionEn": "10-round designated marksman rifle with excellent accuracy at medium range."
   },
   {
     "id": 21,
@@ -286,12 +606,28 @@
     "precioBase": 4000,
     "imagen": "./images/product-twenty-one.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "Lightweight submachine gun with a 20-round capacity, designed for high mobility and control in urban tactical scenarios."
   },
   {
     "id": 22,
@@ -300,12 +636,28 @@
     "precioBase": 5500,
     "imagen": "./images/product-twenty-two.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Marrón", "hex": "#8b4513" },
-      { "nombre": "Verde Musgo", "hex": "#556b2f" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      },
+      {
+        "nombre": "Verde Musgo",
+        "hex": "#556b2f"
+      }
+    ],
+    "descripcionEn": "Tactical bullpup rifle with a five-round-burst system and a 50-round capacity. Ideal for high-intensity controlled fire."
   },
   {
     "id": 23,
@@ -314,12 +666,28 @@
     "precioBase": 5250,
     "imagen": "./images/product-twenty-three.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Verde Musgo", "hex": "#556b2f" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Verde Musgo",
+        "hex": "#556b2f"
+      }
+    ],
+    "descripcionEn": "Assault rifle with a 30-round magazine. High accuracy and stability for extended tactical operations."
   },
   {
     "id": 24,
@@ -328,12 +696,28 @@
     "precioBase": 4250,
     "imagen": "./images/product-twenty-four.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Oliva", "hex": "#808000" },
-      { "nombre": "Greige", "hex": "#b7a89e" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Oliva",
+        "hex": "#808000"
+      },
+      {
+        "nombre": "Greige",
+        "hex": "#b7a89e"
+      }
+    ],
+    "descripcionEn": "30-round bullpup rifle with a compact design and improved accuracy."
   },
   {
     "id": 25,
@@ -342,11 +726,27 @@
     "precioBase": 3600,
     "imagen": "./images/product-twenty-five.png",
     "colores": [
-      { "nombre": "Negro", "hex": "#000000" },
-      { "nombre": "Gris", "hex": "#808080" },
-      { "nombre": "Blanco", "hex": "#ffffff" },
-      { "nombre": "Ocre", "hex": "#c2a34a" },
-      { "nombre": "Marrón", "hex": "#8b4513" }
-    ]
+      {
+        "nombre": "Negro",
+        "hex": "#000000"
+      },
+      {
+        "nombre": "Gris",
+        "hex": "#808080"
+      },
+      {
+        "nombre": "Blanco",
+        "hex": "#ffffff"
+      },
+      {
+        "nombre": "Ocre",
+        "hex": "#c2a34a"
+      },
+      {
+        "nombre": "Marrón",
+        "hex": "#8b4513"
+      }
+    ],
+    "descripcionEn": "Compact submachine gun with a 20-round capacity and reinforced frame. Excellent performance in close-quarters combat."
   }
 ]
