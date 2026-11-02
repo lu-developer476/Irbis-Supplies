@@ -33,7 +33,10 @@ function wireNavDropdown() {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setOpen(false);
+    if (event.key === "Escape" && dropdown.classList.contains("is-open")) {
+      setOpen(false);
+      menuButton.focus();
+    }
   });
 }
 
