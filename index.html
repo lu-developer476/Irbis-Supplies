@@ -379,14 +379,13 @@
 
     const announcementSwiper = new Swiper(".announcementSwiper", {
       loop: true,
-      effect: "fade",
-      fadeEffect: { crossFade: true },
+      effect: "slide",
       autoplay: prefersReducedMotion ? false : {
-        delay: 5200,
+        delay: 2800,
         disableOnInteraction: false,
-        pauseOnMouseEnter: true,
+        pauseOnMouseEnter: false,
       },
-      speed: 450,
+      speed: 700,
       allowTouchMove: true,
       a11y: {
         enabled: true,
