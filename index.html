@@ -293,6 +293,10 @@
         <button class="btn-primary" type="submit" data-i18n="newsletterSubmit">Suscribirme</button>
       </form>
       <p id="newsletterStatus" class="form-status" role="status" aria-live="polite"></p>
+      <nav class="footer-legal-links" aria-label="Atención al consumidor">
+        <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener noreferrer" data-i18n="claimsLink">Para reclamos, ingresá acá.</a>
+        <a href="https://zannavara.mitiendanube.com/contacto/?order_cancellation_without_id=true" target="_blank" rel="noopener noreferrer" data-i18n="regretLink">Botón de arrepentimiento</a>
+      </nav>
     </section>
 
     <section class="footer-contact" aria-labelledby="contactTitle">
@@ -310,10 +314,6 @@
         <button class="btn-secondary" type="submit" data-i18n="contactSubmit">Enviar consulta</button>
       </form>
       <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
-      <nav class="footer-legal-links" aria-label="Atención al consumidor">
-        <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener noreferrer" data-i18n="claimsLink">Para reclamos, ingresá acá.</a>
-        <a href="https://zannavara.mitiendanube.com/contacto/?order_cancellation_without_id=true" target="_blank" rel="noopener noreferrer" data-i18n="regretLink">Botón de arrepentimiento</a>
-      </nav>
     </section>
   </div>
 
@@ -366,9 +366,9 @@
     const syncNavbar = () => {
       if (!announcement || !navbar || !navbarSpacer) return;
       const announcementHeight = announcement.offsetHeight;
-      navbarSpacer.style.height = `${navbar.offsetHeight}px`;
-      navbar.style.top = window.scrollY > announcementHeight ? "0px" : `${announcementHeight}px`;
-      navbar.classList.toggle("is-scrolled", window.scrollY > announcementHeight);
+      navbarSpacer.style.height = `${announcementHeight + navbar.offsetHeight}px`;
+      navbar.style.top = `${announcementHeight}px`;
+      navbar.classList.toggle("is-scrolled", window.scrollY > 0);
     };
     syncNavbar();
     window.addEventListener("scroll", syncNavbar, { passive: true });
