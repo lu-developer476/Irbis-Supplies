@@ -25,6 +25,14 @@ declare global {
 
 let app: FirebaseApp | null = null;
 
+function uiText(spanish: string, english: string): string {
+  try {
+    return window.localStorage.getItem("irbis_language") === "en" ? english : spanish;
+  } catch {
+    return spanish;
+  }
+}
+
 function getConfig() {
   const cfg = window.IRBIS_FIREBASE_CONFIG;
   if (!cfg || !cfg.apiKey || cfg.apiKey === "REEMPLAZAR") return null;
@@ -69,22 +77,22 @@ export function wireAuthUI() {
 
     const label = u.displayName
       ? `${u.displayName} · ${u.email}`
-      : (u.email || "Sesión iniciada");
+      : (u.email || uiText("Sesión iniciada", "Signed in"));
 
     authBadge.textContent = label;
 
     authButton.style.display = "none";
 
     authBadge.style.cursor = "pointer";
-    authBadge.title = "Click para cerrar sesión";
+    authBadge.title = uiText("Click para cerrar sesión", "Click to sign out");
     authBadge.onclick = async () => {
       const ok = await (window as any).Swal?.fire?.({
-        title: "Cerrar sesión",
-        text: "¿Querés salir de tu cuenta?",
+        title: uiText("Cerrar sesión", "Sign out"),
+        text: uiText("¿Querés salir de tu cuenta?", "Do you want to sign out?"),
         icon: "question",
         showCancelButton: true,
-        confirmButtonText: "Sí, salir",
-        cancelButtonText: "Cancelar",
+        confirmButtonText: uiText("Sí, salir", "Sign out"),
+        cancelButtonText: uiText("Cancelar", "Cancel"),
         background: "#1e1e1e",
         color: "#fff",
       });
@@ -102,13 +110,13 @@ async function openAuthMenu(auth = getAuth(app!)) {
   if (!Swal) return;
 
   const res = await Swal.fire({
-    title: "Acceso",
-    text: "Elegí cómo querés continuar.",
+    title: uiText("Acceso", "Account access"),
+    text: uiText("Elegí cómo querés continuar.", "Choose how you would like to continue."),
     icon: "question",
     showDenyButton: true,
     showCancelButton: true,
-    confirmButtonText: "Ingresar",
-    denyButtonText: "Registrarse",
+    confirmButtonText: uiText("Ingresar", "Sign in"),
+    denyButtonText: uiText("Registrarse", "Register"),
     cancelButtonText: "Cancelar",
     background: "#1e1e1e",
     color: "#fff",
@@ -130,17 +138,17 @@ export async function openRegisterModal(auth = getAuth(app!)) {
   if (!Swal) return;
 
   const res = await Swal.fire({
-    title: "Crear cuenta",
+    title: uiText("Crear cuenta", "Create account"),
     html: `
-      <input id="regName" class="swal2-input" placeholder="Nombre">
-      <input id="regEmail" class="swal2-input" placeholder="Email" type="email">
-      <input id="regPass" class="swal2-input" placeholder="Contraseña" type="password">
-      <input id="regPass2" class="swal2-input" placeholder="Repetir contraseña" type="password">
+      <input id="regName" class="swal2-input" placeholder="${uiText("Nombre", "Name")}">
+      <input id="regEmail" class="swal2-input" placeholder="${uiText("Email", "Email")}" type="email">
+      <input id="regPass" class="swal2-input" placeholder="${uiText("Contraseña", "Password")}" type="password">
+      <input id="regPass2" class="swal2-input" placeholder="${uiText("Repetir contraseña", "Repeat password")}" type="password">
       <p style="font-size:0.9rem; opacity:0.8; margin:8px 0 0; text-align:left;">
-        Te vamos a enviar un correo de verificación.
+        ${uiText("Te vamos a enviar un correo de verificación.", "We will send you a verification email.")}
       </p>
     `,
-    confirmButtonText: "Crear",
+    confirmButtonText: uiText("Crear", "Create"),
     showCancelButton: true,
     cancelButtonText: "Cancelar",
     background: "#1e1e1e",
@@ -156,19 +164,19 @@ export async function openRegisterModal(auth = getAuth(app!)) {
       const strongEnough = (pass || "").length >= 8;
 
       if (!name || !email || !pass || !pass2) {
-        Swal.showValidationMessage("Completá todos los campos.");
+        Swal.showValidationMessage(uiText("Completá todos los campos.", "Complete all fields."));
         return;
       }
       if (!emailOk) {
-        Swal.showValidationMessage("Email inválido.");
+        Swal.showValidationMessage(uiText("Email inválido.", "Invalid email address."));
         return;
       }
       if (!strongEnough) {
-        Swal.showValidationMessage("La contraseña debe tener al menos 8 caracteres.");
+        Swal.showValidationMessage(uiText("La contraseña debe tener al menos 8 caracteres.", "The password must be at least 8 characters long."));
         return;
       }
       if (pass !== pass2) {
-        Swal.showValidationMessage("Las contraseñas no coinciden.");
+        Swal.showValidationMessage(uiText("Las contraseñas no coinciden.", "The passwords do not match."));
         return;
       }
       return { name, email, pass };
@@ -184,7 +192,7 @@ export async function openRegisterModal(auth = getAuth(app!)) {
       await updateProfile(cred.user, { displayName: res.value.name });
     }
 
-    auth.languageCode = "es";
+    auth.languageCode = window.localStorage.getItem("irbis_language") === "en" ? "en" : "es";
     await sendEmailVerification(cred.user);
 
     // 🔥 CREACIÓN DOCUMENTO FIRESTORE
@@ -200,8 +208,8 @@ export async function openRegisterModal(auth = getAuth(app!)) {
     });
 
     await Swal.fire({
-      title: "Cuenta creada",
-      html: `Listo. Te mandamos un email de verificación a <strong>${res.value.email}</strong>.`,
+      title: uiText("Cuenta creada", "Account created"),
+      html: `${uiText("Listo. Te mandamos un email de verificación a", "Done. We sent a verification email to")} <strong>${res.value.email}</strong>.`,
       icon: "success",
       background: "#1e1e1e",
       color: "#fff",
@@ -209,8 +217,8 @@ export async function openRegisterModal(auth = getAuth(app!)) {
 
   } catch (e: any) {
     await Swal.fire({
-      title: "No se pudo crear",
-      text: e?.message || "Error inesperado.",
+      title: uiText("No se pudo crear", "Could not create account"),
+      text: e?.message || uiText("Error inesperado.", "Unexpected error."),
       icon: "error",
       background: "#1e1e1e",
       color: "#fff",
@@ -223,12 +231,12 @@ export async function openLoginModal(auth = getAuth(app!)) {
   if (!Swal) return;
 
   const res = await Swal.fire({
-    title: "Iniciar sesión",
+    title: uiText("Iniciar sesión", "Sign in"),
     html: `
       <input id="loginEmail" class="swal2-input" placeholder="Email" type="email">
       <input id="loginPass" class="swal2-input" placeholder="Contraseña" type="password">
     `,
-    confirmButtonText: "Entrar",
+    confirmButtonText: uiText("Entrar", "Continue"),
     showCancelButton: true,
     cancelButtonText: "Cancelar",
     background: "#1e1e1e",
@@ -238,7 +246,7 @@ export async function openLoginModal(auth = getAuth(app!)) {
       const email = (document.getElementById("loginEmail") as HTMLInputElement)?.value.trim();
       const pass = (document.getElementById("loginPass") as HTMLInputElement)?.value;
       if (!email || !pass) {
-        Swal.showValidationMessage("Completá email y contraseña.");
+        Swal.showValidationMessage(uiText("Completá email y contraseña.", "Enter your email and password."));
         return;
       }
       return { email, pass };
@@ -250,8 +258,8 @@ export async function openLoginModal(auth = getAuth(app!)) {
   try {
     await signInWithEmailAndPassword(auth, res.value.email, res.value.pass);
     await Swal.fire({
-      title: "Bienvenido",
-      text: "Sesión iniciada.",
+      title: uiText("Bienvenido", "Welcome"),
+      text: uiText("Sesión iniciada.", "You are now signed in."),
       icon: "success",
       background: "#1e1e1e",
       color: "#fff",
@@ -260,7 +268,7 @@ export async function openLoginModal(auth = getAuth(app!)) {
     });
   } catch (e: any) {
     await Swal.fire({
-      title: "No se pudo iniciar",
+      title: uiText("No se pudo iniciar", "Sign-in failed"),
       text: e?.message || "Error inesperado.",
       icon: "error",
       background: "#1e1e1e",
@@ -273,10 +281,10 @@ function explainNoFirebase() {
   const Swal = (window as any).Swal;
   if (!Swal) return;
   Swal.fire({
-    title: "Auth no configurado",
+    title: uiText("Auth no configurado", "Authentication not configured"),
     html: `
-      Para que <strong>Iniciar sesión / Registrarse</strong> sea real, necesitás Firebase.<br>
-      Editá <code>public/firebase-config.js</code> con tu config.
+      ${uiText("Para que", "To enable")} <strong>${uiText("Iniciar sesión / Registrarse", "Sign in / Register")}</strong> ${uiText("sea real, necesitás Firebase.", "with real accounts, configure Firebase.")}<br>
+      ${uiText("Editá", "Edit")} <code>public/firebase-config.js</code> ${uiText("con tu config.", "with your config.")}
     `,
     icon: "info",
     background: "#1e1e1e",
