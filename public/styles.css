@@ -1284,27 +1284,56 @@ html[data-theme="light"] .brand-copy strong {
   white-space: nowrap;
 }
 
-.filter-results {
-  min-height: 24px;
-  margin: 0 auto 24px;
+.filter-results-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
   max-width: 1180px;
+  min-height: 28px;
+  margin: 0 auto 24px;
+}
+
+.filter-results {
+  min-height: 0;
+  margin: 0;
   color: var(--irbis-text-muted);
   font-size: 20px;
   text-align: right;
+}
+
+#clearFilters.btn-secondary {
+  min-height: 27px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 @media (max-width: 1100px) {
   .product-filters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .filter-field--search,
-  #clearFilters.btn-secondary {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (max-width: 767px) {
+  .filter-results-row {
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 12px;
+  }
+
+  .filter-results {
+    font-size: 15px;
+  }
+
+  #clearFilters.btn-secondary {
+    min-height: 26px;
+    padding: 4px 7px;
+    font-size: 11px;
+  }
+
   .product-filters {
     grid-template-columns: 1fr;
     margin-inline: 16px;
@@ -3237,26 +3266,28 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
    TOPBAR ROTATIVO + NAVBAR FLOTANTE
    ========================================= */
 .announcement-bar {
-  width: min(calc(100% - 32px), 1180px);
-  min-height: 38px;
-  margin: 0 auto;
-  padding: 5px 16px;
+  width: 100%;
+  min-height: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 2px 12px;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0;
 }
 
 .announcementSwiper {
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  max-width: none;
+  height: 24px;
+  margin: 0;
   overflow: hidden;
 }
 
 .announcementSwiper .swiper-wrapper,
 .announcementSwiper .swiper-slide {
   width: 100%;
-  height: auto;
+  height: 24px;
   min-height: 0;
 }
 
@@ -3265,9 +3296,9 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 2px 12px;
-  font: 600 .78rem/1.4 Arial, sans-serif;
-  letter-spacing: .02em;
+  padding: 0 12px;
+  font: 600 .72rem/1.2 Arial, sans-serif;
+  letter-spacing: .015em;
   text-align: center;
 }
 
@@ -3365,12 +3396,21 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
 
 @media (max-width: 767px) {
   .announcement-bar {
-    min-height: 42px;
-    padding: 5px 10px;
+    min-height: 28px;
+    height: 28px;
+    padding: 2px 8px;
+  }
+
+  .announcementSwiper,
+  .announcementSwiper .swiper-wrapper,
+  .announcementSwiper .swiper-slide {
+    height: 24px;
   }
 
   .announcementSwiper .swiper-slide {
-    font-size: .68rem;
+    padding: 0 6px;
+    font-size: .66rem;
+    line-height: 1.15;
   }
 
   .navbar {
