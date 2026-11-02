@@ -67,6 +67,66 @@ const CART_KEY = "carrito";
 const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
+
+const legacyCheckoutTranslations: Record<"es" | "en", Record<string, string>> = {
+  es: {
+    colorRequired: "Seleccioná un color antes de agregar al carrito.",
+    couponFreeTitle: "Cupón gratis", createAccount: "Crear cuenta", later: "Más tarde",
+    orderNotFound: "No se encontró esa orden en el historial.",
+    noHistoryTitle: "Sin historial", noHistoryText: "Todavía no hay compras registradas.",
+    historyTitle: "Historial de Compras", popupBlocked: "El navegador bloqueó la ventana emergente.",
+    cartRequired: "Agregá productos antes de finalizar la compra.",
+    qrPaymentRequired: "Confirmá el pago QR antes de continuar.",
+    checkoutTitle: "Finalizar compra", fullName: "Nombre completo",
+    emailAddress: "Correo electrónico", deliveryAddress: "Dirección de entrega",
+    fullNamePlaceholder: "Nombre completo", emailPlaceholder: "nombre@correo.com",
+    addressPlaceholder: "Calle, número, localidad", confirmTotal: "Total a confirmar:",
+    confirmPurchase: "Confirmar compra",
+    checkoutValidation: "Completá nombre, email válido y dirección.",
+    orderCompleted: "Compra registrada",
+    orderSuccess: "La orden se registró correctamente. El comprobante está disponible.",
+    orderErrorTitle: "Error", orderErrorText: "No se pudo registrar la orden de compra. Intentalo más tarde.",
+    addonPrompt: "¿Querés agregar estos accesorios?", continue: "Continuar",
+    cartHasNoItems: "El carrito no posee artículos", cartCleared: "Carrito limpiado",
+    qrConfirmed: "Pago QR confirmado", couponAlreadyUsed: "Ya se aplicó un cupón en esta compra.",
+    couponEnterCode: "Ingresá un código para continuar.",
+    couponRegisteredOnly: "Este cupón está disponible para clientes registrados.",
+    accountRequired: "Cuenta requerida",
+    couponRegisteredMessage: "El cupón IRBIS15 es exclusivo para clientes registrados. Creá tu cuenta para obtener el beneficio.",
+    cancel: "Cancelar", couponApplied: "Cupón aplicado",
+    couponAppliedText: "Se aplicó un 15% adicional por ser cliente oficial.",
+    couponInvalid: "El código ingresado no es válido.", couponInvalidTitle: "Cupón inválido."
+  },
+  en: {
+    colorRequired: "Select a color before adding this item to your cart.",
+    couponFreeTitle: "Free coupon", createAccount: "Create account", later: "Later",
+    orderNotFound: "That order could not be found in your history.",
+    noHistoryTitle: "No history", noHistoryText: "No purchases have been recorded yet.",
+    historyTitle: "Purchase history", popupBlocked: "Your browser blocked the pop-up window.",
+    cartRequired: "Add products before checking out.",
+    qrPaymentRequired: "Confirm the QR payment before continuing.",
+    checkoutTitle: "Checkout", fullName: "Full name",
+    emailAddress: "Email address", deliveryAddress: "Delivery address",
+    fullNamePlaceholder: "Full name", emailPlaceholder: "name@example.com",
+    addressPlaceholder: "Street, number, city", confirmTotal: "Total to confirm:",
+    confirmPurchase: "Confirm purchase",
+    checkoutValidation: "Enter your name, a valid email address and delivery address.",
+    orderCompleted: "Order completed",
+    orderSuccess: "Your order was registered successfully. The receipt is available.",
+    orderErrorTitle: "Error", orderErrorText: "The order could not be registered. Please try again later.",
+    addonPrompt: "Would you like to add these accessories?", continue: "Continue",
+    cartHasNoItems: "Your cart has no items", cartCleared: "Cart cleared",
+    qrConfirmed: "QR payment confirmed", couponAlreadyUsed: "A coupon has already been applied to this purchase.",
+    couponEnterCode: "Enter a coupon code to continue.",
+    couponRegisteredOnly: "This coupon is available to registered customers.",
+    accountRequired: "Account required",
+    couponRegisteredMessage: "The IRBIS15 coupon is exclusive to registered customers. Create an account to get the benefit.",
+    cancel: "Cancel", couponApplied: "Coupon applied",
+    couponAppliedText: "An additional 15% discount has been applied for official customers.",
+    couponInvalid: "The entered code is invalid.", couponInvalidTitle: "Invalid coupon."
+  }
+};
+
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
   es: { details: "Detalles", selectColor: "Seleccionar", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", emptyHistory: "No hay compras registradas aún.", colorLabel: "Color:", unitPrice: "c/u", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
   en: { details: "Details", selectColor: "Select", addToCart: "Add to cart", emptyCart: "Cart is empty.", emptyHistory: "No purchases have been recorded yet.", colorLabel: "Color:", unitPrice: "each", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
@@ -77,7 +137,7 @@ function currentLanguage(): "es" | "en" {
 }
 
 function t(key: string): string {
-  return legacyTranslations[currentLanguage()][key] || legacyTranslations.es[key] || key;
+  return legacyCheckoutTranslations[currentLanguage()][key] || legacyTranslations[currentLanguage()][key] || legacyCheckoutTranslations.es[key] || legacyTranslations.es[key] || key;
 }
 
 // ===============================
@@ -604,7 +664,7 @@ function agregarAlCarrito(id) {
   );
 
   if (!colorActivo) {
-    alertaError("Seleccioná un color antes de agregar al carrito.");
+    alertaError(t("colorRequired"));
     return;
   }
 
@@ -639,12 +699,12 @@ function agregarAlCarrito(id) {
   if (carritoEstabaVacio && !yaMostrado && !isUserLoggedIn()) {
     storageSetString(COUPON_PROMPT_KEY, "1");
     Swal.fire({
-      title: "Cupón gratis",
+      title: t("couponFreeTitle"),
       html: `Creá tu cuenta y obtené <strong>15% OFF</strong> con el cupón <code>IRBIS15</code>.`,
       icon: "info",
       showCancelButton: true,
-      confirmButtonText: "Crear cuenta",
-      cancelButtonText: "Más tarde",
+      confirmButtonText: t("createAccount"),
+      cancelButtonText: t("later"),
       background: "#1e1e1e",
       color: "#fff",
     }).then(async (r) => {
@@ -829,7 +889,7 @@ function renderHistorial() {
 function abrirFacturaDesdeHistorial(orderId) {
   const o = orders.find(x => x.orderId === orderId);
   if (!o) {
-    alertaError("No se encontró esa orden en el historial.");
+    alertaError(t("orderNotFound"));
     return;
   }
 
@@ -846,8 +906,8 @@ btnHistorial?.addEventListener("click", () => {
 
   if (!orders.length) {
     Swal.fire({
-      title: "Sin historial",
-      text: "Todavía no hay compras registradas.",
+      title: t("noHistoryTitle"),
+      text: t("noHistoryText"),
       icon: "info",
       background: "#1e1e1e",
       color: "#fff"
@@ -870,7 +930,7 @@ btnHistorial?.addEventListener("click", () => {
   `).join("");
 
   Swal.fire({
-    title: "Historial de Compras",
+    title: t("historyTitle"),
     html: `<div style="max-height:350px; overflow:auto;">${lista}</div>`,
     width: 600,
     background: "#1e1e1e",
@@ -1111,7 +1171,7 @@ function abrirVentanaFactura(order) {
   const w = window.open("", "_blank");
 
   if (!w) {
-    alertaError("El navegador bloqueó la ventana emergente.");
+    alertaError(t("popupBlocked"));
     return;
   }
   
@@ -1255,11 +1315,11 @@ function abrirVentanaFactura(order) {
 // ===============================
 btnCheckout?.addEventListener("click", () => {
   if (!carrito.length) {
-    return alertaError("Agregá productos antes de finalizar la compra.");
+    return alertaError(t("cartRequired"));
   }
 
   if (paymentSelect?.value === "qr" && !qrConfirmado) {
-    return alertaError("Confirmá el pago QR antes de continuar.");
+    return alertaError(t("qrPaymentRequired"));
   }
 
   const mostrarFormularioCheckout = () => {
@@ -1267,21 +1327,21 @@ btnCheckout?.addEventListener("click", () => {
     const total = resumen.total;
 
     Swal.fire({
-      title: "Checkout",
+      title: t("checkoutTitle"),
       html: `
-        <label class="checkout-field" for="nombreCliente">Nombre completo
-          <input id="nombreCliente" class="swal2-input" type="text" autocomplete="name" maxlength="120" placeholder="Nombre completo" required>
+        <label class="checkout-field" for="nombreCliente">${t("fullName")}
+          <input id="nombreCliente" class="swal2-input" type="text" autocomplete="name" maxlength="120" placeholder="${t("fullNamePlaceholder")}" required>
         </label>
-        <label class="checkout-field" for="emailCliente">Correo electrónico
-          <input id="emailCliente" class="swal2-input" type="email" autocomplete="email" maxlength="160" placeholder="nombre@correo.com" required>
+        <label class="checkout-field" for="emailCliente">${t("emailAddress")}
+          <input id="emailCliente" class="swal2-input" type="email" autocomplete="email" maxlength="160" placeholder="${t("emailPlaceholder")}" required>
         </label>
-        <label class="checkout-field" for="direccionCliente">Dirección de entrega
-          <input id="direccionCliente" class="swal2-input" type="text" autocomplete="street-address" maxlength="240" placeholder="Calle, número, localidad" required>
+        <label class="checkout-field" for="direccionCliente">${t("deliveryAddress")}
+          <input id="direccionCliente" class="swal2-input" type="text" autocomplete="street-address" maxlength="240" placeholder="${t("addressPlaceholder")}" required>
         </label>
-        <p class="checkout-total">Total a confirmar: <strong>${currency(total)}</strong></p>
+        <p class="checkout-total">${t("confirmTotal")} <strong>${currency(total)}</strong></p>
       `,
       customClass: { htmlContainer: "checkout-form-content" },
-      confirmButtonText: "Confirmar compra",
+      confirmButtonText: t("confirmPurchase"),
       showCancelButton: true,
       background: "#1e1e1e",
       color: "#fff",
@@ -1294,7 +1354,7 @@ btnCheckout?.addEventListener("click", () => {
         const direccion = (document.getElementById("direccionCliente") as HTMLInputElement | null)?.value.trim() || "";
         const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         if (!nombre || nombre.length > 120 || !emailValido || !direccion || direccion.length > 240) {
-          Swal.showValidationMessage("Completá nombre, email válido y dirección.");
+          Swal.showValidationMessage(t("checkoutValidation"));
           return;
         }
 
@@ -1365,8 +1425,8 @@ btnCheckout?.addEventListener("click", () => {
         abrirVentanaFactura(order);
 
         Swal.fire({
-          title: "Simulación completada",
-          text: "La orden se registró correctamente. El comprobante está disponible.",
+          title: t("orderCompleted"),
+          text: t("orderSuccess"),
           icon: "success",
           background: "#1e1e1e",
           color: "#fff"
@@ -1396,8 +1456,8 @@ btnCheckout?.addEventListener("click", () => {
         console.error("Error guardando orden:", error);
 
         Swal.fire({
-          title: "Error",
-          text: "No se pudo registrar la orden de compra. Intentalo más tarde.",
+          title: t("orderErrorTitle"),
+          text: t("orderErrorText"),
           icon: "error",
           background: "#1e1e1e",
           color: "#fff"
@@ -1419,10 +1479,10 @@ btnCheckout?.addEventListener("click", () => {
   `).join("");
 
   Swal.fire({
-    title: "¿Querés agregar éstos accesorios?",
+    title: t("addonPrompt"),
     html: `<div style="max-height:300px;overflow:auto;">${addonsHtml}</div>`,
     showCancelButton: true,
-    confirmButtonText: "Continuar",
+    confirmButtonText: t("continue"),
     background: "#1e1e1e",
     color: "#fff",
     preConfirm: () => {
@@ -1460,7 +1520,7 @@ btnVaciarCarrito?.addEventListener("click", () => {
 
   if (!carrito.length) {
     Swal.fire({
-      title: "El carrito no posee artículos",
+      title: t("cartHasNoItems"),
       icon: "info",
       background: "#1e1e1e",
       color: "#fff",
@@ -1491,7 +1551,7 @@ btnVaciarCarrito?.addEventListener("click", () => {
   renderCarrito();
 
   Swal.fire({
-    title: "Carrito limpiado",
+    title: t("cartCleared"),
     icon: "success",
     background: "#1e1e1e",
     color: "#fff",
@@ -1603,7 +1663,7 @@ btnConfirmQR?.addEventListener("click", () => {
   btnCheckout.classList.toggle("btn-disabled", carrito.length === 0);
 
   Swal.fire({
-    title: "Pago QR confirmado",
+    title: t("qrConfirmed"),
     icon: "success",
     background: "#1e1e1e",
     color: "#fff",
@@ -1624,29 +1684,28 @@ applyCouponBtn?.addEventListener("click", () => {
   };
 
   if (cuponAplicado) {
-    setCouponFeedback("Ya se aplicó un cupón en esta compra.", "info");
+    setCouponFeedback(t("couponAlreadyUsed"), "info");
     return;
   }
 
   const code = (couponInput as HTMLInputElement | null)?.value.trim().toUpperCase() || "";
   if (!code) {
-    setCouponFeedback("Ingresá un código para continuar.", "error");
+    setCouponFeedback(t("couponEnterCode"), "error");
     couponInput?.focus();
     return;
   }
 
   if (!isUserLoggedIn()) {
-    setCouponFeedback("Este cupón está disponible para clientes registrados.", "info");
+    setCouponFeedback(t("couponRegisteredOnly"), "info");
     Swal.fire({
-      title: "Cuenta requerida",
+      title: t("accountRequired"),
       html: `
-        El cupón <strong>IRBIS15</strong> es exclusivo para clientes registrados.<br><br>
-        Creá tu cuenta para obtener el beneficio.
+        ${t("couponRegisteredMessage")}
       `,
       icon: "info",
       showCancelButton: true,
       confirmButtonText: "Crear cuenta",
-      cancelButtonText: "Cancelar",
+      cancelButtonText: t("cancel"),
       background: "#1e1e1e",
       color: "#fff",
     }).then(async (r) => {
@@ -1660,22 +1719,22 @@ applyCouponBtn?.addEventListener("click", () => {
   if (code === "IRBIS15") {
     descuentoCupon = 0.15;
     cuponAplicado = true;
-    setCouponFeedback("Cupón IRBIS15 aplicado: 15% adicional.", "success");
+    setCouponFeedback("IRBIS15: " + t("couponAppliedText"), "success");
     if (couponInput) (couponInput as HTMLInputElement).readOnly = true;
     if (applyCouponBtn) (applyCouponBtn as HTMLButtonElement).disabled = true;
     renderCarrito();
 
     Swal.fire({
-      title: "Cupón aplicado",
-      text: "Se aplicó un 15% adicional por ser cliente oficial.",
+      title: t("couponApplied"),
+      text: t("couponAppliedText"),
       icon: "success",
       background: "#1e1e1e",
       color: "#fff"
     });
 
   } else {
-    setCouponFeedback("El código ingresado no es válido.", "error");
-    alertaError("Cupón inválido.");
+    setCouponFeedback(t("couponInvalid"), "error");
+    alertaError(t("couponInvalidTitle"));
   }
 });
 
