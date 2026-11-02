@@ -2698,3 +2698,32 @@ button:disabled,
   }
   .swiper-wrapper { transition-duration: 0.01ms !important; }
 }
+
+
+/* Theme-aware contrast for shared controls and status feedback. */
+body {
+  color: var(--irbis-text);
+  background-color: var(--irbis-bg);
+}
+.filter-results {
+  color: var(--irbis-text-muted);
+}
+html[data-theme="light"] .product-filters {
+  background: var(--irbis-bg-soft);
+  border-color: var(--irbis-border-strong);
+}
+html[data-theme="light"] .filter-field label {
+  color: var(--irbis-text-muted);
+}
+html[data-theme="light"] .filter-field input,
+html[data-theme="light"] .filter-field select {
+  color: var(--irbis-text-strong);
+  background: var(--irbis-bg-card);
+  border-color: var(--irbis-border-strong);
+}
+html[data-theme="light"] .coupon-feedback[data-state="success"] {
+  color: #176b36;
+}
+html[data-theme="light"] .coupon-feedback[data-state="error"] {
+  color: #a1261d;
+}
