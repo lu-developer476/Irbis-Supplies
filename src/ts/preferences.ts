@@ -1,3 +1,5 @@
+import { storageGetString, storageSetString } from "./storage";
+
 const LANGUAGE_KEY = "irbis_language";
 const THEME_KEY = "irbis_theme";
 
@@ -12,22 +14,6 @@ const translations: Record<Language, Record<string, string>> = {
     login: "Sign in", register: "Register", menu: "Menu", preferences: "Preferences", catalogLink: "📦 Catalog", cartAction: "🛒 Cart", authMenu: "Sign in or register", products: "Catalog", history: "📄History", cart: "Cart", closeCart: "Close cart", fiscal: "Tax information", ivaStatus: "VAT: Registered taxpayer", shippingLabel: "Shipping method:", pickup: "Free pickup", courier: "Courier - $25,000", express: "Express shipping – To be arranged", paymentLabel: "Payment method:", select: "Select", cash: "Cash", card: "Card (credit / debit)", qr: "QR", cardNumber: "Card number", cardName: "Name on card", cardExpiry: "MM/YY", cardCvv: "CVV", qrHelp: "Scan to complete payment.", couponPlaceholder: "Coupon code", applyCoupon: "Apply", discountNote: "*All prices include a permanent 30% discount.", subtotal: "Subtotal:", discount: "Discount:", vat: "VAT (21%):", shipping: "Shipping:", total: "Total:", clearCart: "Clear Cart", checkout: "Checkout", footerRights: "All rights reserved", footerBuilt: "Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript", footerUx: "UX/UI Interface", footerDb: "Database powered by Firebase", footerDeploy: "Deployed on Netlify ®", hero1: "Before the end arrives...", hero2: "make sure you have what you need to survive.", hero3: "The time to prepare is not once it has already begun...", hero4: "Prevention will always cost less than improvisation.", hero5: "Stay ready for what comes next.", filterSearchLabel: "Search", filterSearchPlaceholder: "Name or description", filterCategoryLabel: "Category", filterAllCategories: "All", filterRifles: "Rifles", filterShotguns: "Shotguns", filterHandguns: "Handguns", filterSmgs: "SMGs", filterPriceLabel: "Price", filterAnyPrice: "Any price", filterSortLabel: "Sort", sortNameAsc: "Name A-Z", sortPriceAsc: "Lowest price", sortPriceDesc: "Highest price", clearFilters: "Clear filters"
   },
 };
-
-function readPreference(key: string): string | null {
-  try {
-    return window.localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-}
-
-function persistPreference(key: string, value: string): void {
-  try {
-    window.localStorage.setItem(key, value);
-  } catch {
-    // La preferencia sigue aplicada durante esta sesión aunque el storage no esté disponible.
-  }
-}
 
 const isLanguage = (value: string | null): value is Language => value === "es" || value === "en";
 const isTheme = (value: string | null): value is Theme => value === "dark" || value === "light";
@@ -58,7 +44,7 @@ function translatePage(language: Language) {
 
 function applyLanguage(language: Language) {
   document.documentElement.lang = language;
-  persistPreference(LANGUAGE_KEY, language);
+  storageSetString(LANGUAGE_KEY, language);
 
   setPressed(document.getElementById("btnLangEs"), language === "es");
   setPressed(document.getElementById("btnLangEn"), language === "en");
@@ -68,15 +54,15 @@ function applyLanguage(language: Language) {
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
-  persistPreference(THEME_KEY, theme);
+  storageSetString(THEME_KEY, theme);
 
   setPressed(document.getElementById("btnThemeDark"), theme === "dark");
   setPressed(document.getElementById("btnThemeLight"), theme === "light");
 }
 
 export function wirePreferencesUI() {
-  const storedLanguage = readPreference(LANGUAGE_KEY);
-  const storedTheme = readPreference(THEME_KEY);
+  const storedLanguage = storageGetString(LANGUAGE_KEY, "");
+  const storedTheme = storageGetString(THEME_KEY, "");
 
   applyLanguage(isLanguage(storedLanguage) ? storedLanguage : "es");
   applyTheme(isTheme(storedTheme) ? storedTheme : "dark");
