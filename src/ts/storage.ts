@@ -34,3 +34,20 @@ export function storageSetNumber(key: string, value: number): void {
     // ignore
   }
 }
+
+ 
+export function storageGetString(key: string, fallback = ""): string {
+  try {
+    return window.localStorage.getItem(key) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export function storageSetString(key: string, value: string): void {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Preferences and lightweight flags remain usable for the current session.
+  }
+}
