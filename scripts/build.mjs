@@ -56,7 +56,7 @@ for (const { id, name } of requiredForms) {
   if (!openTag) {
     throw new Error(`Netlify form #${id} is missing from the built index.html`);
   }
-  if (!/\\bdata-netlify=["']true["']/i.test(openTag) || !/\\bmethod=["']POST["']/i.test(openTag)) {
+  if (!/\bdata-netlify=["']true["']/i.test(openTag) || !/\bmethod=["']POST["']/i.test(openTag)) {
     throw new Error(`Netlify form #${id} must declare data-netlify="true" and method="POST"`);
   }
   if (!new RegExp(`name=["']${name}["']`, "i").test(openTag)) {
