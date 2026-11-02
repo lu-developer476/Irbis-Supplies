@@ -269,7 +269,7 @@ export async function openLoginModal(auth = getAuth(app!)) {
   } catch (e: any) {
     await Swal.fire({
       title: uiText("No se pudo iniciar", "Sign-in failed"),
-      text: e?.message || "Error inesperado.",
+      text: e?.message || uiText("Error inesperado.", "Unexpected error."),
       icon: "error",
       background: "#1e1e1e",
       color: "#fff",
