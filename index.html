@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css"/>
 
   <!-- Swiper -->
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
   <!-- Estilos propios -->
   <link rel="stylesheet" href="./styles.css" />
@@ -27,13 +27,9 @@
 
 <body>
 
-  <div class="store-announcement" role="note">
-    <span>IRBIS SUPPLIES</span>
-    <span class="store-announcement__message" data-i18n="announcementMessage">Equipamiento seleccionado para cada desafío</span>
-    <a href="#productos"><span data-i18n="announcementCta">Explorar tienda</span> <span aria-hidden="true">→</span></a>
-  </div>
-
-  <!-- HERO PRINCIPAL -->
+  <!-- ===============================
+       HERO COMPLETO
+  =============================== -->
   <section class="hero">
 
     <!-- NAVBAR -->
@@ -87,35 +83,20 @@
       </nav>
     </header>
 
+    <!-- SWIPER -->
     <div class="hero-content">
-      <div class="hero-copy">
-        <p class="hero-eyebrow" data-i18n="heroEyebrow">PREPARACIÓN · EQUIPAMIENTO · SUMINISTROS</p>
-        <h1><span class="hero-title-main" data-i18n="heroTitlePrefix">Preparado para lo que</span> <span class="hero-title-accent" data-i18n="heroTitleAccent">viene.</span></h1>
-        <p class="hero-description" data-i18n="heroDescription">Encontrá equipamiento, accesorios y suministros seleccionados. Todo lo que necesitás, en un solo lugar.</p>
-        <div class="hero-actions">
-          <a class="btn-primary hero-cta" href="#productos"><span data-i18n="heroExplore">Explorar productos</span> <span aria-hidden="true">↗</span></a>
-          <a class="hero-secondary-link" href="#beneficios" data-i18n="heroBenefits">Conocé nuestros beneficios</a>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" data-i18n="hero1">Antes que llegue el final...</div>
+          <div class="swiper-slide" data-i18n="hero2">asegurate de contar con lo necesario para sobrevivir.</div>
+          <div class="swiper-slide" data-i18n="hero3">El momento de prepararse no es cuando ya empezó...</div>
+          <div class="swiper-slide" data-i18n="hero4">Prevenir siempre costará menos que improvisar.</div>
+          <div class="swiper-slide" data-i18n="hero5">Mantente listo para lo que suceda después.</div>
         </div>
-        <div class="hero-proof" aria-label="Ventajas de compra">
-          <span><strong>01</strong> <span data-i18n="proofCatalog">Catálogo especializado</span></span>
-          <span><strong>02</strong> <span data-i18n="proofCheckout">Compra simple</span></span>
-          <span><strong>03</strong> <span data-i18n="proofSupport">Atención personalizada</span></span>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-visual__frame">
-          <span class="hero-visual__overline">IRBIS / SELECTION</span>
-          <span class="hero-visual__mark">I</span>
-          <span class="hero-visual__caption">EQUIPAMIENTO<br>PARA IR MÁS LEJOS</span>
-        </div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
-  </section>
 
-  <section id="beneficios" class="store-benefits" aria-label="Beneficios de compra">
-    <div class="store-benefit"><span class="store-benefit__icon">◇</span><div><strong data-i18n="benefitSelection">Selección especializada</strong><small data-i18n="benefitSelectionText">Productos elegidos por categoría</small></div></div>
-    <div class="store-benefit"><span class="store-benefit__icon">⌁</span><div><strong data-i18n="benefitCheckout">Compra sencilla</strong><small data-i18n="benefitCheckoutText">Armá tu pedido en pocos pasos</small></div></div>
-    <div class="store-benefit"><span class="store-benefit__icon">◎</span><div><strong data-i18n="benefitSupport">Atención directa</strong><small data-i18n="benefitSupportText">Consultas y coordinación de entrega</small></div></div>
   </section>
 
   <!-- ===============================
@@ -123,21 +104,7 @@
   =============================== -->
   <main>
 <section id="productos" class="productos">
-      <div class="section-heading">
-        <div>
-          <p class="section-eyebrow" data-i18n="sectionEyebrow">IRBIS / CATÁLOGO</p>
-          <h2 data-i18n="products">Encontrá lo que buscás</h2>
-          <p class="section-description" data-i18n="sectionDescription">Explorá nuestras categorías y descubrí el equipamiento disponible.</p>
-        </div>
-        <span class="section-side-note" data-i18n="sectionSideNote">PRODUCTOS · SELECCIONADOS</span>
-      </div>
-      <div class="category-shortcuts" aria-label="Explorar categorías">
-        <button type="button" class="category-shortcut is-active" data-category-shortcut="all" aria-pressed="true"><span>✳</span> <span data-i18n="categoryAll">Todo</span></button>
-        <button type="button" class="category-shortcut" data-category-shortcut="rifle" aria-pressed="false"><span>▱</span> <span data-i18n="filterRifles">Rifles</span></button>
-        <button type="button" class="category-shortcut" data-category-shortcut="shotgun" aria-pressed="false"><span>◫</span> <span data-i18n="filterShotguns">Escopetas</span></button>
-        <button type="button" class="category-shortcut" data-category-shortcut="handgun" aria-pressed="false"><span>◉</span> <span data-i18n="filterHandguns">Pistolas</span></button>
-        <button type="button" class="category-shortcut" data-category-shortcut="smg" aria-pressed="false"><span>▤</span> <span data-i18n="filterSmgs">Subfusiles</span></button>
-      </div>
+      <h2 data-i18n="products">Catálogo</h2>
 
       <form class="product-filters" id="productFilters" aria-label="Filtros de productos">
         <div class="filter-field filter-field--search">
@@ -277,20 +244,32 @@
   =============================== -->
 <footer>
 <h6>
-  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • Irbis Supplies
+  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • <span data-i18n="footerBuilt">Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript</span> • <span data-i18n="footerUx">UX/UI Interface</span> • <span data-i18n="footerDb">Database powered by Firebase</span> • <span data-i18n="footerDeploy">Deployed on Netlify ®</span>
 </h6>
 </footer>
 
   <!-- ===============================
        SCRIPTS
   =============================== -->
-
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
   
-
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
 
   <!-- Firebase config (editable) -->
   <script src="./firebase-config.js"></script>
