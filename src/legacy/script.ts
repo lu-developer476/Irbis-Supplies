@@ -456,49 +456,40 @@ function renderProductos() {
     const card = document.createElement("div");
     card.classList.add("contenedorDeCard");
 
+    const categoriaProducto = obtenerCategoriaProducto(producto);
+    const etiquetaCategoria = ({
+      rifle: "Rifles", shotgun: "Escopetas", handgun: "Pistolas",
+      smg: "Subfusiles", accessory: "Accesorios"
+    })[categoriaProducto] || "Equipamiento";
+
     card.innerHTML = `
-      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}">
-      <h3>${escapeHtml(producto.nombre)}</h3>
-
-      <button class="btn-detalles" data-id="${producto.id}">
-        ${t("details")}
-      </button>
-
-      <div class="detalles-container" id="detalles-${producto.id}" style="display:none;">
-        
-        <p class="descripcion-producto">
-          ${escapeHtml(producto.descripcion)}
-        </p>
-
-        <div class="colores-container">
-          ${producto.colores.map(c => `
-            <span class="color-swatch"
-                  data-producto="${producto.id}"
-                  data-color="${escapeHtml(c.nombre)}"
-                  title="${escapeHtml(c.nombre)}"
-                  style="
-                    background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
-                    display:inline-block;
-                    width:18px;
-                    height:18px;
-                    border-radius:50%;
-                    margin-right:4px;
-                    border:1px solid #333;
-                    cursor:pointer;
-                  ">
-            </span>
-          `).join("")}
-        </div>
-
+      <div class="product-card__image-wrap">
+        <span class="product-card__category">${etiquetaCategoria}</span>
+        <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}" loading="lazy">
       </div>
-
-      <p class="precio-producto">
-        ${currency(producto.precio)}
-      </p>
-
-      <button class="btn-primary" data-id="${producto.id}">
-        ${t("addToCart")}
-      </button>
+      <div class="product-card__content">
+        <p class="product-card__eyebrow">IRBIS / SELECTION</p>
+        <h3>${escapeHtml(producto.nombre)}</h3>
+        <p class="descripcion-producto">${escapeHtml(producto.descripcion)}</p>
+        <div class="product-card__options">
+          <span>Elegí un acabado</span>
+          <div class="colores-container">
+            ${producto.colores.map(c => `
+              <button class="color-swatch" type="button" data-producto="${producto.id}"
+                data-color="${escapeHtml(c.nombre)}" title="${escapeHtml(c.nombre)}"
+                aria-label="Color ${escapeHtml(c.nombre)}"
+                style="background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'}"></button>
+            `).join("")}
+          </div>
+        </div>
+        <div class="product-card__purchase">
+          <p class="precio-producto">${currency(producto.precio)}</p>
+          <button class="btn-primary product-add-button" type="button" data-id="${producto.id}">
+            ${t("addToCart")} <span aria-hidden="true">＋</span>
+          </button>
+        </div>
+        <button class="btn-detalles product-details-button" type="button" data-id="${producto.id}">${t("details")}</button>
+      </div>
     `;
 
     contenedorProductos.appendChild(card);
