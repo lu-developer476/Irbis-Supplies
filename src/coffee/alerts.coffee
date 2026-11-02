@@ -32,9 +32,11 @@ notifyCartCleared = ->
     showConfirmButton: false
 
 confirmCheckout = (total) ->
+  totalLabel = message("Total", "Total")
+  locale = if currentLanguage() is "en" then "en-US" else "es-AR"
   fire
     title: message("Confirmar compra", "Confirm purchase")
-    html: "<b>#{message("Total", "Total")}:</b> $#{total.toLocaleString(if currentLanguage() is "en" then "en-US" else "es-AR")}"
+    html: "<b>#{totalLabel}:</b> $#{total.toLocaleString(locale)}"
     icon: "question"
     showCancelButton: true
     confirmButtonText: message("Comprar", "Buy")
