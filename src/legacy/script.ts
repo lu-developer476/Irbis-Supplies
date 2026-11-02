@@ -1159,7 +1159,7 @@ function invoiceHTML(order) {
 
     <div class="footer">
       <div class="muted small">
-        Simulación sin procesos de pagos reales |  <span>©</span> <span id="year"></span> Todos los derechos reservados • Built with HTML5, CSS3, JavaScript, TypeScript, CoffeeScript, UX/UI Interface • Database powered by Firebase • Deployed on Netlify ®
+        Irbis Supplies · Gracias por tu compra. Conservá este comprobante para cualquier consulta relacionada con tu pedido.
       </div>
     </div>
   </div>
