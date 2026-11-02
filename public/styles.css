@@ -1408,3 +1408,237 @@ button:disabled { opacity: .55; cursor: not-allowed; }
     transition-duration: .01ms !important;
   }
 }
+
+/* ===============================
+   JERARQUÍA TIPOGRÁFICA
+   Ajustes de escala, peso y ritmo de lectura.
+   Conserva la familia tipográfica y la estructura existentes.
+   =============================== */
+
+:root {
+  --irbis-type-xs: clamp(0.78rem, 0.75rem + 0.08vw, 0.86rem);
+  --irbis-type-sm: clamp(0.9rem, 0.86rem + 0.12vw, 0.98rem);
+  --irbis-type-base: clamp(1rem, 0.96rem + 0.16vw, 1.08rem);
+  --irbis-type-md: clamp(1.1rem, 1.04rem + 0.2vw, 1.2rem);
+  --irbis-type-lg: clamp(1.25rem, 1.14rem + 0.35vw, 1.45rem);
+  --irbis-type-xl: clamp(1.55rem, 1.3rem + 0.75vw, 2rem);
+  --irbis-type-2xl: clamp(2rem, 1.55rem + 1.5vw, 2.8rem);
+  --irbis-type-display: clamp(1.65rem, 1.2rem + 2.2vw, 2.55rem);
+}
+
+body {
+  font-size: var(--irbis-type-base);
+  line-height: 1.5;
+  letter-spacing: 0.035em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.025em;
+}
+
+.hero .swiper-slide {
+  font-size: var(--irbis-type-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.045em;
+  text-wrap: balance;
+}
+
+.brand-copy strong {
+  font-size: clamp(1.5rem, 2.4vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+
+.brand-kicker,
+.nav-dropdown__label {
+  font-size: var(--irbis-type-sm);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.12em;
+}
+
+.nav-menu-toggle,
+.nav-dropdown .nav-links a,
+.nav-dropdown .nav-links button,
+.btn-primary,
+.btn-secondary,
+.btn-detalles {
+  font-size: var(--irbis-type-base);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.045em;
+}
+
+.productos h2,
+.carrito h2 {
+  font-size: var(--irbis-type-2xl);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.045em;
+}
+
+.contenedorDeCard h3 {
+  font-size: var(--irbis-type-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.025em;
+  margin: 0.9rem 0 0.35rem;
+  text-wrap: balance;
+}
+
+.contenedorDeCard p {
+  font-size: var(--irbis-type-base);
+  line-height: 1.45;
+}
+
+.contenedorDeCard .descripcion-producto {
+  font-size: var(--irbis-type-sm);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.015em;
+}
+
+.contenedorDeCard .precio-producto {
+  font-size: var(--irbis-type-xl);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  font-variant-numeric: tabular-nums;
+  margin: 0.8rem 0 1rem;
+}
+
+.filter-field label {
+  font-size: var(--irbis-type-sm);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+}
+
+.product-filters input,
+.product-filters select,
+.filter-field input,
+.filter-field select,
+input,
+select,
+textarea {
+  font-size: var(--irbis-type-base);
+  line-height: 1.35;
+}
+
+.filter-results {
+  font-size: var(--irbis-type-sm);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.cart-drawer__header h3 {
+  font-size: var(--irbis-type-xl);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.carrito-sidebar {
+  font-size: var(--irbis-type-sm);
+  line-height: 1.45;
+}
+
+.item-carrito {
+  font-size: var(--irbis-type-base);
+  line-height: 1.4;
+}
+
+.item-carrito__info {
+  font-size: var(--irbis-type-base);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.item-carrito__info h4 {
+  font-size: var(--irbis-type-md);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.item-carrito__info p {
+  font-size: var(--irbis-type-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.carrito-footer p {
+  font-size: var(--irbis-type-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#totalCarrito {
+  font-size: var(--irbis-type-xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.invoice-info,
+.summary-breakdown,
+.shipping-method,
+.payment-method,
+.coupon-box {
+  font-size: var(--irbis-type-sm);
+  line-height: 1.5;
+}
+
+.invoice-info strong,
+.summary-breakdown strong {
+  font-weight: 700;
+}
+
+footer {
+  font-size: var(--irbis-type-xs);
+  line-height: 1.55;
+  letter-spacing: 0.025em;
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: var(--irbis-type-base);
+    line-height: 1.5;
+  }
+
+  .hero .swiper-slide {
+    font-size: clamp(1.35rem, 5.5vw, 1.8rem);
+    line-height: 1.22;
+    letter-spacing: 0.035em;
+  }
+
+  .productos h2,
+  .carrito h2 {
+    font-size: clamp(1.9rem, 8vw, 2.35rem);
+    line-height: 1.12;
+  }
+
+  .contenedorDeCard h3 {
+    font-size: clamp(1.2rem, 4.8vw, 1.4rem);
+  }
+
+  .contenedorDeCard .precio-producto {
+    font-size: clamp(1.3rem, 5vw, 1.5rem);
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-detalles {
+    font-size: var(--irbis-type-base);
+  }
+
+  .cart-drawer__header h3 {
+    font-size: var(--irbis-type-lg);
+  }
+
+  .carrito-footer p {
+    font-size: var(--irbis-type-md);
+  }
+}
+
