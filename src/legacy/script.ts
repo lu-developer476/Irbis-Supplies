@@ -305,7 +305,7 @@ const INFLACION_MENSUAL = 0.08; // 8% mensual
 // ===============================
 // CALCULAR INFLACIÓN LOCAL
 // ===============================
-function calcularPrecioInflacion(precioBase) {
+function calcularPrecioInflacion(precioBase: number): number {
   const hoy = new Date();
 
   const meses =
@@ -320,7 +320,7 @@ function calcularPrecioInflacion(precioBase) {
 // ===============================
 // VALORIZACIÓN PRODUCOTS
 // ===============================
-function obtenerFactorValorizacion(producto) {
+function obtenerFactorValorizacion(producto: CatalogProductData): number {
   let factor = 1;
 
   if (producto.precioBase >= 4000) factor += 0.30;
@@ -331,7 +331,7 @@ function obtenerFactorValorizacion(producto) {
   return factor;
 }
 
-function obtenerFactorTiempo() {
+function obtenerFactorTiempo(): number {
   const añoBase = 2026;
   const añoActual = new Date().getFullYear();
   const diferencia = añoActual - añoBase;
@@ -433,15 +433,15 @@ function safeAssetPath(value: unknown): string {
   return /^(?:\.\/)?[a-zA-Z0-9_./-]+$/.test(path) && !path.includes("..") ? path : "";
 }
 
-function currency(n) {
+function currency(n: number): string {
   return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(n);
 }
 
-function nowARString() {
+function nowARString(): string {
   return new Date().toLocaleString('es-AR', { hour12: false });
 }
 
-function generarOrdenId() {
+function generarOrdenId(): string {
   let counter = storageGetNumber(ORDER_COUNTER_KEY, 0);
   counter++;
   storageSetNumber(ORDER_COUNTER_KEY, counter);
@@ -471,7 +471,7 @@ function guardarOrders() {
   storageSetJSON(ORDERS_KEY, orders);
 }
 
-function totalActual() {
+function totalActual(): number {
   return carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
 }
 
@@ -502,7 +502,7 @@ function calcularResumen() {
   };
 }
 
-function traducirMetodoPago(valor) {
+function traducirMetodoPago(valor: string): string {
   switch (valor) {
     case "cash":
       return "Efectivo";
@@ -539,7 +539,7 @@ function obtenerCategoriaProducto(producto) {
   return "accessory";
 }
 
-function obtenerProductosFiltrados() {
+function obtenerProductosFiltrados(): CatalogProduct[] {
   const busqueda = normalizarTextoCatalogo((productSearch?.value || "").trim());
   const categoria = categoryFilter?.value || "all";
   const rangoPrecio = priceFilter?.value || "all";
@@ -572,7 +572,7 @@ function obtenerProductosFiltrados() {
 // ===============================
 // RENDER PRODUCTOS
 // ===============================
-function renderProductos() {
+function renderProductos(): void {
   if (!contenedorProductos) return;
 
   contenedorProductos.innerHTML = "";
@@ -738,7 +738,7 @@ window.modificarCantidad = modificarCantidad;
 window.agregarAlCarrito = agregarAlCarrito;
 
 // 🔹 RENDER DEL CARRITO
-function renderCarrito() {
+function renderCarrito(): void {
   if (!carritoContainer || !totalCarritoDOM) return;
 
   carritoContainer.innerHTML = "";
@@ -852,7 +852,7 @@ function alertaError(msg) {
 // HISTORIAL
 // ===============================
 
-function renderHistorial() {
+function renderHistorial(): void {
   if (!historialContainer) return;
 
   historialContainer.innerHTML = "";
