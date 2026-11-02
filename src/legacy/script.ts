@@ -1348,7 +1348,6 @@ btnCheckout?.addEventListener("click", () => {
       `,
       customClass: { htmlContainer: "checkout-form-content" },
       confirmButtonText: t("confirmPurchase"),
-      cancelButtonText: t("cancel"),
       showCancelButton: true,
       background: "#1e1e1e",
       color: "#fff",
@@ -1490,7 +1489,6 @@ btnCheckout?.addEventListener("click", () => {
     html: `<div style="max-height:300px;overflow:auto;">${addonsHtml}</div>`,
     showCancelButton: true,
     confirmButtonText: t("continue"),
-    cancelButtonText: t("cancel"),
     background: "#1e1e1e",
     color: "#fff",
     preConfirm: () => {
