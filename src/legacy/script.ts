@@ -187,6 +187,7 @@ function openCartDrawer() {
   cartPreviousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   previousBodyOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
+  cartDrawer.inert = false;
   cartDrawer.classList.add("is-open");
   cartDrawer.setAttribute("aria-hidden", "false");
   cartOverlay?.classList.add("is-open");
@@ -198,6 +199,7 @@ function closeCartDrawer() {
   if (!cartDrawer?.classList.contains("is-open")) return;
   cartDrawer.classList.remove("is-open");
   cartDrawer.setAttribute("aria-hidden", "true");
+  cartDrawer.inert = true;
   cartOverlay?.classList.remove("is-open");
   cartOverlay?.setAttribute("aria-hidden", "true");
   document.body.style.overflow = previousBodyOverflow;
@@ -824,17 +826,17 @@ btnHistorial?.addEventListener("click", () => {
   }
 
   const lista = orders.map(o => `
-    <div style="text-align:left; margin-bottom:12px;">
-      <strong>${escapeHtml(o.orderId)}</strong><br>
-      Fecha: ${escapeHtml(o.date)}<br>
-      Total: ${currency(o.total)}<br>
-      <button class="btn-secondary ver-factura-modal"
-              data-order="${escapeHtml(o.orderId)}"
-              style="margin-top:6px;">
+    <div class="historial-item historial-item--modal">
+      <div>
+        <strong>${escapeHtml(o.orderId)}</strong>
+        <p>Fecha: ${escapeHtml(o.date)}</p>
+        <p>Total: <strong>${currency(o.total)}</strong></p>
+      </div>
+      <button class="btn-secondary ver-factura-modal" type="button"
+              data-order="${escapeHtml(o.orderId)}">
         Ver factura
       </button>
     </div>
-    <hr>
   `).join("");
 
   Swal.fire({
@@ -1318,6 +1320,11 @@ btnCheckout?.addEventListener("click", () => {
         carrito = [];
         descuentoCupon = 0;
         cuponAplicado = false;
+        qrConfirmado = false;
+        ajustePago = 0;
+        if (paymentSelect) paymentSelect.value = "";
+        cardFields?.classList.add("hidden");
+        qrSection?.classList.add("hidden");
         if (couponInput) {
           (couponInput as HTMLInputElement).value = "";
           (couponInput as HTMLInputElement).readOnly = false;
@@ -1411,6 +1418,10 @@ btnVaciarCarrito?.addEventListener("click", () => {
   descuentoCupon = 0;
   cuponAplicado = false;
   qrConfirmado = false;
+  ajustePago = 0;
+  if (paymentSelect) paymentSelect.value = "";
+  cardFields?.classList.add("hidden");
+  qrSection?.classList.add("hidden");
   if (couponInput) {
     (couponInput as HTMLInputElement).value = "";
     (couponInput as HTMLInputElement).readOnly = false;
