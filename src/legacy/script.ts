@@ -529,6 +529,26 @@ function normalizarTextoCatalogo(valor) {
     .toLocaleLowerCase(currentLanguage());
 }
 
+const colorTranslations: Record<string, string> = {
+  "Negro": "Black", "Gris": "Gray", "Blanco": "White", "Marrón": "Brown",
+  "Oliva": "Olive", "Dorado": "Gold", "Ocre": "Ochre", "Lila": "Lilac",
+  "Amarillo": "Yellow", "Rojo": "Red", "Verde": "Green", "Púrpura": "Purple",
+  "Verde Musgo": "Moss green", "Turquesa": "Turquoise", "Rosa": "Pink",
+  "Naranja": "Orange"
+};
+
+function textoProducto(producto: CatalogProduct, campo: "nombre" | "descripcion"): string {
+  if (currentLanguage() === "en") {
+    if (campo === "nombre") return producto.nombreEn || producto.nombre;
+    return producto.descripcionEn || producto.descripcion;
+  }
+  return producto[campo];
+}
+
+function textoColor(color: string): string {
+  return currentLanguage() === "en" ? colorTranslations[color] || color : color;
+}
+
 function obtenerCategoriaProducto(producto) {
   const texto = normalizarTextoCatalogo(`${producto.nombre} ${producto.descripcion}`);
 
@@ -550,7 +570,9 @@ function obtenerProductosFiltrados(): CatalogProduct[] {
   let visibles = productos.filter(producto => {
     const coincideBusqueda = !busqueda ||
       normalizarTextoCatalogo(producto.nombre).includes(busqueda) ||
-      normalizarTextoCatalogo(producto.descripcion).includes(busqueda);
+      normalizarTextoCatalogo(producto.descripcion).includes(busqueda) ||
+      normalizarTextoCatalogo(producto.nombreEn || "").includes(busqueda) ||
+      normalizarTextoCatalogo(producto.descripcionEn || "").includes(busqueda);
     const coincideCategoria = categoria === "all" || obtenerCategoriaProducto(producto) === categoria;
     let coincidePrecio = true;
 
@@ -569,7 +591,7 @@ function obtenerProductosFiltrados(): CatalogProduct[] {
   visibles = [...visibles].sort((a, b) => {
     if (orden === "price-asc") return a.precio - b.precio;
     if (orden === "price-desc") return b.precio - a.precio;
-    return a.nombre.localeCompare(b.nombre, currentLanguage(), { sensitivity: "base" });
+    return textoProducto(a, "nombre").localeCompare(textoProducto(b, "nombre"), currentLanguage(), { sensitivity: "base" });
   });
 
   return visibles;
@@ -603,8 +625,8 @@ function renderProductos(): void {
     card.classList.add("contenedorDeCard");
 
     card.innerHTML = `
-      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}" width="320" height="220" loading="lazy" decoding="async">
-      <h3>${escapeHtml(producto.nombre)}</h3>
+      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(textoProducto(producto, "nombre"))}" width="320" height="220" loading="lazy" decoding="async">
+      <h3>${escapeHtml(textoProducto(producto, "nombre"))}</h3>
 
       <button class="btn-detalles" type="button" data-id="${producto.id}" aria-expanded="false" aria-controls="detalles-${producto.id}">
         ${t("details")}
@@ -613,7 +635,7 @@ function renderProductos(): void {
       <div class="detalles-container" id="detalles-${producto.id}" hidden>
         
         <p class="descripcion-producto">
-          ${escapeHtml(producto.descripcion)}
+          ${escapeHtml(textoProducto(producto, "descripcion"))}
         </p>
 
         <div class="colores-container">
@@ -621,8 +643,8 @@ function renderProductos(): void {
             <button type="button" class="color-swatch"
                   data-producto="${producto.id}"
                   data-color="${escapeHtml(c.nombre)}"
-                  title="${escapeHtml(c.nombre)}"
-                  aria-label="${t("selectColor")} ${escapeHtml(c.nombre)}"
+                  title="${escapeHtml(textoColor(c.nombre))}"
+                  aria-label="${t("selectColor")} ${escapeHtml(textoColor(c.nombre))}"
                   aria-pressed="false"
                   style="appearance:none;padding:0;border-radius:50%;min-width:18px;min-height:18px;line-height:0;
                     background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
@@ -644,7 +666,7 @@ function renderProductos(): void {
         ${currency(producto.precio)}
       </p>
 
-      <button type="button" class="btn-primary" data-id="${producto.id}" aria-label="${t("addToCart")}: ${escapeHtml(producto.nombre)}">
+      <button type="button" class="btn-primary" data-id="${producto.id}" aria-label="${t("addToCart")}: ${escapeHtml(textoProducto(producto, "nombre"))}">
         ${t("addToCart")}
       </button>
     `;
@@ -695,7 +717,7 @@ function agregarAlCarrito(id) {
 
   guardarCarrito();
   renderCarrito();
-  alertaProductoAgregado(`${escapeHtml(producto.nombre)} (${color})`);
+  alertaProductoAgregado(`${escapeHtml(textoProducto(producto, "nombre"))} (${escapeHtml(textoColor(color))})`);
 
   // Abrimos el drawer para que el usuario vea que se cargó.
   openCartDrawer();
@@ -787,8 +809,8 @@ function renderCarrito(): void {
     row.innerHTML = `
       ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="" width="64" height="64" loading="lazy" decoding="async">` : ""}
       <div class="item-carrito__info">
-        <h4>${escapeHtml(p.nombre)}</h4>
-        <p class="item-carrito__variant">${t("colorLabel")} <strong>${escapeHtml(p.color)}</strong></p>
+        <h4>${escapeHtml(textoProducto(productos.find(x => x.id === p.id) || ({ nombre: p.nombre, descripcion: "", colores: [], precioBase: 0, imagen: "", id: p.id } as CatalogProduct), "nombre"))}</h4>
+        <p class="item-carrito__variant">${t("colorLabel")} <strong>${escapeHtml(textoColor(p.color))}</strong></p>
         <p class="item-carrito__precio">
           <span>${currency(p.precio)} ${t("unitPrice")}</span>
           <strong>${currency(p.precio * p.cantidad)}</strong>
@@ -965,6 +987,12 @@ document.addEventListener("click", (e) => {
     const orderId = e.target.dataset.order;
     abrirFacturaDesdeHistorial(orderId);
   }
+});
+
+window.addEventListener("irbis:languagechange", () => {
+  renderProductos();
+  renderCarrito();
+  if (historialContainer) renderHistorial();
 });
 
 // Toggle Detalles
