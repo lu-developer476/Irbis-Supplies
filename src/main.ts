@@ -64,11 +64,16 @@ function wireCategoryShortcuts() {
     });
   });
 
-  categorySelect.addEventListener("change", () => {
+  const syncShortcuts = () => {
     shortcuts.forEach((item) => {
       const active = item.dataset.categoryShortcut === categorySelect.value;
       item.classList.toggle("is-active", active);
       item.setAttribute("aria-pressed", String(active));
     });
+  };
+
+  categorySelect.addEventListener("change", syncShortcuts);
+  document.getElementById("productFilters")?.addEventListener("reset", () => {
+    window.setTimeout(syncShortcuts, 0);
   });
 }
