@@ -776,7 +776,7 @@ footer {
   --irbis-radius-panel: 16px;
   --irbis-radius-pill: 999px;
   --irbis-control-min-height: 42px;
-  --irbis-card-shadow: 0 14px 30px var(--irbis-shadow);
+  --irbis-elevated-shadow: 0 14px 30px var(--irbis-shadow);
 }
 
 html[data-theme="light"] {
@@ -1097,8 +1097,8 @@ html[data-theme="light"] .swiper-slide {
 
 .nav-menu-toggle.btn-secondary {
   align-items: center;
-  border-radius: 999px;
-  box-shadow: var(--irbis-card-shadow);
+  border-radius: var(--irbis-radius-pill);
+  box-shadow: var(--irbis-elevated-shadow);
   display: inline-flex;
   gap: 10px;
   min-height: 48px;
