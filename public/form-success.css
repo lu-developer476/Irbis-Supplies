@@ -1,0 +1,232 @@
+:root {
+  color-scheme: dark;
+  --success-bg: #080a08;
+  --success-panel: rgba(20, 23, 19, 0.94);
+  --success-border: rgba(194, 163, 74, 0.24);
+  --success-gold: #c2a34a;
+  --success-gold-light: #e1cb86;
+  --success-text: #eee8d9;
+  --success-muted: #aaa391;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--success-bg);
+}
+
+body.success-page {
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  padding: clamp(24px, 5vw, 64px) 18px;
+  display: grid;
+  place-items: center;
+  color: var(--success-text);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(194, 163, 74, 0.13), transparent 48%),
+    radial-gradient(ellipse at 100% 100%, rgba(79, 91, 58, 0.12), transparent 42%),
+    var(--success-bg);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.success-shell {
+  width: min(100%, 720px);
+  margin: auto;
+  text-align: center;
+}
+
+.success-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  color: var(--success-text);
+  text-decoration: none;
+}
+
+.success-brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.success-brand span {
+  font-family: Teko, Impact, sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.success-card {
+  padding: clamp(28px, 6vw, 54px);
+  border: 1px solid var(--success-border);
+  border-radius: 24px;
+  background: var(--success-panel);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(14px);
+}
+
+.success-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(194, 163, 74, 0.44);
+  border-radius: 50%;
+  color: var(--success-gold-light);
+  background: rgba(194, 163, 74, 0.1);
+}
+
+.success-icon svg {
+  width: 38px;
+  height: 38px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.success-eyebrow {
+  margin: 0 0 10px;
+  color: var(--success-gold-light);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.success-card h1 {
+  margin: 0;
+  color: #f5edda;
+  font-family: Teko, Impact, sans-serif;
+  font-size: clamp(2.7rem, 7vw, 4.2rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: 0.025em;
+}
+
+.success-description {
+  max-width: 540px;
+  margin: 18px auto 0;
+  color: var(--success-muted);
+  font-size: clamp(1rem, 2.3vw, 1.12rem);
+  line-height: 1.7;
+}
+
+.success-details {
+  margin: 30px 0;
+  padding: 20px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  text-align: left;
+}
+
+.success-details h2 {
+  margin: 0 0 7px;
+  color: var(--success-gold-light);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.success-details p {
+  margin: 0;
+  color: var(--success-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.success-home {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid var(--success-gold);
+  border-radius: 999px;
+  color: #11120e;
+  background: var(--success-gold);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.success-home:hover {
+  border-color: var(--success-gold-light);
+  background: var(--success-gold-light);
+  transform: translateY(-2px);
+}
+
+.success-home:focus-visible,
+.success-brand:focus-visible {
+  outline: 3px solid var(--success-gold-light);
+  outline-offset: 4px;
+}
+
+.success-home svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.success-note {
+  margin: 22px 0 0;
+  color: #817c70;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.success-footer {
+  margin: 24px 0 0;
+  color: #777366;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 520px) {
+  body.success-page {
+    padding-inline: 14px;
+  }
+
+  .success-brand {
+    margin-bottom: 20px;
+  }
+
+  .success-card {
+    border-radius: 18px;
+  }
+
+  .success-details {
+    padding: 17px;
+  }
+
+  .success-home {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
