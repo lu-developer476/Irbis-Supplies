@@ -43,5 +43,5 @@ export interface CartEntry {
   precio: CurrencyARS;
   cantidad: number;
   color: string;
-  imagen: string;
+  imagen?: string;
 }
