@@ -1118,8 +1118,7 @@ html[data-theme="light"] .swiper-slide {
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
-.nav-dropdown.is-open,
-.navbar-actions:focus-within .nav-dropdown {
+.nav-dropdown.is-open {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0) scale(1);
