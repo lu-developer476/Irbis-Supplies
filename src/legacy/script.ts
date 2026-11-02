@@ -26,6 +26,7 @@ const btnCheckout = document.getElementById('btnCheckout');
 const productSearch = document.getElementById('productSearch');
 const categoryFilter = document.getElementById('categoryFilter');
 const priceFilter = document.getElementById('priceFilter');
+const colorFilter = document.getElementById('colorFilter');
 const sortProducts = document.getElementById('sortProducts');
 const filterResults = document.getElementById('filterResults');
 const productFilters = document.getElementById('productFilters');
@@ -543,6 +544,7 @@ function obtenerProductosFiltrados(): CatalogProduct[] {
   const busqueda = normalizarTextoCatalogo((productSearch?.value || "").trim());
   const categoria = categoryFilter?.value || "all";
   const rangoPrecio = priceFilter?.value || "all";
+  const color = colorFilter?.value || "all";
   const orden = sortProducts?.value || "name-asc";
 
   let visibles = productos.filter(producto => {
@@ -557,7 +559,11 @@ function obtenerProductosFiltrados(): CatalogProduct[] {
       coincidePrecio = producto.precio >= min && producto.precio <= max;
     }
 
-    return coincideBusqueda && coincideCategoria && coincidePrecio;
+    const coincideColor = color === "all" || producto.colores.some(
+      variante => normalizarTextoCatalogo(variante.nombre) === normalizarTextoCatalogo(color)
+    );
+
+    return coincideBusqueda && coincideCategoria && coincidePrecio && coincideColor;
   });
 
   visibles = [...visibles].sort((a, b) => {
@@ -1595,7 +1601,7 @@ shippingSelect?.addEventListener("change", () => {
   renderCarrito();
 });
 
-[productSearch, categoryFilter, priceFilter, sortProducts].forEach((control) => {
+[productSearch, categoryFilter, priceFilter, colorFilter, sortProducts].forEach((control) => {
   control?.addEventListener("input", renderProductos);
   control?.addEventListener("change", renderProductos);
 });
