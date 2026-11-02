@@ -1166,6 +1166,27 @@ function abrirVentanaFactura(order) {
             margin-top:8px;
             padding-top:10px;
           }
+
+          .small { font-size:12px; }
+          .meta { text-align:right; overflow-wrap:anywhere; }
+          .items { table-layout:fixed; }
+          .items th:first-child, .items td:first-child { width:42%; }
+          .items td { overflow-wrap:anywhere; }
+          @media (max-width:700px) {
+            body { padding:12px; }
+            .invoice { padding:12px; }
+            .top { flex-direction:column; gap:12px; }
+            .meta { text-align:left; }
+            .grid { grid-template-columns:1fr; }
+            .items { font-size:12px; }
+            .items th, .items td { padding:6px 4px; }
+            .totalsBox { width:100%; }
+          }
+          @media print {
+            body { padding:0; background:#fff; color:#111; }
+            .invoice, .box, .totalsBox { background:#fff; color:#111; border-color:#ddd; }
+            .muted { color:#555; }
+          }
         </style>
 
         <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
