@@ -634,8 +634,8 @@ function renderCarrito() {
         </p>
       </div>
       <div class="item-carrito__acciones">
-        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${escapeHtml(p.color)}', -1)">-</button>
-        <button class="btn-secondary" onclick="modificarCantidad(${p.id}, '${escapeHtml(p.color)}', 1)">+</button>
+        <button class="btn-secondary" type="button" data-quantity-change="-1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Reducir cantidad">-</button>
+        <button class="btn-secondary" type="button" data-quantity-change="1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Aumentar cantidad">+</button>
       </div>
     `;
     carritoContainer.appendChild(row);
