@@ -42,6 +42,16 @@ copyDir(publicDir, distDir);
 // Copy index.html
 fs.copyFileSync(path.join(rootDir, "index.html"), path.join(distDir, "index.html"));
 
+// Fail the build instead of silently deploying a site without its form
+// confirmation assets. The public directory is the source of static assets.
+for (const file of ["newsletter-success.html", "contact-success.html", "form-success.css"]) {
+  const outputFile = path.join(distDir, file);
+  if (!fs.existsSync(outputFile)) {
+    throw new Error(`Missing required form confirmation asset in deploy output: ${file}`);
+  }
+}
+
+
 await build({
   entryPoints: [srcEntry],
   bundle: true,
