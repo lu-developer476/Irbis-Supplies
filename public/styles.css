@@ -1428,7 +1428,8 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: 0; bac
 .hero-copy { max-width:690px; }
 .hero-eyebrow,.section-eyebrow { margin:0 0 18px; color:var(--store-gold); font-size:11px; font-weight:800; letter-spacing:.24em; }
 .hero-copy h1 { max-width:700px; margin:0; color:#f7f4e9; font-family:'Teko',sans-serif; font-size:clamp(64px,8vw,112px); font-weight:600; line-height:.86; letter-spacing:-.025em; text-transform:uppercase; }
-.hero-copy h1 span { color:var(--store-gold); }
+.hero-copy h1 .hero-title-main { color:#f7f4e9; }
+.hero-copy h1 .hero-title-accent { color:var(--store-gold); }
 .hero-description { max-width:510px; margin:26px 0 30px; color:#d1d0c5; font-size:16px; line-height:1.75; }
 .hero-actions { display:flex; align-items:center; flex-wrap:wrap; gap:24px; }
 .hero-cta { display:inline-flex; align-items:center; justify-content:center; gap:24px; min-height:54px; padding:13px 22px; border-radius:3px; color:#11130e; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; }
