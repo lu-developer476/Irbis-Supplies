@@ -64,8 +64,8 @@ const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
-  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
-  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
+  es: { details: "Detalles", addToCart: "Agregar al carrito", chooseFinish: "Elegí un acabado", categoryRifles: "Rifles", categoryShotguns: "Escopetas", categoryHandguns: "Pistolas", categorySmgs: "Subfusiles", categoryAccessories: "Accesorios", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
+  en: { details: "Details", addToCart: "Add to cart", chooseFinish: "Choose a finish", categoryRifles: "Rifles", categoryShotguns: "Shotguns", categoryHandguns: "Handguns", categorySmgs: "SMGs", categoryAccessories: "Accessories", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
 };
 
 function currentLanguage(): "es" | "en" {
@@ -458,8 +458,8 @@ function renderProductos() {
 
     const categoriaProducto = obtenerCategoriaProducto(producto);
     const etiquetasCategoria: Record<string, string> = {
-      rifle: "Rifles", shotgun: "Escopetas", handgun: "Pistolas",
-      smg: "Subfusiles", accessory: "Accesorios"
+      rifle: t("categoryRifles"), shotgun: t("categoryShotguns"), handgun: t("categoryHandguns"),
+      smg: t("categorySmgs"), accessory: t("categoryAccessories")
     };
     const etiquetaCategoria = etiquetasCategoria[categoriaProducto] || "Equipamiento";
 
@@ -473,7 +473,7 @@ function renderProductos() {
         <h3>${escapeHtml(producto.nombre)}</h3>
         <p class="descripcion-producto">${escapeHtml(producto.descripcion)}</p>
         <div class="product-card__options">
-          <span>Elegí un acabado</span>
+          <span>${t("chooseFinish")}</span>
           <div class="colores-container">
             ${producto.colores.map(c => `
               <button class="color-swatch" type="button" data-producto="${producto.id}"
