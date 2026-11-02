@@ -765,7 +765,7 @@ footer {
   --irbis-overlay: rgba(0, 0, 0, 0.55);
   --irbis-shadow: rgba(0, 0, 0, 0.4);
   /* Design tokens shared by the existing interface components. */
-  --irbis-font-family: var(--irbis-font-family);
+  --irbis-font-family: 'Teko', sans-serif;
   --irbis-space-1: 4px;
   --irbis-space-2: 8px;
   --irbis-space-3: 12px;
@@ -775,7 +775,7 @@ footer {
   --irbis-radius-card: 10px;
   --irbis-radius-panel: 16px;
   --irbis-radius-pill: 999px;
-  --irbis-control-min-height: var(--irbis-control-min-height);
+  --irbis-control-min-height: 42px;
   --irbis-card-shadow: 0 14px 30px var(--irbis-shadow);
 }
 
