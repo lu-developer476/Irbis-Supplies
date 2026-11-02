@@ -397,7 +397,7 @@ function maskCard(num) {
 function normalizarTextoCatalogo(valor) {
   return String(valor || "")
     .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLocaleLowerCase(currentLanguage());
 }
 
