@@ -12,9 +12,14 @@ function wireNavDropdown() {
   const dropdown = document.getElementById("navDropdown");
   if (!menuButton || !dropdown) return;
 
+  dropdown.inert = true;
+  dropdown.setAttribute("aria-hidden", "true");
+
   function setOpen(open: boolean) {
     dropdown?.classList.toggle("is-open", open);
     menuButton?.setAttribute("aria-expanded", String(open));
+    dropdown?.setAttribute("aria-hidden", String(!open));
+    if (dropdown) dropdown.inert = !open;
   }
 
   menuButton.addEventListener("click", (event) => {
