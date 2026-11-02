@@ -64,8 +64,8 @@ const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
-  es: { details: "Detalles", addToCart: "Agregar al carrito", chooseFinish: "Elegí un acabado", categoryRifles: "Rifles", categoryShotguns: "Escopetas", categoryHandguns: "Pistolas", categorySmgs: "Subfusiles", categoryAccessories: "Accesorios", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
-  en: { details: "Details", addToCart: "Add to cart", chooseFinish: "Choose a finish", categoryRifles: "Rifles", categoryShotguns: "Shotguns", categoryHandguns: "Handguns", categorySmgs: "SMGs", categoryAccessories: "Accessories", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
+  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
+  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
 };
 
 function currentLanguage(): "es" | "en" {
@@ -456,40 +456,49 @@ function renderProductos() {
     const card = document.createElement("div");
     card.classList.add("contenedorDeCard");
 
-    const categoriaProducto = obtenerCategoriaProducto(producto);
-    const etiquetasCategoria: Record<string, string> = {
-      rifle: t("categoryRifles"), shotgun: t("categoryShotguns"), handgun: t("categoryHandguns"),
-      smg: t("categorySmgs"), accessory: t("categoryAccessories")
-    };
-    const etiquetaCategoria = etiquetasCategoria[categoriaProducto] || "Equipamiento";
-
     card.innerHTML = `
-      <div class="product-card__image-wrap">
-        <span class="product-card__category">${etiquetaCategoria}</span>
-        <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}" loading="lazy">
-      </div>
-      <div class="product-card__content">
-        <p class="product-card__eyebrow">IRBIS / SELECTION</p>
-        <h3>${escapeHtml(producto.nombre)}</h3>
-        <p class="descripcion-producto">${escapeHtml(producto.descripcion)}</p>
-        <div class="product-card__options">
-          <span>${t("chooseFinish")}</span>
-          <div class="colores-container">
-            ${producto.colores.map(c => `
-              <button class="color-swatch" type="button" data-producto="${producto.id}"
-                data-color="${escapeHtml(c.nombre)}" title="${escapeHtml(c.nombre)}"
-                aria-label="Color ${escapeHtml(c.nombre)}" aria-pressed="false"
-                style="background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'}"></button>
-            `).join("")}
-          </div>
+      <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}">
+      <h3>${escapeHtml(producto.nombre)}</h3>
+
+      <button class="btn-detalles" data-id="${producto.id}">
+        ${t("details")}
+      </button>
+
+      <div class="detalles-container" id="detalles-${producto.id}" style="display:none;">
+        
+        <p class="descripcion-producto">
+          ${escapeHtml(producto.descripcion)}
+        </p>
+
+        <div class="colores-container">
+          ${producto.colores.map(c => `
+            <span class="color-swatch"
+                  data-producto="${producto.id}"
+                  data-color="${escapeHtml(c.nombre)}"
+                  title="${escapeHtml(c.nombre)}"
+                  style="
+                    background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
+                    display:inline-block;
+                    width:18px;
+                    height:18px;
+                    border-radius:50%;
+                    margin-right:4px;
+                    border:1px solid #333;
+                    cursor:pointer;
+                  ">
+            </span>
+          `).join("")}
         </div>
-        <div class="product-card__purchase">
-          <p class="precio-producto">${currency(producto.precio)}</p>
-          <button class="btn-primary product-add-button" type="button" data-id="${producto.id}">
-            ${t("addToCart")} <span aria-hidden="true">＋</span>
-          </button>
-        </div>
+
       </div>
+
+      <p class="precio-producto">
+        ${currency(producto.precio)}
+      </p>
+
+      <button class="btn-primary" data-id="${producto.id}">
+        ${t("addToCart")}
+      </button>
     `;
 
     contenedorProductos.appendChild(card);
@@ -819,13 +828,9 @@ document.addEventListener("click", (e) => {
 
   // Limpiar selección previa del mismo producto
   document.querySelectorAll(`.color-swatch[data-producto="${productoId}"]`)
-    .forEach(el => {
-      el.classList.remove("color-activo");
-      el.setAttribute("aria-pressed", "false");
-    });
+    .forEach(el => el.classList.remove("color-activo"));
 
   swatch.classList.add("color-activo");
-  swatch.setAttribute("aria-pressed", "true");
 });
 
 // ===============================
