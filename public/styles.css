@@ -4036,3 +4036,34 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
   }
 }
 
+/* Contacto: Nombre más compacto y Correo electrónico con mayor espacio. */
+.footer-contact-form {
+  grid-template-columns: minmax(95px, .7fr) minmax(0, 1.3fr) 96px !important;
+}
+
+.footer-contact-form #contactName {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.footer-contact-form #contactEmail {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.footer-contact-form #contactMessage {
+  grid-column: 1 / 3;
+  grid-row: 2;
+}
+
+.footer-contact-form button {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+@media (max-width: 767px) {
+  .footer-contact-form {
+    grid-template-columns: minmax(82px, .7fr) minmax(0, 1.3fr) 88px !important;
+  }
+}
+
