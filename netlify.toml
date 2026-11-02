@@ -5,3 +5,18 @@
 
 [functions]
   node_bundler = "esbuild"
+
+
+# Netlify Forms: convertir el POST de cada formulario en una redirección GET.
+# Las reglas forzadas prevalecen sobre las páginas estáticas con el mismo path.
+[[redirects]]
+  from = "/newsletter-success/"
+  to = "/?newsletter=success#footer"
+  status = 303
+  force = true
+
+[[redirects]]
+  from = "/contact-success/"
+  to = "/?contact=success#footer"
+  status = 303
+  force = true
