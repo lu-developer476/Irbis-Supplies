@@ -298,14 +298,16 @@ export async function createOrder(orderData: any) {
   const db = getFirestore(app);
   const auth = getAuth(app);
 
+  // El acceso es opcional en la experiencia demo: las órdenes de invitados
+  // se conservan localmente y no intentan escribir en Firestore.
   if (!auth.currentUser) {
-    throw new Error("Usuario no autenticado");
+    return { localOnly: true as const };
   }
 
   const order = {
+    ...orderData,
     uid: auth.currentUser.uid,
     email: auth.currentUser.email,
-    ...orderData,
     status: "pending",
     createdAt: serverTimestamp(),
   };

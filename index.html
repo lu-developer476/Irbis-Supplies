@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Irbis Supplies | Tienda Oficial</title>
+  <title>Irbis Supplies | Equipamiento y suministros</title>
+  <meta name="description" content="Explorá el catálogo de Irbis Supplies, una experiencia ficticia de tienda online." />
+  <meta name="theme-color" content="#0b0d0b" />
+  <meta name="color-scheme" content="dark light" />
 
     <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
@@ -100,6 +103,7 @@
        CONTENIDO PRINCIPAL
   =============================== -->
   <main>
+    <div class="demo-notice" role="note"><strong>ENTORNO DE DEMOSTRACIÓN</strong><span> I​​rbis Supplies es una tienda ficticia. Los pedidos, pagos y comprobantes son simulaciones.</span></div>
 
     <section id="productos" class="productos">
       <h2 data-i18n="products">Catálogo</h2>
@@ -179,7 +183,7 @@
               <select id="shippingMethod">
                 <option value="0" data-i18n="pickup">Retiro sin cargo</option>
                 <option value="25000" data-i18n="courier">Courier - $25.000</option>
-                <option value="-1" data-i18n="express">Envío express – A coordinar</option>
+                <option value="0" data-i18n="express">Envío express – A coordinar</option>
               </select>
             </div>
 
@@ -194,10 +198,10 @@
             </div>
             
             <div id="cardFields" class="card-fields hidden">
-              <input type="text" placeholder="Número de tarjeta" maxlength="19" data-i18n-placeholder="cardNumber" />
+              <input type="text" inputmode="numeric" autocomplete="off" placeholder="Número de tarjeta (simulado)" maxlength="19" data-i18n-placeholder="cardNumber" />
               <input type="text" placeholder="Nombre en la tarjeta" data-i18n-placeholder="cardName" />
               <input type="text" placeholder="MM/AA" maxlength="5" data-i18n-placeholder="cardExpiry" />
-              <input type="text" placeholder="CVV" maxlength="4" data-i18n-placeholder="cardCvv" />
+              <input type="password" inputmode="numeric" autocomplete="off" placeholder="CVV (simulado)" maxlength="4" data-i18n-placeholder="cardCvv" />
             </div>
             
             <div id="qrSection" class="qr-section hidden">
