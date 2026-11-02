@@ -28,6 +28,8 @@ export interface CatalogProductData {
   id: number;
   nombre: string;
   descripcion: string;
+  nombreEn?: string;
+  descripcionEn?: string;
   precioBase: number;
   imagen: string;
   colores: ProductColor[];
