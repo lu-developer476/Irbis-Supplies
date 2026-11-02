@@ -76,7 +76,7 @@
             <li><a href="#productos" class="btn-secondary" data-i18n="catalogLink">📦 Catálogo</a></li>
             <li><button id="btnCart" class="btn-secondary" type="button" aria-haspopup="dialog" aria-controls="cartDrawer" data-i18n="cartAction">🛒 Carrito</button></li>
             <li>
-              <button id="btnHistorial" class="btn-secondary" data-i18n="history">📄 Historial</button>
+              <button id="btnHistorial" class="btn-secondary" type="button" data-i18n="history">📄 Historial</button>
             </li>
           </ul>
         </div>
@@ -85,7 +85,7 @@
 
     <!-- SWIPER -->
     <div class="hero-content">
-      <div class="swiper mySwiper">
+      <div class="swiper mySwiper" role="region" aria-roledescription="carousel" aria-label="Mensajes destacados de Irbis Supplies">
         <div class="swiper-wrapper">
           <div class="swiper-slide" data-i18n="hero1">Antes que llegue el final...</div>
           <div class="swiper-slide" data-i18n="hero2">asegurate de contar con lo necesario para sobrevivir.</div>
@@ -155,9 +155,9 @@
        CART DRAWER (panel derecho)
   =============================== -->
   <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
-  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito" aria-hidden="true" inert>
+  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" aria-hidden="true" inert>
     <div class="cart-drawer__header">
-      <h3 data-i18n="cart">Carrito</h3>
+      <h3 id="cartDrawerTitle" data-i18n="cart">Carrito</h3>
       <button id="btnCloseCart" class="" type="button" aria-label="Cerrar carrito" data-i18n-aria-label="closeCart">❌</button>
     </div>
 
@@ -204,7 +204,7 @@
             
             <div id="qrSection" class="qr-section hidden">
               <p data-i18n="qrHelp">Escaneá para completar el pago.</p>
-              <div id="qrContainer"></div>
+              <div id="qrContainer" role="img" aria-label="Código QR para completar el pago"></div>
               <button id="btnConfirmQR" class="btn-primary" type="button">Confirmar pago QR</button>
             </div>
 
@@ -230,8 +230,8 @@
               <p><span data-i18n="total">Total:</span> <span id="totalCarrito">$0</span></p>
 
               <div class="carrito-actions">
-                <button id="vaciarCarrito" class="btn-secondary" data-i18n="clearCart">Limpiar Carrito</button>
-                <button id="btnCheckout" class="btn-primary" data-i18n="checkout">Finalizar Compra</button>
+                <button id="vaciarCarrito" class="btn-secondary" type="button" data-i18n="clearCart">Limpiar Carrito</button>
+                <button id="btnCheckout" class="btn-primary" type="button" data-i18n="checkout">Finalizar Compra</button>
               </div>
             </div>
 
@@ -260,11 +260,22 @@
   </script>
   
   <script>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const swiper = new Swiper(".mySwiper", {
       loop: true,
-      autoplay: {
+      autoplay: prefersReducedMotion ? false : {
         delay: 3500,
         disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+      a11y: {
+        enabled: true,
+        containerMessage: "Mensajes destacados de Irbis Supplies",
+        slideLabelMessage: "Diapositiva {{index}} de {{slidesLength}}",
       },
       pagination: {
         el: ".swiper-pagination",
