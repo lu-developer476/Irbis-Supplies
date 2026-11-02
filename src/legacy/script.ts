@@ -34,6 +34,8 @@ const btnCart = document.getElementById("btnCart");
 const cartDrawer = document.getElementById("cartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
 const btnCloseCart = document.getElementById("btnCloseCart");
+let cartPreviousFocus: HTMLElement | null = null;
+let previousBodyOverflow = "";
 
 // Nuevos elementos de facturación
 const invoiceTypeDOM = document.getElementById("invoiceType");
@@ -47,6 +49,7 @@ const qrSection = document.getElementById("qrSection");
 const btnConfirmQR = document.getElementById("btnConfirmQR");
 const couponInput = document.getElementById("couponInput");
 const applyCouponBtn = document.getElementById("applyCoupon");
+const couponFeedback = document.getElementById("couponFeedback");
 
 const subtotalDOM = document.getElementById("subtotal");
 const discountDOM = document.getElementById("discount");
@@ -180,15 +183,26 @@ const ADDONS = [
 ];
 
 function openCartDrawer() {
-  cartDrawer?.classList.add("is-open");
+  if (!cartDrawer || cartDrawer.classList.contains("is-open")) return;
+  cartPreviousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  previousBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+  cartDrawer.classList.add("is-open");
+  cartDrawer.setAttribute("aria-hidden", "false");
   cartOverlay?.classList.add("is-open");
   cartOverlay?.setAttribute("aria-hidden", "false");
+  btnCloseCart?.focus();
 }
 
 function closeCartDrawer() {
-  cartDrawer?.classList.remove("is-open");
+  if (!cartDrawer?.classList.contains("is-open")) return;
+  cartDrawer.classList.remove("is-open");
+  cartDrawer.setAttribute("aria-hidden", "true");
   cartOverlay?.classList.remove("is-open");
   cartOverlay?.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = previousBodyOverflow;
+  cartPreviousFocus?.focus();
+  cartPreviousFocus = null;
 }
 
 btnCart?.addEventListener("click", openCartDrawer);
@@ -196,7 +210,30 @@ btnCloseCart?.addEventListener("click", closeCartDrawer);
 cartOverlay?.addEventListener("click", closeCartDrawer);
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeCartDrawer();
+  if (!cartDrawer?.classList.contains("is-open")) return;
+  if (e.key === "Escape") {
+    closeCartDrawer();
+    return;
+  }
+  if (e.key === "Tab") {
+    const focusable = Array.from(cartDrawer.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter((element) => element.offsetParent !== null);
+    if (!focusable.length) {
+      e.preventDefault();
+      cartDrawer.focus();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
 
 const FECHA_BASE = new Date("2024-01-01");
@@ -615,14 +652,20 @@ function renderCarrito() {
   carritoContainer.innerHTML = "";
 
   if (carrito.length === 0) {
-    carritoContainer.innerHTML = `<p>${t("emptyCart")}</p>`;
+    carritoContainer.innerHTML = `<p class="cart-empty-state">${t("emptyCart")}</p>`;
     totalCarritoDOM.innerText = currency(0);
-
+    if (subtotalDOM) subtotalDOM.innerText = currency(0);
+    if (discountDOM) discountDOM.innerText = currency(0);
+    if (ivaDOM) ivaDOM.innerText = currency(0);
+    if (shippingCostDOM) shippingCostDOM.innerText = currency(0);
     if (btnVaciarCarrito) {
       btnVaciarCarrito.disabled = true;
       btnVaciarCarrito.classList.add("btn-disabled");
     }
-
+    if (btnCheckout) {
+      btnCheckout.disabled = true;
+      btnCheckout.classList.add("btn-disabled");
+    }
     return;
   }
 
@@ -630,6 +673,11 @@ function renderCarrito() {
   if (btnVaciarCarrito) {
     btnVaciarCarrito.disabled = false;
     btnVaciarCarrito.classList.remove("btn-disabled");
+  }
+  if (btnCheckout) {
+    const checkoutBlocked = paymentSelect?.value === "qr" && !qrConfirmado;
+    btnCheckout.disabled = checkoutBlocked;
+    btnCheckout.classList.toggle("btn-disabled", checkoutBlocked);
   }
 
   carrito.forEach(p => {
@@ -639,16 +687,19 @@ function renderCarrito() {
     const imgSrc = p.imagen || productos.find(x => x.id === p.id)?.imagen || "";
 
     row.innerHTML = `
-      ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="${escapeHtml(p.nombre)}">` : ""}
+      ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="">` : ""}
       <div class="item-carrito__info">
-        ${escapeHtml(p.nombre)} <span style="color:#c2a34a;">(${escapeHtml(p.color)})</span>
+        <h4>${escapeHtml(p.nombre)}</h4>
+        <p class="item-carrito__variant">Color: <strong>${escapeHtml(p.color)}</strong></p>
         <p class="item-carrito__precio">
-          ${currency(p.precio)} x ${p.cantidad} = ${currency(p.precio * p.cantidad)}
+          <span>${currency(p.precio)} c/u</span>
+          <strong>${currency(p.precio * p.cantidad)}</strong>
         </p>
       </div>
-      <div class="item-carrito__acciones">
-        <button class="btn-secondary" type="button" data-quantity-change="-1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Reducir cantidad">-</button>
-        <button class="btn-secondary" type="button" data-quantity-change="1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Aumentar cantidad">+</button>
+      <div class="item-carrito__acciones" aria-label="Cantidad de ${escapeHtml(p.nombre)}">
+        <button class="btn-secondary" type="button" data-quantity-change="-1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Reducir cantidad de ${escapeHtml(p.nombre)}">−</button>
+        <output class="item-carrito__cantidad" aria-live="polite" aria-label="Cantidad">${p.cantidad}</output>
+        <button class="btn-secondary" type="button" data-quantity-change="1" data-product-id="${Number(p.id)}" data-color="${escapeHtml(p.color)}" aria-label="Aumentar cantidad de ${escapeHtml(p.nombre)}">+</button>
       </div>
     `;
     carritoContainer.appendChild(row);
@@ -795,10 +846,10 @@ btnHistorial?.addEventListener("click", () => {
     showConfirmButton: false,
     didOpen: () => {
 
-      document.querySelectorAll(".ver-factura-modal").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const orderId = e.target.dataset.order;
-          abrirFacturaDesdeHistorial(orderId);
+      document.querySelectorAll<HTMLButtonElement>(".ver-factura-modal").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const orderId = btn.dataset.order;
+          if (orderId) abrirFacturaDesdeHistorial(orderId);
         });
       });
 
@@ -870,7 +921,7 @@ function notificarNetlify(order) {
 function invoiceHTML(order) {
   const itemsRows = order.items.map(i => `
     <tr>
-      <td>${escapeHtml(i.nombre)}</td>
+      <td>${escapeHtml(i.nombre)}<div class="muted small">Color: ${escapeHtml(i.color || "N/A")}</div></td>
       <td style="text-align:center;">${i.cantidad}</td>
       <td style="text-align:right;">${currency(i.precio)}</td>
       <td style="text-align:right;">${currency(i.precio * i.cantidad)}</td>
@@ -1161,18 +1212,29 @@ btnCheckout?.addEventListener("click", () => {
     Swal.fire({
       title: "Checkout",
       html: `
-        <input id="nombreCliente" class="swal2-input" placeholder="Nombre completo">
-        <input id="emailCliente" class="swal2-input" placeholder="Email">
-        <input id="direccionCliente" class="swal2-input" placeholder="Dirección">
-`,
+        <label class="checkout-field" for="nombreCliente">Nombre completo
+          <input id="nombreCliente" class="swal2-input" type="text" autocomplete="name" maxlength="120" placeholder="Nombre completo" required>
+        </label>
+        <label class="checkout-field" for="emailCliente">Correo electrónico
+          <input id="emailCliente" class="swal2-input" type="email" autocomplete="email" maxlength="160" placeholder="nombre@correo.com" required>
+        </label>
+        <label class="checkout-field" for="direccionCliente">Dirección de entrega
+          <input id="direccionCliente" class="swal2-input" type="text" autocomplete="street-address" maxlength="240" placeholder="Calle, número, localidad" required>
+        </label>
+        <p class="checkout-total">Total a confirmar: <strong>${currency(total)}</strong></p>
+      `,
+      customClass: { htmlContainer: "checkout-form-content" },
       confirmButtonText: "Confirmar compra",
       showCancelButton: true,
       background: "#1e1e1e",
       color: "#fff",
+      didOpen: () => {
+        (document.getElementById("nombreCliente") as HTMLInputElement | null)?.focus();
+      },
       preConfirm: () => {
-        const nombre = (document.getElementById("nombreCliente") as HTMLInputElement).value.trim();
-        const email = (document.getElementById("emailCliente") as HTMLInputElement).value.trim();
-        const direccion = (document.getElementById("direccionCliente") as HTMLInputElement).value.trim();
+        const nombre = (document.getElementById("nombreCliente") as HTMLInputElement | null)?.value.trim() || "";
+        const email = (document.getElementById("emailCliente") as HTMLInputElement | null)?.value.trim() || "";
+        const direccion = (document.getElementById("direccionCliente") as HTMLInputElement | null)?.value.trim() || "";
         const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         if (!nombre || nombre.length > 120 || !emailValido || !direccion || direccion.length > 240) {
           Swal.showValidationMessage("Completá nombre, email válido y dirección.");
@@ -1254,6 +1316,17 @@ btnCheckout?.addEventListener("click", () => {
         });
 
         carrito = [];
+        descuentoCupon = 0;
+        cuponAplicado = false;
+        if (couponInput) {
+          (couponInput as HTMLInputElement).value = "";
+          (couponInput as HTMLInputElement).readOnly = false;
+        }
+        if (applyCouponBtn) (applyCouponBtn as HTMLButtonElement).disabled = false;
+        if (couponFeedback) {
+          couponFeedback.textContent = "";
+          couponFeedback.removeAttribute("data-state");
+        }
         guardarCarrito();
         renderCarrito();
 
@@ -1335,6 +1408,18 @@ btnVaciarCarrito?.addEventListener("click", () => {
   }
 
   carrito.length = 0; // Más limpio que reasignar el array
+  descuentoCupon = 0;
+  cuponAplicado = false;
+  qrConfirmado = false;
+  if (couponInput) {
+    (couponInput as HTMLInputElement).value = "";
+    (couponInput as HTMLInputElement).readOnly = false;
+  }
+  if (applyCouponBtn) (applyCouponBtn as HTMLButtonElement).disabled = false;
+  if (couponFeedback) {
+    couponFeedback.textContent = "";
+    couponFeedback.removeAttribute("data-state");
+  }
   guardarCarrito();
   renderCarrito();
 
@@ -1447,7 +1532,8 @@ paymentSelect?.addEventListener("change", () => {
 
 btnConfirmQR?.addEventListener("click", () => {
   qrConfirmado = true;
-  btnCheckout.disabled = false;
+  btnCheckout.disabled = carrito.length === 0;
+  btnCheckout.classList.toggle("btn-disabled", carrito.length === 0);
 
   Swal.fire({
     title: "Pago QR confirmado",
@@ -1463,13 +1549,27 @@ btnConfirmQR?.addEventListener("click", () => {
 // CUPÓN
 // ===============================
 applyCouponBtn?.addEventListener("click", () => {
+  const setCouponFeedback = (message: string, state: "success" | "error" | "info") => {
+    if (couponFeedback) {
+      couponFeedback.textContent = message;
+      couponFeedback.dataset.state = state;
+    }
+  };
 
   if (cuponAplicado) {
-    alertaError("Ya se aplicó un cupón en esta compra.");
+    setCouponFeedback("Ya se aplicó un cupón en esta compra.", "info");
+    return;
+  }
+
+  const code = (couponInput as HTMLInputElement | null)?.value.trim().toUpperCase() || "";
+  if (!code) {
+    setCouponFeedback("Ingresá un código para continuar.", "error");
+    couponInput?.focus();
     return;
   }
 
   if (!isUserLoggedIn()) {
+    setCouponFeedback("Este cupón está disponible para clientes registrados.", "info");
     Swal.fire({
       title: "Cuenta requerida",
       html: `
@@ -1490,12 +1590,12 @@ applyCouponBtn?.addEventListener("click", () => {
     return;
   }
 
-  const code = couponInput.value.trim().toUpperCase();
-
   if (code === "IRBIS15") {
-
     descuentoCupon = 0.15;
     cuponAplicado = true;
+    setCouponFeedback("Cupón IRBIS15 aplicado: 15% adicional.", "success");
+    if (couponInput) (couponInput as HTMLInputElement).readOnly = true;
+    if (applyCouponBtn) (applyCouponBtn as HTMLButtonElement).disabled = true;
     renderCarrito();
 
     Swal.fire({
@@ -1507,6 +1607,7 @@ applyCouponBtn?.addEventListener("click", () => {
     });
 
   } else {
+    setCouponFeedback("El código ingresado no es válido.", "error");
     alertaError("Cupón inválido.");
   }
 });
