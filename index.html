@@ -30,17 +30,30 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
-<body>
+<body id="top">
 
   <!-- BARRA INFORMATIVA: CONSEJOS DE SUPERVIVENCIA -->
   <aside class="announcement-bar" aria-label="Consejos de supervivencia">
-    <p data-i18n="survivalTips">Consejo de supervivencia: almacená agua potable para emergencias · Prepará un botiquín y revisá sus vencimientos · Acordá un punto de encuentro familiar.</p>
+    <div class="swiper announcementSwiper" role="region" aria-roledescription="carousel" aria-label="Consejos rotativos de supervivencia" aria-live="polite">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" data-i18n="survivalTip1">Almacená agua potable: calculá al menos 3 litros por persona por día.</div>
+        <div class="swiper-slide" data-i18n="survivalTip2">Prepará un botiquín y revisá periódicamente sus vencimientos.</div>
+        <div class="swiper-slide" data-i18n="survivalTip3">Acordá un punto de encuentro familiar por si se interrumpen las comunicaciones.</div>
+        <div class="swiper-slide" data-i18n="survivalTip4">Tené una linterna y pilas de repuesto en un lugar accesible.</div>
+        <div class="swiper-slide" data-i18n="survivalTip5">Guardá copias de documentos importantes en un lugar seguro y seco.</div>
+        <div class="swiper-slide" data-i18n="survivalTip6">Mantené cargado un power bank para emergencias.</div>
+        <div class="swiper-slide" data-i18n="survivalTip7">Conocé las vías de evacuación y las salidas de tu vivienda.</div>
+        <div class="swiper-slide" data-i18n="survivalTip8">Incluí alimentos no perecederos y un abrelatas manual en tu reserva.</div>
+        <div class="swiper-slide" data-i18n="survivalTip9">Consultá fuentes oficiales antes de actuar ante una alerta.</div>
+        <div class="swiper-slide" data-i18n="survivalTip10">Si usás un generador, mantenelo siempre al aire libre y lejos de ventanas.</div>
+      </div>
+    </div>
   </aside>
 
-  <!-- NAVBAR FIJO DURANTE EL SCROLL -->
+  <!-- NAVBAR FIJO QUE ACOMPAÑA EL SCROLL -->
   <header class="navbar">
       <div class="navbar-left">
-        <a class="logo" href="#productos" aria-label="Irbis Supplies - catálogo">
+        <a class="logo" href="#top" aria-label="Irbis Supplies - volver al inicio">
           <img src="./images/logo.png" alt="Irbis Supplies Logo" />
         </a>
         <div class="brand-copy" aria-hidden="true">
@@ -76,6 +89,7 @@
         </ul>
       </nav>
   </header>
+  <div class="navbar-spacer" aria-hidden="true"></div>
 
   <!-- HERO COMPLETO -->
   <section class="hero">
@@ -319,6 +333,42 @@
   
   <script>
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const announcement = document.querySelector(".announcement-bar");
+    const navbar = document.querySelector(".navbar");
+    const navbarSpacer = document.querySelector(".navbar-spacer");
+    const syncNavbar = () => {
+      if (!announcement || !navbar || !navbarSpacer) return;
+      const announcementHeight = announcement.offsetHeight;
+      navbarSpacer.style.height = `${navbar.offsetHeight}px`;
+      navbar.style.top = window.scrollY > announcementHeight ? "0px" : `${announcementHeight}px`;
+      navbar.classList.toggle("is-scrolled", window.scrollY > announcementHeight);
+    };
+    syncNavbar();
+    window.addEventListener("scroll", syncNavbar, { passive: true });
+    window.addEventListener("resize", syncNavbar);
+    if ("ResizeObserver" in window && navbar && navbarSpacer) {
+      new ResizeObserver(syncNavbar).observe(navbar);
+    }
+
+    const announcementSwiper = new Swiper(".announcementSwiper", {
+      loop: true,
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      autoplay: prefersReducedMotion ? false : {
+        delay: 5200,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      speed: 450,
+      allowTouchMove: true,
+      a11y: {
+        enabled: true,
+        containerMessage: "Consejos rotativos de supervivencia",
+        slideLabelMessage: "Consejo {{index}} de {{slidesLength}}",
+      },
+    });
+
     const swiper = new Swiper(".mySwiper", {
       loop: true,
       autoplay: prefersReducedMotion ? false : {
