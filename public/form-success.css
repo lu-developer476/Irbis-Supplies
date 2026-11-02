@@ -246,3 +246,241 @@ body.form-success-mode #formSuccessScreen {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Las confirmaciones ocupan exactamente el viewport: no generan scroll. */
+html,
+body.success-page,
+body.form-success-mode {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.success-page,
+body.form-success-mode {
+  height: 100vh;
+  height: 100svh;
+  min-height: 0;
+  padding: clamp(8px, 2.5svh, 24px) clamp(12px, 3vw, 32px);
+}
+
+.success-shell {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(8px, 1.5svh, 18px);
+}
+
+.success-brand {
+  align-self: center;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.success-brand img {
+  width: clamp(30px, 6svh, 48px);
+  height: clamp(30px, 6svh, 48px);
+}
+
+.success-brand span {
+  font-size: clamp(1.35rem, 4svh, 2rem);
+}
+
+.success-card {
+  flex: 0 1 auto;
+  min-height: 0;
+  padding: clamp(12px, 3svh, 32px) clamp(16px, 4vw, 48px);
+}
+
+.success-icon {
+  width: clamp(42px, 9svh, 68px);
+  height: clamp(42px, 9svh, 68px);
+  margin-bottom: clamp(8px, 1.5svh, 16px);
+}
+
+.success-icon svg {
+  width: 52%;
+  height: 52%;
+}
+
+.success-eyebrow {
+  margin-bottom: clamp(4px, 0.8svh, 8px);
+  font-size: clamp(0.62rem, 1.5svh, 0.76rem);
+}
+
+.success-card h1 {
+  font-size: clamp(2rem, 7svh, 4.2rem);
+}
+
+.success-description {
+  margin-top: clamp(6px, 1.5svh, 14px);
+  font-size: clamp(0.82rem, 2svh, 1.08rem);
+  line-height: 1.4;
+}
+
+.success-details {
+  margin: clamp(10px, 2svh, 22px) 0;
+  padding: clamp(10px, 2.2svh, 18px) clamp(12px, 2.5vw, 22px);
+}
+
+.success-details h2 {
+  margin-bottom: 5px;
+  font-size: clamp(0.72rem, 1.6svh, 0.9rem);
+}
+
+.success-details p {
+  font-size: clamp(0.78rem, 1.8svh, 0.92rem);
+  line-height: 1.42;
+}
+
+.success-home {
+  min-height: clamp(38px, 6svh, 48px);
+  padding: 8px clamp(16px, 3vw, 22px);
+  font-size: clamp(0.78rem, 1.7svh, 0.9rem);
+}
+
+.success-note {
+  margin-top: clamp(8px, 1.8svh, 18px);
+  font-size: clamp(0.66rem, 1.45svh, 0.76rem);
+  line-height: 1.35;
+}
+
+.success-footer {
+  flex: 0 0 auto;
+  margin: 0;
+  font-size: clamp(0.58rem, 1.25svh, 0.7rem);
+  line-height: 1.2;
+}
+
+@media (max-width: 520px) {
+  body.success-page,
+  body.form-success-mode {
+    padding-inline: 12px;
+  }
+
+  .success-brand {
+    gap: 8px;
+  }
+
+  .success-card {
+    border-radius: 18px;
+  }
+
+  .success-details {
+    padding: 10px 12px;
+  }
+
+  .success-home {
+    width: 100%;
+  }
+}
+
+/* En pantallas bajas compactamos márgenes y tipografía antes de permitir
+   que cualquier contenido quede fuera del viewport. */
+@media (max-height: 620px) {
+  body.success-page,
+  body.form-success-mode {
+    padding-block: 6px;
+  }
+
+  .success-shell {
+    gap: 6px;
+  }
+
+  .success-brand img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .success-brand span {
+    font-size: 1.25rem;
+  }
+
+  .success-card {
+    padding: 10px clamp(12px, 3vw, 28px);
+  }
+
+  .success-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 5px;
+  }
+
+  .success-eyebrow {
+    margin-bottom: 3px;
+    font-size: 0.58rem;
+  }
+
+  .success-card h1 {
+    font-size: clamp(1.7rem, 5.5vh, 2.8rem);
+  }
+
+  .success-description {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    line-height: 1.25;
+  }
+
+  .success-details {
+    margin: 7px 0;
+    padding: 7px 10px;
+  }
+
+  .success-details h2 {
+    margin-bottom: 3px;
+    font-size: 0.66rem;
+  }
+
+  .success-details p {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .success-home {
+    min-height: 34px;
+    padding-block: 6px;
+    font-size: 0.72rem;
+  }
+
+  .success-note {
+    margin-top: 5px;
+    font-size: 0.62rem;
+  }
+
+  .success-footer {
+    font-size: 0.55rem;
+  }
+}
+
+/* En móviles apaisados muy bajos priorizamos el contenido de confirmación. */
+@media (max-height: 440px) {
+  .success-footer {
+    display: none;
+  }
+
+  .success-shell {
+    gap: 4px;
+  }
+
+  .success-card {
+    padding-block: 7px;
+  }
+
+  .success-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 3px;
+  }
+
+  .success-details {
+    margin: 5px 0;
+    padding-block: 5px;
+  }
+
+  .success-note {
+    margin-top: 3px;
+  }
+}
+
