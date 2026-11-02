@@ -4,11 +4,85 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta http-equiv="refresh" content="0;url=https://irbis-supplies.netlify.app/?contact=success">
-  <title>Redirigiendo | Irbis Supplies</title>
-  <script>window.location.replace("https://irbis-supplies.netlify.app/?contact=success");</script>
+  <meta name="theme-color" content="#080a08">
+  <meta name="description" content="Confirmación de consulta enviada a Irbis Supplies.">
+  <title>¡Consulta enviada! | Irbis Supplies</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./form-success.css">
 </head>
-<body>
-  <p>Redirigiendo… <a href="https://irbis-supplies.netlify.app/?contact=success">Continuar</a>.</p>
+<body class="success-page">
+  <main class="success-shell">
+    <a class="success-brand" href="/" aria-label="Irbis Supplies — volver al inicio">
+      <img src="./images/logo.png" alt="">
+      <span>Irbis Supplies</span>
+    </a>
+
+    <section class="success-card" aria-labelledby="successTitle">
+      <div class="success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 5.5h16v13H4z"></path><path d="m4.5 7 7.5 6 7.5-6"></path><path d="m8.5 16 2 2 5-5"></path></svg>
+      </div>
+      <p class="success-eyebrow" data-copy="eyebrow">CONTACTO · CONFIRMACIÓN</p>
+      <h1 id="successTitle" data-copy="title">¡Recibimos tu consulta!</h1>
+      <p class="success-description" data-copy="description">Tu mensaje fue enviado correctamente.</p>
+
+      <div class="success-details">
+        <h2 data-copy="detailsTitle">¿Qué pasa ahora?</h2>
+        <p data-copy="details">Tu consulta quedó registrada para que el equipo de Irbis Supplies pueda revisarla. Si necesitamos más información, podremos contactarte por el correo que indicaste.</p>
+      </div>
+
+      <a class="success-home" href="/">
+        <span data-copy="home">Volver a Irbis Supplies</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+      <p class="success-note" data-copy="note">Gracias por comunicarte con Irbis Supplies.</p>
+    </section>
+
+    <footer class="success-footer">© <span id="year"></span> Irbis Supplies · <span data-copy="footer">Preparación, prevención y equipamiento.</span></footer>
+  </main>
+
+  <script>
+    const copy = {
+      es: {
+        eyebrow: "CONTACTO · CONFIRMACIÓN",
+        title: "¡Recibimos tu consulta!",
+        description: "Tu mensaje fue enviado correctamente.",
+        detailsTitle: "¿Qué pasa ahora?",
+        details: "Tu consulta quedó registrada para que el equipo de Irbis Supplies pueda revisarla. Si necesitamos más información, podremos contactarte por el correo que indicaste.",
+        home: "Volver a Irbis Supplies",
+        note: "Gracias por comunicarte con Irbis Supplies.",
+        footer: "Preparación, prevención y equipamiento."
+      },
+      en: {
+        eyebrow: "CONTACT · CONFIRMATION",
+        title: "Your message has been received!",
+        description: "Your message was sent successfully.",
+        detailsTitle: "What happens next?",
+        details: "Your inquiry has been recorded for the Irbis Supplies team to review. If we need more information, we may contact you using the email address you provided.",
+        home: "Back to Irbis Supplies",
+        note: "Thank you for contacting Irbis Supplies.",
+        footer: "Preparedness, prevention and equipment."
+      }
+    };
+
+    let language = "es";
+    try {
+      language = localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    } catch {
+      language = "es";
+    }
+
+    document.documentElement.lang = language;
+    document.querySelectorAll("[data-copy]").forEach((element) => {
+      const key = element.dataset.copy;
+      if (copy[language][key]) element.textContent = copy[language][key];
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.title = language === "en"
+      ? "Message sent! | Irbis Supplies"
+      : "¡Consulta enviada! | Irbis Supplies";
+  </script>
 </body>
 </html>
