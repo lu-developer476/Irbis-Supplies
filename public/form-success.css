@@ -454,6 +454,11 @@ body.form-success-mode {
   }
 }
 
+/* La vista integrada en index.html usa el mismo layout flex que las páginas dedicadas. */
+body.form-success-mode #formSuccessScreen {
+  display: flex;
+}
+
 /* En móviles apaisados muy bajos priorizamos el contenido de confirmación. */
 @media (max-height: 440px) {
   .success-footer {
