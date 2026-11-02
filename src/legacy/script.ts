@@ -1159,7 +1159,7 @@ function invoiceHTML(order) {
 
     <div class="footer">
       <div class="muted small">
-        Irbis Supplies · Gracias por tu compra. Conservá este comprobante para cualquier consulta relacionada con tu pedido.
+        ¡Muchas gracias por tu compra!
       </div>
     </div>
   </div>
