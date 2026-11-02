@@ -155,7 +155,7 @@
        CART DRAWER (panel derecho)
   =============================== -->
   <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
-  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito">
+  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito" aria-hidden="true">
     <div class="cart-drawer__header">
       <h3 data-i18n="cart">Carrito</h3>
       <button id="btnCloseCart" class="" type="button" aria-label="Cerrar carrito" data-i18n-aria-label="closeCart">❌</button>
@@ -164,7 +164,7 @@
     <div class="cart-drawer__body">
       <div class="carrito-wrapper">
         <div class="cart-items-scroll">
-          <div id="carritoContainer"></div>
+          <div id="carritoContainer" role="status" aria-live="polite" aria-atomic="true"></div>
         </div>
 
         <div class="carrito-sidebar">
@@ -196,21 +196,23 @@
             </div>
             
             <div id="cardFields" class="card-fields hidden">
-              <input type="text" inputmode="numeric" autocomplete="off" placeholder="Número de tarjeta" maxlength="19" data-i18n-placeholder="cardNumber" />
-              <input type="text" placeholder="Nombre en la tarjeta" data-i18n-placeholder="cardName" />
-              <input type="text" placeholder="MM/AA" maxlength="5" data-i18n-placeholder="cardExpiry" />
-              <input type="password" inputmode="numeric" autocomplete="off" placeholder="CVV" maxlength="4" data-i18n-placeholder="cardCvv" />
+              <input type="text" inputmode="numeric" autocomplete="cc-number" placeholder="Número de tarjeta" aria-label="Número de tarjeta" maxlength="19" data-i18n-placeholder="cardNumber" />
+              <input type="text" autocomplete="cc-name" placeholder="Nombre en la tarjeta" aria-label="Nombre en la tarjeta" data-i18n-placeholder="cardName" />
+              <input type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" aria-label="Vencimiento de tarjeta" maxlength="5" data-i18n-placeholder="cardExpiry" />
+              <input type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="CVV" aria-label="Código de seguridad de tarjeta" maxlength="4" data-i18n-placeholder="cardCvv" />
             </div>
             
             <div id="qrSection" class="qr-section hidden">
               <p data-i18n="qrHelp">Escaneá para completar el pago.</p>
               <div id="qrContainer"></div>
+              <button id="btnConfirmQR" class="btn-primary" type="button">Confirmar pago QR</button>
             </div>
 
             <div class="coupon-box">
-              <input type="text" id="couponInput" placeholder="Código de cupón" data-i18n-placeholder="couponPlaceholder" />
-              <button id="applyCoupon" class="btn-secondary" data-i18n="applyCoupon">Aplicar</button>
+              <input type="text" id="couponInput" placeholder="Código de cupón" autocomplete="off" aria-label="Código de cupón" data-i18n-placeholder="couponPlaceholder" />
+              <button id="applyCoupon" class="btn-secondary" type="button" data-i18n="applyCoupon">Aplicar</button>
             </div>
+            <p id="couponFeedback" class="coupon-feedback" role="status" aria-live="polite"></p>
 
             <p style="font-size: 0.9rem; opacity: 0.7; margin-top:10px;">
               <span data-i18n="discountNote">*Todos los precios incluyen un 30% de descuento permanente.</span>
