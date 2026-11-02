@@ -2613,3 +2613,88 @@ footer {
     min-height: 140px;
   }
 }
+
+
+/* ===============================
+   ACCESIBILIDAD Y EXPERIENCIA DE INTERACCIÓN
+   Contraste, foco, movimiento y mensajes consistentes.
+   =============================== */
+:root {
+  --irbis-text-muted: #e0d8c8;
+  --irbis-focus-ring: #f6d978;
+}
+html[data-theme="light"] {
+  color-scheme: light;
+  --irbis-accent: #765813;
+  --irbis-accent-strong: #60470f;
+  --irbis-text-muted: #51452f;
+  --irbis-focus-ring: #3b2b08;
+}
+:root {
+  color-scheme: dark;
+}
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .preference-button.is-active {
+  color: #fff;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--irbis-focus-ring) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--irbis-bg, #000);
+}
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* SweetAlert2: una misma jerarquía visual en alertas, errores y confirmaciones. */
+.swal2-popup {
+  border: 1px solid var(--irbis-border-strong, #333) !important;
+  border-radius: 14px !important;
+  background: var(--irbis-bg-elevated, #1a1a1a) !important;
+  color: var(--irbis-text, #eee) !important;
+  font-family: 'Teko', sans-serif !important;
+}
+.swal2-title,
+.swal2-html-container,
+.swal2-validation-message {
+  color: var(--irbis-text, #eee) !important;
+}
+.swal2-styled:focus-visible {
+  outline: 3px solid var(--irbis-focus-ring) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--irbis-bg) !important;
+}
+.swal2-icon.swal2-success { border-color: #23834a; color: #23834a; }
+.swal2-icon.swal2-error { border-color: #c74438; color: #c74438; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .nav-dropdown,
+  .logo img,
+  .btn-primary,
+  .btn-secondary,
+  .btn-detalles,
+  .contenedorDeCard,
+  .contenedorDeCard img {
+    transition: none !important;
+    animation: none !important;
+  }
+  .swiper-wrapper { transition-duration: 0.01ms !important; }
+}
