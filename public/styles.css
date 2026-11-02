@@ -3454,3 +3454,217 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
   }
 }
 
+
+
+/* =========================================
+   AJUSTES DE PRESENTACIÓN SOLICITADOS
+   ========================================= */
+
+/* TopBar y NavBar permanecen juntos durante el scroll. */
+.announcement-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1200;
+  display: flex;
+  width: 100%;
+  height: 28px;
+  min-height: 28px;
+  padding: 2px 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.announcementSwiper,
+.announcementSwiper .swiper-wrapper,
+.announcementSwiper .swiper-slide {
+  width: 100%;
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px;
+}
+
+.announcementSwiper {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 !important;
+}
+
+.announcementSwiper .swiper-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.announcementSwiper .swiper-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px !important;
+  margin: 0;
+  color: #111;
+  font: 600 .72rem/1.2 Arial, sans-serif;
+  text-align: center;
+  text-transform: none;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.navbar {
+  position: fixed;
+  top: 28px;
+  left: 0;
+  z-index: 1100;
+}
+
+.navbar-spacer {
+  height: 0;
+}
+
+/* El drawer y su overlay deben cubrir TopBar y NavBar. */
+#cartOverlay {
+  z-index: 2000;
+}
+
+#cartDrawer {
+  z-index: 2001;
+}
+
+/* Centrado integral de las tarjetas del catálogo. */
+.contenedorDeCard {
+  align-items: center;
+  text-align: center;
+}
+
+.contenedorDeCard > img {
+  margin-inline: auto;
+}
+
+.contenedorDeCard h3,
+.contenedorDeCard p,
+.contenedorDeCard .descripcion-producto,
+.contenedorDeCard .precio-producto,
+.contenedorDeCard .detalles-container {
+  width: 100%;
+  text-align: center;
+}
+
+.contenedorDeCard .btn-detalles {
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contenedorDeCard .detalles-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedorDeCard .colores-container {
+  justify-content: center;
+  width: 100%;
+}
+
+.contenedorDeCard > .btn-primary {
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Enlaces legales debajo del Newsletter. */
+.footer-newsletter .footer-legal-links {
+  margin-top: 12px;
+}
+
+.footer-contact .footer-legal-links {
+  display: none;
+}
+
+/* Mensaje y botón comparten fila y altura; el texto scrollea dentro. */
+.footer-contact-form {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+}
+
+.footer-contact-form input {
+  grid-column: 1 / -1;
+}
+
+.footer-contact-form textarea {
+  grid-column: 1;
+  grid-row: auto;
+  height: 58px;
+  min-height: 58px;
+  max-height: 58px;
+  overflow-y: auto;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.footer-contact-form button {
+  grid-column: 2;
+  grid-row: auto;
+  align-self: stretch;
+  justify-self: stretch;
+  min-height: 58px;
+  height: 58px;
+  width: auto;
+  white-space: normal;
+}
+
+@media (max-width: 767px) {
+  .announcement-bar {
+    height: 28px;
+    min-height: 28px;
+    padding: 2px 8px;
+  }
+
+  .announcementSwiper .swiper-slide {
+    padding-inline: 6px !important;
+    font-size: .66rem;
+  }
+
+  .navbar {
+    top: 28px;
+  }
+
+  .contenedorDeCard {
+    text-align: center;
+  }
+
+  .contenedorDeCard .btn-detalles {
+    align-self: center;
+  }
+
+  .footer-contact-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .footer-contact-form input {
+    grid-column: 1 / -1;
+  }
+
+  .footer-contact-form textarea {
+    grid-column: 1;
+    grid-row: auto;
+    height: 58px;
+    min-height: 58px;
+    max-height: 58px;
+  }
+
+  .footer-contact-form button {
+    grid-column: 2;
+    grid-row: auto;
+    width: auto;
+    min-width: 112px;
+    min-height: 58px;
+    height: 58px;
+    padding: 8px 10px;
+    font-size: .78rem;
+  }
+
+  .footer-newsletter .footer-legal-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
