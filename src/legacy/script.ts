@@ -478,7 +478,7 @@ function renderProductos() {
             ${producto.colores.map(c => `
               <button class="color-swatch" type="button" data-producto="${producto.id}"
                 data-color="${escapeHtml(c.nombre)}" title="${escapeHtml(c.nombre)}"
-                aria-label="Color ${escapeHtml(c.nombre)}"
+                aria-label="Color ${escapeHtml(c.nombre)}" aria-pressed="false"
                 style="background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'}"></button>
             `).join("")}
           </div>
@@ -819,9 +819,13 @@ document.addEventListener("click", (e) => {
 
   // Limpiar selección previa del mismo producto
   document.querySelectorAll(`.color-swatch[data-producto="${productoId}"]`)
-    .forEach(el => el.classList.remove("color-activo"));
+    .forEach(el => {
+      el.classList.remove("color-activo");
+      el.setAttribute("aria-pressed", "false");
+    });
 
   swatch.classList.add("color-activo");
+  swatch.setAttribute("aria-pressed", "true");
 });
 
 // ===============================
