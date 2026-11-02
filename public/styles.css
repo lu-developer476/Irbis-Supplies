@@ -4132,3 +4132,42 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
     grid-template-columns: minmax(82px, .7fr) minmax(0, 1.3fr) 88px !important;
   }
 }
+
+/* Alineación vertical uniforme de los controles solicitados. */
+.navbar-menu-content,
+.navbar-menu-content .nav-menu-section,
+.navbar-menu-content .preference-controls,
+.navbar-menu-content .segmented-control,
+.navbar-menu-content .nav-menu-links,
+.navbar-menu-content .nav-menu-links li {
+  align-items: center;
+}
+
+.navbar-menu-content .segmented-control {
+  padding-block: 0;
+}
+
+.navbar-menu-content .auth-menu-button,
+.navbar-menu-content .preference-button,
+.navbar-menu-content .nav-menu-links a,
+.navbar-menu-content .nav-menu-links button {
+  align-self: center;
+  margin-block: 0;
+  padding-block: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedorDeCard .btn-detalles {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin-block: 0;
+  padding-block: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
