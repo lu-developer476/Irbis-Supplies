@@ -67,8 +67,8 @@ const ORDERS_KEY = "irbis_orders";
 const LANGUAGE_KEY = "irbis_language";
 
 const legacyTranslations: Record<"es" | "en", Record<string, string>> = {
-  es: { details: "Detalles", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
-  en: { details: "Details", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
+  es: { details: "Detalles", selectColor: "Seleccionar", addToCart: "Agregar al carrito", emptyCart: "El carrito está vacío.", coupon: "Cupón", cardSurcharge: "Recargo tarjeta", cashDiscount: "Descuento efectivo", noProducts: "No encontramos productos con esos filtros.", results: "productos encontrados", result: "producto encontrado" },
+  en: { details: "Details", selectColor: "Select", addToCart: "Add to cart", emptyCart: "Cart is empty.", coupon: "Coupon", cardSurcharge: "Card surcharge", cashDiscount: "Cash discount", noProducts: "No products matched those filters.", results: "products found", result: "product found" },
 };
 
 function currentLanguage(): "es" | "en" {
@@ -528,7 +528,7 @@ function renderProductos() {
                   data-producto="${producto.id}"
                   data-color="${escapeHtml(c.nombre)}"
                   title="${escapeHtml(c.nombre)}"
-                  aria-label="Seleccionar ${escapeHtml(c.nombre)}"
+                  aria-label="${t("selectColor")} ${escapeHtml(c.nombre)}"
                   aria-pressed="false"
                   style="appearance:none;padding:0;border-radius:50%;min-width:18px;min-height:18px;line-height:0;
                     background:${/^#[0-9a-fA-F]{3,8}$/.test(c.hex) ? c.hex : '#777'};
