@@ -86,7 +86,7 @@ body {
    display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  font-family: 'Teko', sans-serif;
+  font-family: var(--irbis-font-family);
   letter-spacing: 1.5px;
   transition: 0.3s;
 }
@@ -765,7 +765,7 @@ footer {
   --irbis-overlay: rgba(0, 0, 0, 0.55);
   --irbis-shadow: rgba(0, 0, 0, 0.4);
   /* Design tokens shared by the existing interface components. */
-  --irbis-font-family: 'Teko', sans-serif;
+  --irbis-font-family: var(--irbis-font-family);
   --irbis-space-1: 4px;
   --irbis-space-2: 8px;
   --irbis-space-3: 12px;
@@ -775,7 +775,7 @@ footer {
   --irbis-radius-card: 10px;
   --irbis-radius-panel: 16px;
   --irbis-radius-pill: 999px;
-  --irbis-control-min-height: 42px;
+  --irbis-control-min-height: var(--irbis-control-min-height);
   --irbis-card-shadow: 0 14px 30px var(--irbis-shadow);
 }
 
@@ -1267,7 +1267,7 @@ html[data-theme="light"] .brand-copy strong {
   border-radius: 10px;
   background: var(--irbis-bg-elevated);
   color: var(--irbis-text-strong);
-  font-family: 'Teko', sans-serif;
+  font-family: var(--irbis-font-family);
   font-size: 18px;
   letter-spacing: 1px;
 }
@@ -1377,7 +1377,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 .contenedorDeCard {
   min-width: 0;
-  border-radius: 10px;
+  border-radius: var(--irbis-radius-card);
   overflow: hidden;
   box-shadow: 0 12px 28px rgb(0 0 0 / 22%);
 }
@@ -1388,7 +1388,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 .contenedorDeCard h3 { overflow-wrap: anywhere; }
 .btn-primary, .btn-secondary, .btn-detalles {
-  min-height: 42px;
+  min-height: var(--irbis-control-min-height);
 }
 .cart-drawer {
   max-width: min(100vw, 760px);
@@ -1822,7 +1822,7 @@ footer {
 
   .contenedorDeCard .btn-detalles {
     align-self: stretch;
-    min-height: 42px;
+    min-height: var(--irbis-control-min-height);
   }
 
   .product-filters {
@@ -1869,7 +1869,7 @@ footer {
    =============================== */
 .cart-drawer { overscroll-behavior: contain; }
 .cart-drawer__header { flex: 0 0 auto; min-height: 64px; }
-.cart-drawer__header button { min-width: 42px; min-height: 42px; }
+.cart-drawer__header button { min-width: 42px; min-height: var(--irbis-control-min-height); }
 .cart-drawer__body, .carrito-wrapper { min-width: 0; }
 .cart-items-scroll, .carrito-sidebar { scrollbar-gutter: stable; overscroll-behavior: contain; }
 .item-carrito {
@@ -1906,7 +1906,7 @@ footer {
   display: block; margin-bottom: 6px; color: var(--irbis-text); font-weight: 700;
 }
 .shipping-method select, .payment-method select, .coupon-box input, .card-fields input {
-  width: 100%; min-width: 0; min-height: 42px; border: 1px solid var(--irbis-border-strong, #444);
+  width: 100%; min-width: 0; min-height: var(--irbis-control-min-height); border: 1px solid var(--irbis-border-strong, #444);
   border-radius: 6px; padding: 9px 11px; background: var(--irbis-bg-elevated, #1a1a1a);
   color: var(--irbis-text, #eee); font: inherit; letter-spacing: 0.02em;
 }
