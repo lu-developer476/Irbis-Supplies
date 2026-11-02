@@ -394,11 +394,18 @@ function maskCard(num) {
   return last4 ? `**** **** **** ${last4}` : "**** **** **** ****";
 }
 
+function normalizarTextoCatalogo(valor) {
+  return String(valor || "")
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "")
+    .toLocaleLowerCase(currentLanguage());
+}
+
 function obtenerCategoriaProducto(producto) {
-  const texto = `${escapeHtml(producto.nombre)} ${escapeHtml(producto.descripcion)}`.toLowerCase();
+  const texto = normalizarTextoCatalogo(`${producto.nombre} ${producto.descripcion}`);
 
   if (texto.includes("escopeta")) return "shotgun";
-  if (texto.includes("pistola") || texto.includes("revólver")) return "handgun";
+  if (texto.includes("pistola") || texto.includes("revolver")) return "handgun";
   if (texto.includes("subfusil")) return "smg";
   if (texto.includes("rifle") || texto.includes("fusil") || texto.includes("carabina")) return "rifle";
 
@@ -406,15 +413,15 @@ function obtenerCategoriaProducto(producto) {
 }
 
 function obtenerProductosFiltrados() {
-  const busqueda = (productSearch?.value || "").trim().toLowerCase();
+  const busqueda = normalizarTextoCatalogo((productSearch?.value || "").trim());
   const categoria = categoryFilter?.value || "all";
   const rangoPrecio = priceFilter?.value || "all";
   const orden = sortProducts?.value || "name-asc";
 
   let visibles = productos.filter(producto => {
     const coincideBusqueda = !busqueda ||
-      producto.nombre.toLowerCase().includes(busqueda) ||
-      producto.descripcion.toLowerCase().includes(busqueda);
+      normalizarTextoCatalogo(producto.nombre).includes(busqueda) ||
+      normalizarTextoCatalogo(producto.descripcion).includes(busqueda);
     const coincideCategoria = categoria === "all" || obtenerCategoriaProducto(producto) === categoria;
     let coincidePrecio = true;
 
@@ -446,9 +453,15 @@ function renderProductos() {
   const productosVisibles = obtenerProductosFiltrados();
 
   if (filterResults) {
-    filterResults.innerText = productosVisibles.length === 0
+    const sinResultados = productosVisibles.length === 0;
+    filterResults.innerText = sinResultados
       ? t("noProducts")
       : `${productosVisibles.length} ${t(productosVisibles.length === 1 ? "result" : "results")}`;
+    filterResults.classList.toggle("is-empty", sinResultados);
+    filterResults.dataset.resultCount = String(productosVisibles.length);
+    filterResults.setAttribute("role", "status");
+    filterResults.setAttribute("aria-live", "polite");
+    filterResults.setAttribute("aria-atomic", "true");
   }
 
   productosVisibles.forEach(producto => {
@@ -460,11 +473,11 @@ function renderProductos() {
       <img src="${escapeHtml(safeAssetPath(producto.imagen))}" alt="${escapeHtml(producto.nombre)}">
       <h3>${escapeHtml(producto.nombre)}</h3>
 
-      <button class="btn-detalles" data-id="${producto.id}">
+      <button class="btn-detalles" type="button" data-id="${producto.id}" aria-expanded="false" aria-controls="detalles-${producto.id}">
         ${t("details")}
       </button>
 
-      <div class="detalles-container" id="detalles-${producto.id}" style="display:none;">
+      <div class="detalles-container" id="detalles-${producto.id}" hidden>
         
         <p class="descripcion-producto">
           ${escapeHtml(producto.descripcion)}
@@ -815,8 +828,9 @@ document.addEventListener("click", (e) => {
 
   if (!contenedor) return;
 
-  contenedor.style.display =
-    contenedor.style.display === "none" ? "block" : "none";
+  const expanded = btn.getAttribute("aria-expanded") === "true";
+  btn.setAttribute("aria-expanded", String(!expanded));
+  contenedor.hidden = expanded;
 });
 
 // Selección de color
