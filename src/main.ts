@@ -43,3 +43,32 @@ wireAuthUI();
 // Preferencias visuales de idioma, tema y menú principal
 wirePreferencesUI();
 wireNavDropdown();
+wireCategoryShortcuts();
+
+
+function wireCategoryShortcuts() {
+  const shortcuts = document.querySelectorAll<HTMLButtonElement>("[data-category-shortcut]");
+  const categorySelect = document.getElementById("categoryFilter") as HTMLSelectElement | null;
+  if (!shortcuts.length || !categorySelect) return;
+
+  shortcuts.forEach((shortcut) => {
+    shortcut.addEventListener("click", () => {
+      categorySelect.value = shortcut.dataset.categoryShortcut || "all";
+      shortcuts.forEach((item) => {
+        const active = item === shortcut;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      categorySelect.dispatchEvent(new Event("change", { bubbles: true }));
+      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  categorySelect.addEventListener("change", () => {
+    shortcuts.forEach((item) => {
+      const active = item.dataset.categoryShortcut === categorySelect.value;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+  });
+}
