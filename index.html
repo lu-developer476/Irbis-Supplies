@@ -29,8 +29,8 @@
 
   <div class="store-announcement" role="note">
     <span>IRBIS SUPPLIES</span>
-    <span class="store-announcement__message">Equipamiento seleccionado para cada desafío</span>
-    <a href="#productos">Explorar tienda <span aria-hidden="true">→</span></a>
+    <span class="store-announcement__message" data-i18n="announcementMessage">Equipamiento seleccionado para cada desafío</span>
+    <a href="#productos"><span data-i18n="announcementCta">Explorar tienda</span> <span aria-hidden="true">→</span></a>
   </div>
 
   <!-- HERO PRINCIPAL -->
@@ -89,17 +89,17 @@
 
     <div class="hero-content">
       <div class="hero-copy">
-        <p class="hero-eyebrow">PREPARACIÓN · EQUIPAMIENTO · SUMINISTROS</p>
-        <h1>Preparado para lo que <span>viene.</span></h1>
-        <p class="hero-description">Encontrá equipamiento, accesorios y suministros seleccionados. Todo lo que necesitás, en un solo lugar.</p>
+        <p class="hero-eyebrow" data-i18n="heroEyebrow">PREPARACIÓN · EQUIPAMIENTO · SUMINISTROS</p>
+        <h1><span class="hero-title-main" data-i18n="heroTitlePrefix">Preparado para lo que</span> <span class="hero-title-accent" data-i18n="heroTitleAccent">viene.</span></h1>
+        <p class="hero-description" data-i18n="heroDescription">Encontrá equipamiento, accesorios y suministros seleccionados. Todo lo que necesitás, en un solo lugar.</p>
         <div class="hero-actions">
-          <a class="btn-primary hero-cta" href="#productos">Explorar productos <span aria-hidden="true">↗</span></a>
-          <a class="hero-secondary-link" href="#beneficios">Conocé nuestros beneficios</a>
+          <a class="btn-primary hero-cta" href="#productos"><span data-i18n="heroExplore">Explorar productos</span> <span aria-hidden="true">↗</span></a>
+          <a class="hero-secondary-link" href="#beneficios" data-i18n="heroBenefits">Conocé nuestros beneficios</a>
         </div>
         <div class="hero-proof" aria-label="Ventajas de compra">
-          <span><strong>01</strong> Catálogo especializado</span>
-          <span><strong>02</strong> Compra simple</span>
-          <span><strong>03</strong> Atención personalizada</span>
+          <span><strong>01</strong> <span data-i18n="proofCatalog">Catálogo especializado</span></span>
+          <span><strong>02</strong> <span data-i18n="proofCheckout">Compra simple</span></span>
+          <span><strong>03</strong> <span data-i18n="proofSupport">Atención personalizada</span></span>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -113,9 +113,9 @@
   </section>
 
   <section id="beneficios" class="store-benefits" aria-label="Beneficios de compra">
-    <div class="store-benefit"><span class="store-benefit__icon">◇</span><div><strong>Selección especializada</strong><small>Productos elegidos por categoría</small></div></div>
-    <div class="store-benefit"><span class="store-benefit__icon">⌁</span><div><strong>Compra sencilla</strong><small>Armá tu pedido en pocos pasos</small></div></div>
-    <div class="store-benefit"><span class="store-benefit__icon">◎</span><div><strong>Atención directa</strong><small>Consultas y coordinación de entrega</small></div></div>
+    <div class="store-benefit"><span class="store-benefit__icon">◇</span><div><strong data-i18n="benefitSelection">Selección especializada</strong><small data-i18n="benefitSelectionText">Productos elegidos por categoría</small></div></div>
+    <div class="store-benefit"><span class="store-benefit__icon">⌁</span><div><strong data-i18n="benefitCheckout">Compra sencilla</strong><small data-i18n="benefitCheckoutText">Armá tu pedido en pocos pasos</small></div></div>
+    <div class="store-benefit"><span class="store-benefit__icon">◎</span><div><strong data-i18n="benefitSupport">Atención directa</strong><small data-i18n="benefitSupportText">Consultas y coordinación de entrega</small></div></div>
   </section>
 
   <!-- ===============================
@@ -125,18 +125,18 @@
 <section id="productos" class="productos">
       <div class="section-heading">
         <div>
-          <p class="section-eyebrow">IRBIS / CATÁLOGO</p>
+          <p class="section-eyebrow" data-i18n="sectionEyebrow">IRBIS / CATÁLOGO</p>
           <h2 data-i18n="products">Encontrá lo que buscás</h2>
-          <p class="section-description">Explorá nuestras categorías y descubrí el equipamiento disponible.</p>
+          <p class="section-description" data-i18n="sectionDescription">Explorá nuestras categorías y descubrí el equipamiento disponible.</p>
         </div>
-        <span class="section-side-note">PRODUCTOS<br>SELECCIONADOS</span>
+        <span class="section-side-note" data-i18n="sectionSideNote">PRODUCTOS · SELECCIONADOS</span>
       </div>
       <div class="category-shortcuts" aria-label="Explorar categorías">
-        <button type="button" class="category-shortcut is-active" data-category-shortcut="all" aria-pressed="true"><span>✳</span> Todo</button>
-        <button type="button" class="category-shortcut" data-category-shortcut="rifle" aria-pressed="false"><span>▱</span> Rifles</button>
-        <button type="button" class="category-shortcut" data-category-shortcut="shotgun" aria-pressed="false"><span>◫</span> Escopetas</button>
-        <button type="button" class="category-shortcut" data-category-shortcut="handgun" aria-pressed="false"><span>◉</span> Pistolas</button>
-        <button type="button" class="category-shortcut" data-category-shortcut="smg" aria-pressed="false"><span>▤</span> Subfusiles</button>
+        <button type="button" class="category-shortcut is-active" data-category-shortcut="all" aria-pressed="true"><span>✳</span> <span data-i18n="categoryAll">Todo</span></button>
+        <button type="button" class="category-shortcut" data-category-shortcut="rifle" aria-pressed="false"><span>▱</span> <span data-i18n="filterRifles">Rifles</span></button>
+        <button type="button" class="category-shortcut" data-category-shortcut="shotgun" aria-pressed="false"><span>◫</span> <span data-i18n="filterShotguns">Escopetas</span></button>
+        <button type="button" class="category-shortcut" data-category-shortcut="handgun" aria-pressed="false"><span>◉</span> <span data-i18n="filterHandguns">Pistolas</span></button>
+        <button type="button" class="category-shortcut" data-category-shortcut="smg" aria-pressed="false"><span>▤</span> <span data-i18n="filterSmgs">Subfusiles</span></button>
       </div>
 
       <form class="product-filters" id="productFilters" aria-label="Filtros de productos">
