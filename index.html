@@ -32,13 +32,13 @@
 
 <body>
 
-  <!-- ===============================
-       HERO COMPLETO
-  =============================== -->
-  <section class="hero">
+  <!-- BARRA INFORMATIVA: CONSEJOS DE SUPERVIVENCIA -->
+  <aside class="announcement-bar" aria-label="Consejos de supervivencia">
+    <p data-i18n="survivalTips">Consejo de supervivencia: almacená agua potable para emergencias · Prepará un botiquín y revisá sus vencimientos · Acordá un punto de encuentro familiar.</p>
+  </aside>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
+  <!-- NAVBAR FIJO DURANTE EL SCROLL -->
+  <header class="navbar">
       <div class="navbar-left">
         <a class="logo" href="#productos" aria-label="Irbis Supplies - catálogo">
           <img src="./images/logo.png" alt="Irbis Supplies Logo" />
@@ -75,8 +75,9 @@
           <li><button id="btnHistorial" class="btn-secondary" type="button" data-i18n="history">📝 Historial</button></li>
         </ul>
       </nav></nav>
-    </header>
 
+  <!-- HERO COMPLETO -->
+  <section class="hero">
     <!-- SWIPER -->
     <div class="hero-content">
       <div class="swiper mySwiper" role="region" aria-roledescription="carousel" aria-label="Mensajes destacados de Irbis Supplies">
@@ -238,10 +239,48 @@
   <!-- ===============================
        FOOTER
   =============================== -->
-<footer>
-<h6>
-  <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • <span data-i18n="footerBuilt">Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript</span> • <span data-i18n="footerUx">UX/UI Interface</span> • <span data-i18n="footerDb">Database powered by Firebase</span> • <span data-i18n="footerDeploy">Deployed on Netlify ®</span>
-</h6>
+<footer id="footer" class="site-footer">
+  <div class="footer-content">
+    <section class="footer-newsletter" aria-labelledby="newsletterTitle">
+      <h3 id="newsletterTitle" data-i18n="newsletterTitle">Newsletter</h3>
+      <p data-i18n="newsletterDescription">Recibí consejos de preparación, seguridad y novedades útiles directamente en tu correo.</p>
+      <form name="newsletter" method="POST" action="/?newsletter=success#footer" data-netlify="true" netlify-honeypot="bot-field" class="footer-form">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
+        <label class="visually-hidden" for="newsletterEmail" data-i18n="newsletterEmailLabel">Correo electrónico</label>
+        <input id="newsletterEmail" type="email" name="email" autocomplete="email" maxlength="160" placeholder="Tu correo electrónico" data-i18n-placeholder="newsletterEmailPlaceholder" required />
+        <button class="btn-primary" type="submit" data-i18n="newsletterSubmit">Suscribirme</button>
+      </form>
+      <p id="newsletterStatus" class="form-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="footer-contact" aria-labelledby="contactTitle">
+      <h3 id="contactTitle" data-i18n="contactTitle">Contacto y atención</h3>
+      <p data-i18n="contactDescription">¿Tenés una consulta o necesitás asistencia? Escribinos mediante este formulario.</p>
+      <form name="contacto" method="POST" action="/?contact=success#footer" data-netlify="true" netlify-honeypot="bot-field" class="footer-form footer-contact-form">
+        <input type="hidden" name="form-name" value="contacto" />
+        <p class="form-honeypot" aria-hidden="true"><label>No completar: <input name="bot-field" /></label></p>
+        <label class="visually-hidden" for="contactName" data-i18n="contactNameLabel">Nombre</label>
+        <input id="contactName" type="text" name="name" autocomplete="name" maxlength="120" placeholder="Nombre" data-i18n-placeholder="contactNamePlaceholder" required />
+        <label class="visually-hidden" for="contactEmail" data-i18n="contactEmailLabel">Correo electrónico</label>
+        <input id="contactEmail" type="email" name="email" autocomplete="email" maxlength="160" placeholder="Correo electrónico" data-i18n-placeholder="contactEmailPlaceholder" required />
+        <label class="visually-hidden" for="contactMessage" data-i18n="contactMessageLabel">Mensaje</label>
+        <textarea id="contactMessage" name="message" rows="3" maxlength="2000" placeholder="Contanos cómo podemos ayudarte" data-i18n-placeholder="contactMessagePlaceholder" required></textarea>
+        <button class="btn-secondary" type="submit" data-i18n="contactSubmit">Enviar consulta</button>
+      </form>
+      <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
+      <nav class="footer-legal-links" aria-label="Atención al consumidor">
+        <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener noreferrer" data-i18n="claimsLink">Para reclamos, ingresá acá.</a>
+        <a href="https://zannavara.mitiendanube.com/contacto/?order_cancellation_without_id=true" target="_blank" rel="noopener noreferrer" data-i18n="regretLink">Botón de arrepentimiento</a>
+      </nav>
+    </section>
+  </div>
+
+  <div class="footer-meta">
+    <h6>
+      <span>©</span> <span id="year"></span> <span data-i18n="footerRights">Todos los derechos reservados</span> • <span data-i18n="footerBuilt">Built with HTML5, CSS3, JavaScript, TypeScript & CoffeeScript</span> • <span data-i18n="footerUx">UX/UI Interface</span> • <span data-i18n="footerDb">Database powered by Firebase</span> • <span data-i18n="footerDeploy">Deployed on Netlify ®</span>
+    </h6>
+  </div>
 </footer>
 
   <!-- ===============================
@@ -251,6 +290,25 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const language = localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    const params = new URLSearchParams(window.location.search);
+    const formMessages = {
+      es: {
+        newsletter: "¡Suscripción recibida! Gracias por sumarte.",
+        contact: "¡Consulta enviada! Gracias por escribirnos."
+      },
+      en: {
+        newsletter: "Subscription received! Thanks for joining.",
+        contact: "Your message was sent. Thanks for contacting us."
+      }
+    };
+    if (params.get("newsletter") === "success") {
+      document.getElementById("newsletterStatus").textContent = formMessages[language].newsletter;
+    }
+    if (params.get("contact") === "success") {
+      document.getElementById("contactStatus").textContent = formMessages[language].contact;
+    }
   </script>
   
   <script>
