@@ -370,11 +370,6 @@
       language = "es";
     }
     const params = new URLSearchParams(window.location.search);
-    const successType = params.get("newsletter") === "success"
-      ? "newsletter"
-      : params.get("contact") === "success"
-        ? "contact"
-        : null;
 
     const successCopy = {
       es: {
@@ -423,9 +418,10 @@
       }
     };
 
-    if (successType) {
+    function showFormSuccess(type) {
       const screen = document.getElementById("formSuccessScreen");
-      const copy = successCopy[language][successType];
+      const copy = successCopy[language][type];
+      if (!screen || !copy) return;
 
       document.body.classList.add("form-success-mode");
       screen.hidden = false;
@@ -437,10 +433,72 @@
       });
 
       document.getElementById("formSuccessYear").textContent = new Date().getFullYear();
-      document.title = successType === "newsletter"
+      document.title = type === "newsletter"
         ? (language === "en" ? "Subscription received! | Irbis Supplies" : "¡Suscripción recibida! | Irbis Supplies")
         : (language === "en" ? "Message sent! | Irbis Supplies" : "¡Consulta enviada! | Irbis Supplies");
     }
+
+    // Compatibilidad con los POST nativos que vuelvan a la portada con query string.
+    if (params.get("newsletter") === "success") showFormSuccess("newsletter");
+    if (params.get("contact") === "success") showFormSuccess("contact");
+
+    // Envío AJAX oficial de Netlify Forms: evita depender de una página de destino
+    // separada y muestra la confirmación solo cuando Netlify acepta la respuesta.
+    const formErrorMessages = {
+      es: "No pudimos enviar el formulario. Revisá tu conexión e intentá nuevamente.",
+      en: "We couldn't submit the form. Check your connection and try again."
+    };
+
+    document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
+      const formType = form.name === "newsletter"
+        ? "newsletter"
+        : form.name === "contacto"
+          ? "contact"
+          : null;
+      if (!formType) return;
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const status = document.getElementById(formType === "newsletter" ? "newsletterStatus" : "contactStatus");
+        if (submitButton) submitButton.disabled = true;
+        form.setAttribute("aria-busy", "true");
+        if (status) {
+          status.textContent = "";
+          status.removeAttribute("data-state");
+        }
+
+        try {
+          const formData = new FormData(form);
+          const encoded = new URLSearchParams();
+          for (const [key, value] of formData.entries()) {
+            if (typeof value === "string") encoded.append(key, value);
+          }
+
+          const response = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: encoded.toString()
+          });
+
+          if (!response.ok) {
+            throw new Error(`Netlify Forms returned HTTP ${response.status}`);
+          }
+
+          showFormSuccess(formType);
+        } catch (error) {
+          console.error("Netlify form submission failed:", error);
+          if (status) {
+            status.textContent = formErrorMessages[language];
+            status.dataset.state = "error";
+          }
+        } finally {
+          if (submitButton) submitButton.disabled = false;
+          form.removeAttribute("aria-busy");
+        }
+      });
+    });
   </script>
   
   <script>
