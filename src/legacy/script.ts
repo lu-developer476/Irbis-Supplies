@@ -83,7 +83,7 @@ function t(key: string): string {
 // ===============================
 // ESTADO
 // ===============================
-let carrito: CartEntry[] = storageGetJSON(CART_KEY, []);
+let carrito: CartEntry[] = storageGetJSON<CartEntry[]>(CART_KEY, []);
 
 const COUPON_PROMPT_KEY = "irbis_coupon_prompted";
 
@@ -307,7 +307,7 @@ async function cargarProductos() {
     if (!Array.isArray(catalogo) || !catalogo.every(isCatalogProductData)) {
       throw new Error("El catálogo tiene un formato inválido.");
     }
-    const productosBase = catalogo;
+    const productosBase = catalogo as CatalogProductData[];
 
     let factorInflacion: number | null = null;
 
