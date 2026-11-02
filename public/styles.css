@@ -1414,7 +1414,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
    STOREFRONT EXPERIENCE
    =============================== */
 :root { --store-line: rgba(219,196,128,.2); --store-gold: #d4b65f; --store-muted: #a7a795; }
-body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: 0; background: #0b0d0b; }
+body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: 0; background: var(--irbis-bg); }
 .store-announcement { min-height:38px; padding:7px clamp(16px,5vw,72px); display:flex; align-items:center; justify-content:space-between; gap:18px; color:#17170f; background:var(--store-gold); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
 .store-announcement__message { flex:1; text-align:center; }
 .store-announcement a { color:inherit; text-decoration:none; white-space:nowrap; }
@@ -1504,3 +1504,21 @@ footer { padding:24px 16px; border-top:1px solid var(--store-line); font-family:
 }
 @media(max-width:390px) { .grid-productos { grid-template-columns:1fr; } .product-card__purchase { flex-direction:row; align-items:center; } .product-add-button.btn-primary { width:auto; } }
 @media(prefers-reduced-motion:reduce) { .contenedorDeCard,.product-card__image-wrap img { transition:none!important; } }
+
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="light"] .productos { background: var(--irbis-bg); }
+html[data-theme="light"] .section-heading h2 { color: var(--irbis-text-strong); }
+html[data-theme="light"] .contenedorDeCard { background: var(--irbis-bg-card); border-color: var(--irbis-border); }
+html[data-theme="light"] .contenedorDeCard:hover { background: var(--irbis-bg-elevated); }
+html[data-theme="light"] .product-card__image-wrap { background: var(--irbis-bg-elevated); border-color: var(--irbis-border); }
+html[data-theme="light"] .contenedorDeCard h3,
+html[data-theme="light"] .store-benefit strong { color: var(--irbis-text-strong); }
+html[data-theme="light"] .descripcion-producto,
+html[data-theme="light"] .section-description,
+html[data-theme="light"] .product-card__options > span { color: var(--irbis-text-muted); }
+html[data-theme="light"] .category-shortcut,
+html[data-theme="light"] .product-filters { background: var(--irbis-bg-card); color: var(--irbis-text); }
+html[data-theme="light"] .product-filters input,
+html[data-theme="light"] .product-filters select { background: var(--irbis-bg-elevated); color: var(--irbis-text-strong); }
+html[data-theme="light"] .product-card__purchase,
+html[data-theme="light"] .product-card__options { border-color: var(--irbis-border); }
