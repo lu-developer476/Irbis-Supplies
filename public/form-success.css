@@ -247,8 +247,8 @@ body.form-success-mode #formSuccessScreen {
   }
 }
 
-/* Las confirmaciones ocupan exactamente el viewport: no generan scroll. */
-html,
+/* El bloqueo de scroll se limita a las vistas de confirmación.
+   La página principal nunca recibe overflow:hidden ni altura fija. */
 body.success-page,
 body.form-success-mode {
   width: 100%;
