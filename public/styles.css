@@ -4001,3 +4001,38 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
 .swal2-container {
   z-index: 3000 !important;
 }
+
+/* Contacto: más ancho para el mensaje y menor altura total del formulario. */
+.footer-contact-form {
+  grid-template-columns: minmax(0, 1fr) 96px !important;
+}
+
+.footer-contact-form #contactMessage,
+.footer-contact-form button {
+  height: 44px;
+  min-height: 44px;
+  max-height: 44px;
+  box-sizing: border-box;
+}
+
+.footer-contact-form button {
+  width: 96px;
+  min-width: 96px;
+  padding: 6px 7px;
+  font-size: .74rem;
+  line-height: 1.1;
+}
+
+@media (max-width: 767px) {
+  .footer-contact-form {
+    grid-template-columns: minmax(0, 1fr) 88px !important;
+  }
+
+  .footer-contact-form button {
+    width: 88px;
+    min-width: 88px;
+    padding: 6px;
+    font-size: .7rem;
+  }
+}
+
