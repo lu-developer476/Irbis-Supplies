@@ -898,18 +898,18 @@ function invoiceHTML(order) {
         <div class="muted">Comprobante de pago</div>
       </div>
       <div class="meta">
-        <div><strong>Factura ${order.invoiceType} Nº ${order.invoiceNumber}</strong></div>
-        <div><strong>Orden:</strong> ${order.orderId}</div>
-        <div><strong>Fecha:</strong> ${order.date}</div>
+        <div><strong>Factura ${escapeHtml(order.invoiceType)} Nº ${escapeHtml(order.invoiceNumber)}</strong></div>
+        <div><strong>Orden:</strong> ${escapeHtml(order.orderId)}</div>
+        <div><strong>Fecha:</strong> ${escapeHtml(order.date)}</div>
       </div>
     </div>
 
     <div class="grid">
       <div class="box">
         <div class="boxTitle">Cliente</div>
-        <div><strong>${order.customer.nombre}</strong></div>
-        <div>${order.customer.email}</div>
-        <div>${order.customer.direccion}</div>
+        <div><strong>${escapeHtml(order.customer.nombre)}</strong></div>
+        <div>${escapeHtml(order.customer.email)}</div>
+        <div>${escapeHtml(order.customer.direccion)}</div>
       </div>
 
       <div class="box">
@@ -1017,7 +1017,7 @@ function abrirVentanaFactura(order) {
   w.document.write(`
     <html>
       <head>
-        <title>Factura ${order.orderId} - Irbis Supplies</title>
+        <title>Factura ${escapeHtml(order.orderId)} - Irbis Supplies</title>
         <meta charset="UTF-8" />
 
         <style>
