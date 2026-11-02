@@ -801,6 +801,8 @@ function renderCarrito(): void {
   }
 
   carrito.forEach(p => {
+    const productoCatalogo = productos.find(x => x.id === p.id);
+    const nombreVisible = productoCatalogo ? textoProducto(productoCatalogo, "nombre") : p.nombre;
     const row = document.createElement("div");
     row.classList.add("item-carrito");
 
@@ -809,7 +811,7 @@ function renderCarrito(): void {
     row.innerHTML = `
       ${imgSrc ? `<img class="item-carrito__thumb" src="${escapeHtml(safeAssetPath(imgSrc))}" alt="" width="64" height="64" loading="lazy" decoding="async">` : ""}
       <div class="item-carrito__info">
-        <h4>${escapeHtml(textoProducto(productos.find(x => x.id === p.id) || ({ nombre: p.nombre, descripcion: "", colores: [], precioBase: 0, imagen: "", id: p.id } as CatalogProduct), "nombre"))}</h4>
+        <h4>${escapeHtml(nombreVisible)}</h4>
         <p class="item-carrito__variant">${t("colorLabel")} <strong>${escapeHtml(textoColor(p.color))}</strong></p>
         <p class="item-carrito__precio">
           <span>${currency(p.precio)} ${t("unitPrice")}</span>
