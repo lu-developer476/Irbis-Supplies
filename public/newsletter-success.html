@@ -4,11 +4,85 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta http-equiv="refresh" content="0;url=https://irbis-supplies.netlify.app/?newsletter=success">
-  <title>Redirigiendo | Irbis Supplies</title>
-  <script>window.location.replace("https://irbis-supplies.netlify.app/?newsletter=success");</script>
+  <meta name="theme-color" content="#080a08">
+  <meta name="description" content="Confirmación de suscripción al newsletter de Irbis Supplies.">
+  <title>¡Suscripción recibida! | Irbis Supplies</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./form-success.css">
 </head>
-<body>
-  <p>Redirigiendo… <a href="https://irbis-supplies.netlify.app/?newsletter=success">Continuar</a>.</p>
+<body class="success-page">
+  <main class="success-shell">
+    <a class="success-brand" href="/" aria-label="Irbis Supplies — volver al inicio">
+      <img src="./images/logo.png" alt="">
+      <span>Irbis Supplies</span>
+    </a>
+
+    <section class="success-card" aria-labelledby="successTitle">
+      <div class="success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19.5 6.8"></path></svg>
+      </div>
+      <p class="success-eyebrow" data-copy="eyebrow">NEWSLETTER · CONFIRMACIÓN</p>
+      <h1 id="successTitle" data-copy="title">¡Gracias por suscribirte!</h1>
+      <p class="success-description" data-copy="description">Tu solicitud de suscripción fue recibida correctamente.</p>
+
+      <div class="success-details">
+        <h2 data-copy="detailsTitle">¿Qué sigue?</h2>
+        <p data-copy="details">Registramos la dirección de correo que enviaste. Gracias por sumarte a la comunidad de Irbis Supplies.</p>
+      </div>
+
+      <a class="success-home" href="/">
+        <span data-copy="home">Volver a Irbis Supplies</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+      <p class="success-note" data-copy="note">Si no completaste este formulario, podés ignorar esta página.</p>
+    </section>
+
+    <footer class="success-footer">© <span id="year"></span> Irbis Supplies · <span data-copy="footer">Preparación, prevención y equipamiento.</span></footer>
+  </main>
+
+  <script>
+    const copy = {
+      es: {
+        eyebrow: "NEWSLETTER · CONFIRMACIÓN",
+        title: "¡Gracias por suscribirte!",
+        description: "Tu solicitud de suscripción fue recibida correctamente.",
+        detailsTitle: "¿Qué sigue?",
+        details: "Registramos la dirección de correo que enviaste. Gracias por sumarte a la comunidad de Irbis Supplies.",
+        home: "Volver a Irbis Supplies",
+        note: "Si no completaste este formulario, podés ignorar esta página.",
+        footer: "Preparación, prevención y equipamiento."
+      },
+      en: {
+        eyebrow: "NEWSLETTER · CONFIRMATION",
+        title: "Thanks for subscribing!",
+        description: "Your subscription request was received successfully.",
+        detailsTitle: "What happens next?",
+        details: "We've received the email address you submitted. Thanks for joining the Irbis Supplies community.",
+        home: "Back to Irbis Supplies",
+        note: "If you did not submit this form, you can safely ignore this page.",
+        footer: "Preparedness, prevention and equipment."
+      }
+    };
+
+    let language = "es";
+    try {
+      language = localStorage.getItem("irbis_language") === "en" ? "en" : "es";
+    } catch {
+      language = "es";
+    }
+
+    document.documentElement.lang = language;
+    document.querySelectorAll("[data-copy]").forEach((element) => {
+      const key = element.dataset.copy;
+      if (copy[language][key]) element.textContent = copy[language][key];
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.title = language === "en"
+      ? "Subscription received! | Irbis Supplies"
+      : "¡Suscripción recibida! | Irbis Supplies";
+  </script>
 </body>
 </html>
