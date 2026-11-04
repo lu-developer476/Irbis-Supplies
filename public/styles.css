@@ -4171,3 +4171,118 @@ html[data-theme="light"] .coupon-feedback[data-state="error"] {
   vertical-align: middle;
 }
 
+
+
+/* =========================================
+   AJUSTES RESPONSIVE: AUTENTICACIÓN Y CARRITO
+   ========================================= */
+
+/* El acceso acompaña al logo y al nombre de la tienda,
+   sin ocupar una fila adicional dentro del menú. */
+.navbar-left > .auth-actions {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-left: clamp(4px, 1vw, 12px);
+}
+
+.navbar-left > .auth-actions .auth-menu-button {
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 17px;
+}
+
+.navbar-left > .auth-actions .auth-badge {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* En tablet el resumen del carrito también gana espacio:
+   acciones compactas y en una misma fila. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .carrito-actions {
+    flex-wrap: nowrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .carrito-actions button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: .82rem;
+    line-height: 1.15;
+  }
+
+  #btnCheckout {
+    padding: 7px 10px;
+  }
+}
+
+/* Mobile: acceso en la misma línea del logo y el título.
+   El menú conserva sus filas para preferencias y navegación. */
+@media (max-width: 767px) {
+  .navbar-left {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    width: auto;
+    gap: 6px;
+  }
+
+  .navbar-left > .auth-actions {
+    margin-left: auto;
+    gap: 0;
+  }
+
+  .navbar-left > .auth-actions .auth-menu-button {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .navbar-left > .auth-actions .auth-badge {
+    max-width: 76px;
+    padding-left: 3px;
+    font-size: 10px;
+  }
+
+  .navbar .logo img {
+    height: 38px;
+    max-height: 38px;
+    max-width: 16vw;
+  }
+
+  .navbar .brand-copy strong {
+    font-size: clamp(.82rem, 3.8vw, 1.05rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .carrito-actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .carrito-actions button,
+  #btnCheckout {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: 36px;
+    padding: 6px 7px;
+    font-size: .74rem;
+    line-height: 1.1;
+    white-space: normal;
+  }
+}
